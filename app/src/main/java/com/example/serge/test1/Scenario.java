@@ -72,7 +72,6 @@ public class Scenario {
                 }
                 Log.i(TAG, parser.getName());
             }
-			System.out.println("Hello world");
             if(eventType == XmlPullParser.END_TAG){
                 if(parser.getName().equals("stage"))
                     if(events!=null&&events.size()!=0&&stageName!=null){
