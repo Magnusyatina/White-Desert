@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="logic_start">
+        <item>stage01</item>
+        <item>stage02</item>
+        </string-array>>
+    <string-array name="logic_stage01">
+        <item>stage03</item>
+        <item>testStage2</item>
+    </string-array>>
+    <string-array name="logic_stage02">
+        <item>testStage1</item>
+        <item>testStage2</item>
+    </string-array>>
+</resources>

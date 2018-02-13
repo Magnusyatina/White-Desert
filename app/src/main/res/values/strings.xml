@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Bundle</string>
+    <string-array  name="start">
+        <item>Алло... ал... Есть кт... будь на св...зи</item>
+        <item>Брр... как же тут хо...дно</item>
+        <item>Алло... Меня кто-нибудь слышит?</item>
+        <item>Уаааа, как же бесит меня это</item>
+    </string-array>
+    <string-array  name="stage01">
+        <item>Ух, слава Богу, хоть кто-то ответил</item>
+        <item>Уже минут 20 пытаюсь с кем-нибудь связаться</item>
+        <item>Думал, уже оставить это дело</item>
+    </string-array>
+    <string-array  name="stage02">
+        <item>Ах, простите, все по порядку</item>
+        <item>Меня зовут Джозеф</item>
+        <item>Мой рейс, летевший на ... острова разбился</item>
+        <item>Я почти ничего не помню, как все это произошло</item>
+        <item>Помню только то, что был сильный толчек и меня что-то сильно ударило по голове...</item>>
+    </string-array>
+    <string-array  name="stage03">
+        <item>Я очень устал...</item>
+    </string-array>
+</resources>

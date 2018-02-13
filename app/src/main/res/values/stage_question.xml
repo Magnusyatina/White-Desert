@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="start_questions">
+        <item>Я слышу вас</item>
+        <item>Кто это?</item>
+        </string-array>
+    <string-array name="stage01_questions">
+        <item>Отдохните</item>
+        <item>Как вас зовут?</item>
+    </string-array>
+</resources>

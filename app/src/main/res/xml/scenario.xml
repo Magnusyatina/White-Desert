@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scenario>
+    <stage id="start">
+        <message text="Алло, меня кто-нибудь слышит"/>
+        <message text="Кто-нибудь ответьте"/>
+        <message text="мне нужна помощь"/>
+        <case text="Да, я вас слышу" target="nextstage1"/>
+        <case text="Кто вы?" target="nextstage2"/>
+    </stage>
+    <stage id="choose">
+        <message text="Что мне делать, я могу продолжить идти или попробовать укрыться?"/>
+
+        <case text="Продолжай идти" target="die"/>
+        <case text="Укройся" target="win"/>
+    </stage>
+    <stage id="die">
+        <important_message text="Связь с Джозефом потеряна"/>
+        <case text="Начать заново" target="start"/>
+    </stage>
+</scenario>
