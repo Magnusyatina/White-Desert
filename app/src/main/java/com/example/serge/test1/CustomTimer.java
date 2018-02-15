@@ -5,6 +5,7 @@ package com.example.serge.test1;
  */
 
 public class CustomTimer {
+    private static long testtime = 0;
     private static int time = 0;
     private static Boolean fastGame = false;
     private static final int sec = 500;
@@ -34,6 +35,12 @@ public class CustomTimer {
 
     public static int getValue(){
         return time;
+    }
+
+    public static long getTestValue(){
+        if(testtime == 0)
+            testtime =  System.currentTimeMillis();
+        return testtime;
     }
 
     public static void clearTimer(){

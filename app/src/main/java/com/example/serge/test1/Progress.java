@@ -1,11 +1,15 @@
 package com.example.serge.test1;
 
 import android.content.Context;
+import android.provider.CalendarContract;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import com.example.serge.test1.Objects.CustomEvents;
 import com.example.serge.test1.Objects.Messages;
+import com.example.serge.test1.Objects.TextMessage;
+import com.example.serge.test1.Objects.Waiting;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -22,16 +27,16 @@ import java.util.LinkedList;
 public class Progress {
 
 
-    LinkedList<Messages> list;
+    public static ArrayList<CustomEvents> list;
 
 
 
-    public void loadProgress(){
+    public static void loadProgress(){
         File f = new File("saved.dat");
         if(f.exists()){
             try {
                 ObjectInputStream in = new ObjectInputStream( new FileInputStream( f ) );
-                list = (LinkedList<Messages>) in.readObject();
+                list = (ArrayList<CustomEvents>) in.readObject();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
@@ -39,7 +44,7 @@ public class Progress {
             }
         }
     }
-    public void saveProgress(){
+    public static void saveProgress(){
         try {
             ObjectOutputStream out = new ObjectOutputStream( new FileOutputStream(new File("saved.dat")));
             out.writeObject(list);
@@ -48,8 +53,15 @@ public class Progress {
         }
     }
 
-    public LinkedList<Messages> getList(){
-        return list;
+    public static void addToProgress(String stage){
+        if(list == null)
+            list = new ArrayList<>();
+        ArrayList<CustomEvents> EventList = null;
+        if((list = Scenario.scenario.get(stage))!=null){
+            for(CustomEvents e : EventList){
+               list.add( e );
+            }
+        }
     }
 
 }

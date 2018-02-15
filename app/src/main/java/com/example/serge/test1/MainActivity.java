@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     ScrollView mainScrollView;
     String stage;
 
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.testscroll);
         mainLayout = (LinearLayout) findViewById(R.id.mainlayout);
         mainLayout.setOrientation(LinearLayout.VERTICAL);
+
         try {
             Scenario.loadSceanrio( this );
             gameProcessed();

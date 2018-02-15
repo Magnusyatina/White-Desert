@@ -5,17 +5,17 @@ package com.example.serge.test1.Objects;
  */
 
 public class Messages extends CustomEvents{
-    private int scheduledtime;
+    private long scheduledtime;
     private boolean added = false;
 
-    public void setScheduledtime(int scheduledtime){
+    public void setScheduledtime(long scheduledtime){
         this.scheduledtime = scheduledtime;
     }
     public void setAdded(boolean added){
         this.added = added;
     }
 
-    public int getScheduledtime(){
+    public long getScheduledtime(){
         return scheduledtime;
     }
     public boolean getAdded(){
