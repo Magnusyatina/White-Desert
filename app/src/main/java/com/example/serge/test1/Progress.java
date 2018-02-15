@@ -57,7 +57,7 @@ public class Progress {
         if(list == null)
             list = new ArrayList<>();
         ArrayList<CustomEvents> EventList = null;
-        if((list = Scenario.scenario.get(stage))!=null){
+        if((EventList = Scenario.scenario.get(stage))!=null){
             for(CustomEvents e : EventList){
                list.add( e );
             }

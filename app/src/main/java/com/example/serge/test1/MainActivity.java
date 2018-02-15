@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     protected void getStringForGame(){
         if(stage==null)
           stage = new String("start");
+        Progress.addToProgress(stage);
         int id = this.getResources().getIdentifier(stage, "array", this.getPackageName());
         if(id != 0){
             String[] s = getResources().getStringArray(id);
