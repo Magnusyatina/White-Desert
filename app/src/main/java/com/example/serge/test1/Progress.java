@@ -64,4 +64,19 @@ public class Progress {
         }
     }
 
+    public static void planningScheduleTime(){
+        if(list!=null&&list.size()!=0){
+            for(CustomEvents e : list){
+                if(!e.getAdded()){
+                    if(e.getClass() != Waiting.class)
+                    e.setScheduledtime(CustomTimer.getTestValue());
+                    else {
+                        Waiting waiting = (Waiting) e;
+                        waiting.setScheduledtime(CustomTimer.getTestValue(waiting.getValue()));
+                    }
+                }
+            }
+        }
+    }
+
 }

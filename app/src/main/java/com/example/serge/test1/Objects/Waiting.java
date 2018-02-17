@@ -6,13 +6,13 @@ package com.example.serge.test1.Objects;
 
 public class Waiting extends  CustomEvents {
 
-    private long value;
+    private int value;
 
-    public void setValue(long value){
+    public void setValue(int value){
         this.value = value;
     }
 
-    public long getValue(){
+    public int getValue(){
         return value;
     }
 

@@ -6,9 +6,10 @@ package com.example.serge.test1;
 
 public class CustomTimer {
     private static long testtime = 0;
+    private static long testSec = 1500;
     private static int time = 0;
     private static Boolean fastGame = false;
-    private static final int sec = 500;
+    private static final int sec = 1500;
     private static final int notlong = 300000;
     private static final int slong = 1200000;
     private static final int longer = 3600000;
@@ -40,6 +41,16 @@ public class CustomTimer {
     public static long getTestValue(){
         if(testtime == 0)
             testtime =  System.currentTimeMillis();
+        else
+            testtime += sec;
+        return testtime;
+    }
+
+    public static long getTestValue(int t){
+        if(testtime == 0)
+            testtime = System.currentTimeMillis();
+        else
+            testtime += t;
         return testtime;
     }
 

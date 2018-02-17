@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         if(stage==null)
           stage = new String("start");
         Progress.addToProgress(stage);
+        Progress.planningScheduleTime();
         int id = this.getResources().getIdentifier(stage, "array", this.getPackageName());
         if(id != 0){
             String[] s = getResources().getStringArray(id);
