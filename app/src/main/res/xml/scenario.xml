@@ -4,22 +4,27 @@
         <message text="Алл.. меня кто..удь слы..т"/>
         <message text="К..будь, отве..е"/>
         <message text="Мн... нуж..а помощ.."/>
-        <case text="Да, я вас слышу" target="nextstage1"/>
-        <case text="Вас очень плохо слышно" target="nextstage2"/>
+        <questions>
+            <case text="Да, я вас слышу" target="nextstage1"/>
+            <case text="Вас очень плохо слышно" target="nextstage2"/>
+        </questions>
     </stage>
     <stage id="nextstage2">
         <message text="Подо..те, я ...бую най.. что-ни..дь для усиле..ия сигна.."/>
         <waiting value="160000"/>
         <message text="К..будь, отве..е"/>
         <message text="Мн... нуж..а помощ.."/>
-        <case text="Да, я вас слышу" target="nextstage1"/>
-        <case text="Вас очень плохо слышно" target="nextstage2"/>
+        <questions>
+            <case text="Да, я вас слышу" target="nextstage1"/>
+            <case text="Вас очень плохо слышно" target="nextstage2"/>
+        </questions>
     </stage>
     <stage id="choose">
         <message text="Что мне делать, я могу продолжить идти или попробовать укрыться?"/>
-
-        <case text="Продолжай идти" target="die"/>
-        <case text="Укройся" target="win"/>
+        <questions>
+            <case text="Продолжай идти" target="die"/>
+            <case text="Укройся" target="win"/>
+        </questions>
     </stage>
     <stage id="die">
         <important_message text="Связь с Джозефом потеряна"/>

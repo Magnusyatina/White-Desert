@@ -11,6 +11,7 @@ import com.example.serge.test1.Objects.CustomEvents;
 import com.example.serge.test1.Objects.ImportantMessage;
 import com.example.serge.test1.Objects.Messages;
 import com.example.serge.test1.Objects.Question;
+import com.example.serge.test1.Objects.Questions;
 import com.example.serge.test1.Objects.RandomEvent;
 import com.example.serge.test1.Objects.TextMessage;
 import com.example.serge.test1.Objects.Waiting;
@@ -37,6 +38,7 @@ public class Scenario {
         XmlResourceParser parser = res.getXml(R.xml.scenario);
         ArrayList<CustomEvents> events = null;
         String tagName = null, stageName = null;
+        Questions questions = null;
         parser.next();
         int eventType = parser.getEventType();
         while(eventType != XmlPullParser.END_DOCUMENT){
@@ -55,11 +57,15 @@ public class Scenario {
                         ImportantMessage importantMessage = new ImportantMessage();
                         importantMessage.setText( parser.getAttributeValue( null, "text" ));
                         events.add(importantMessage);
+                    }else if(tagName.equals( "questions" )){
+                        questions = new Questions();
                     }else if(tagName.equals("case")){
-                        Question question = new Question();
-                        question.setText(parser.getAttributeValue( null, "text" ));
-                        question.setGoTo(parser.getAttributeValue( null, "target" ));
-                        events.add(question);
+                        if(questions!=null){
+                            Question question = new Question();
+                            question.setText(parser.getAttributeValue( null, "text" ));
+                            question.setGoTo(parser.getAttributeValue( null, "target" ));
+                            questions.put(question);
+                        }
                     }else if(tagName.equals("waiting")){
                         Waiting waiting = new Waiting();
                         waiting.setValue( parser.getAttributeIntValue(null, "value", 1500) );
@@ -74,12 +80,16 @@ public class Scenario {
                 Log.i(TAG, parser.getName());
             }
             if(eventType == XmlPullParser.END_TAG){
-                if(parser.getName().equals("stage"))
+                if(parser.getName().equals("stage")){
                     if(events!=null&&events.size()!=0&&stageName!=null){
                         scenario.put(stageName, events);
                         events = null;
                         stageName = null;
                     }
+                }else if(parser.getName().equals( "questions" )){
+                    if(questions!=null&&questions.getList().size()!=0)
+                        events.add(questions);
+                }
             }
             eventType = parser.next();
         }
