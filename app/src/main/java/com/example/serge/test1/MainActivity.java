@@ -17,6 +17,7 @@ import android.widget.TextView;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -44,11 +45,26 @@ public class MainActivity extends AppCompatActivity {
     }
     protected void gameProcessed(){
         getStringForGame();
+    }
+
+    protected void getCurrentEpisode(){
+        try {
+            if (stage == null)
+                stage = new String( "nextstage2" );
+            Progress.addToProgress( stage );
+            Progress.planningScheduleTime();
+            testGameProcessed();
+        }catch (NoSuchElementException e){
+
+        }
+    }
+
+    protected void testGameProcessed(){
 
     }
     protected void getStringForGame(){
         if(stage==null)
-          stage = new String("start");
+          stage = new String("nextstage2");
         Progress.addToProgress(stage);
         Progress.planningScheduleTime();
         int id = this.getResources().getIdentifier(stage, "array", this.getPackageName());

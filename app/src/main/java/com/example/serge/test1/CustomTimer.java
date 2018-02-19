@@ -40,10 +40,14 @@ public class CustomTimer {
 
     public static long getTestValue(){
         if(testtime == 0)
-            testtime =  System.currentTimeMillis();
+            testtime =  10000;//System.currentTimeMillis();
         else
             testtime += sec;
         return testtime;
+    }
+
+    public static void addTestTime(int t){
+        testtime += t;
     }
 
     public static long getTestValue(int t){

@@ -19,6 +19,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 /**
  * Created by sergey37192 on 28.01.2018.
@@ -61,18 +62,17 @@ public class Progress {
             for(CustomEvents e : EventList){
                list.add( e );
             }
-        }
+        }else throw new NoSuchElementException();
     }
 
     public static void planningScheduleTime(){
         if(list!=null&&list.size()!=0){
             for(CustomEvents e : list){
                 if(!e.getAdded()){
-                    if(e.getClass() != Waiting.class)
                     e.setScheduledtime(CustomTimer.getTestValue());
-                    else {
+                    if(e.getClass() == Waiting.class) {
                         Waiting waiting = (Waiting) e;
-                        waiting.setScheduledtime(CustomTimer.getTestValue(waiting.getValue()));
+                        CustomTimer.addTestTime(waiting.getValue());
                     }
                 }
             }
