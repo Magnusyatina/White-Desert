@@ -14,6 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.serge.test1.Objects.CustomEvents;
+import com.example.serge.test1.Objects.TextMessage;
+import com.example.serge.test1.Objects.Waiting;
+
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout mainLayout;
     ScrollView mainScrollView;
     String stage;
+    private Handler handler = new Handler( Looper.getMainLooper() );
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -44,13 +49,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
     protected void gameProcessed(){
-        getStringForGame();
+        //getStringForGame();
+        getCurrentEpisode();
     }
 
     protected void getCurrentEpisode(){
         try {
             if (stage == null)
-                stage = new String( "nextstage2" );
+                stage = new String( "start" );
             Progress.addToProgress( stage );
             Progress.planningScheduleTime();
             testGameProcessed();
@@ -60,7 +66,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void testGameProcessed(){
+        if(Progress.list!=null){
+            long currentTime = System.currentTimeMillis();
+            for(CustomEvents e : Progress.list){
+                if(!e.getAdded()){
+                    long scheduleTime = e.getScheduledtime() - currentTime;
+                    if(e.getClass() == TextMessage.class){
+                        final TextMessage textMessage = (TextMessage) e;
+                        final TextView textView = new TextView( this);
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        layoutParams.setMargins(15,50,0,50);
+                        textView.setLayoutParams(layoutParams);
+                        textView.setText(textMessage.getText());
+                        if(scheduleTime>=0)
+                            handler.postDelayed( new Runnable() {
+                                @Override
+                                public void run() {
+                                    mainLayout.addView(textView);
+                                    textMessage.setAdded(true);
+                                }
+                            }, scheduleTime );
+                        else mainLayout.addView(textView);
+                    }else if(e.getClass() == Waiting.class){
+                        Waiting waiting = (Waiting) e;
+                        final TextView waitView = new TextView( this );
+                        waitView.setText( "Джозеф занят" );
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        waitView.setLayoutParams(layoutParams);
+                        waitView.setGravity(Gravity.CENTER_HORIZONTAL);
+                        if(scheduleTime>0){
+                            handler.postDelayed( new Runnable() {
+                                @Override
+                                public void run() {
+                                    mainLayout.addView( waitView );
+                                }
+                            }, scheduleTime );
 
+                        }else mainLayout.addView( waitView );
+                        CustomTimer.addTestTime(waiting.getValue());
+                    }
+                }
+            }
+        }
     }
     protected void getStringForGame(){
         if(stage==null)

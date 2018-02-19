@@ -40,7 +40,7 @@ public class CustomTimer {
 
     public static long getTestValue(){
         if(testtime == 0)
-            testtime =  10000;//System.currentTimeMillis();
+            testtime = System.currentTimeMillis();
         else
             testtime += sec;
         return testtime;
@@ -59,7 +59,7 @@ public class CustomTimer {
     }
 
     public static void clearTimer(){
-        time = 0;
+        testtime = 0;
     }
 
     public static void setFastGame(){

@@ -76,6 +76,7 @@ public class Progress {
                     }
                 }
             }
+            CustomTimer.clearTimer();
         }
     }
 
