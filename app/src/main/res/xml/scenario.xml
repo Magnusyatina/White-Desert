@@ -9,7 +9,7 @@
             <case text="Вас очень плохо слышно" target="nextstage2"/>
         </questions>
     </stage>
-    <stage id="nextstage2">
+    <stage id="nextstage1">
         <message text="Подо..те, я ...бую най.. что-ни..дь для усиле..ия сигна.."/>
         <waiting value="160000"/>
         <message text="К..будь, отве..е"/>
@@ -19,7 +19,7 @@
             <case text="Вас очень плохо слышно" target="nextstage2"/>
         </questions>
     </stage>
-    <stage id="choose">
+    <stage id="nextstage2">
         <message text="Что мне делать, я могу продолжить идти или попробовать укрыться?"/>
         <questions>
             <case text="Продолжай идти" target="die"/>

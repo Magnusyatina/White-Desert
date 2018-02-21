@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                             }, scheduleTime );
                         else mainLayout.addView(textView);
                     }else if(e.getClass() == Waiting.class){
-                        Waiting waiting = (Waiting) e;
+                        final Waiting waiting = (Waiting) e;
                         final TextView waitView = new TextView( this );
                         waitView.setText( "Джозеф занят" );
                         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -104,13 +104,14 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     mainLayout.addView( waitView );
+                                    waiting.setAdded( true );
                                 }
                             }, scheduleTime );
 
                         }else mainLayout.addView( waitView );
                         CustomTimer.addTestTime(waiting.getValue());
                     }else if(e.getClass() == Questions.class){
-                        Questions questions = (Questions) e;
+                        final Questions questions = (Questions) e;
                         final ScrollView scrollView = new ScrollView( this );
                         scrollView.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
                         scrollView.setLayoutParams( Settings.layoutParams );
@@ -119,8 +120,15 @@ public class MainActivity extends AppCompatActivity {
                         scrollView.addView( linearLayout );
                         ArrayList<Question> questionArray = questions.getList();
                         for(Question q : questionArray){
-                            CustomButton customButton = new CustomButton(this, q.getGoTo());
+                            final CustomButton customButton = new CustomButton(this, q.getGoTo());
                             customButton.setText( q.getText() );
+                            customButton.setOnClickListener( new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    setStage(customButton.getGoTo());
+                                    gameProcessed();
+                                }
+                            } );
                             linearLayout.addView(customButton);
                         }
                         if(scheduleTime>0){
@@ -128,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     mainLayout.addView(scrollView);
+                                    questions.setAdded(true);
                                 }
                             }, scheduleTime );
                         }else mainLayout.addView(scrollView);
