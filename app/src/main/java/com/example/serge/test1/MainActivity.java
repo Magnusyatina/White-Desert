@@ -14,13 +14,17 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.serge.test1.Objects.CustomButton;
 import com.example.serge.test1.Objects.CustomEvents;
+import com.example.serge.test1.Objects.Question;
+import com.example.serge.test1.Objects.Questions;
 import com.example.serge.test1.Objects.TextMessage;
 import com.example.serge.test1.Objects.Waiting;
 
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         //getStringForGame();
         getCurrentEpisode();
     }
-
+    //получение нужной стадии сценария и добавление в прогресс
     protected void getCurrentEpisode(){
         try {
             if (stage == null)
@@ -64,10 +68,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
+    //Обработка прогресса, отрисовка view
     protected void testGameProcessed(){
         if(Progress.list!=null){
             long currentTime = System.currentTimeMillis();
+            //проходим по коллекции прогресса, получая объекты для дальнейшего взаимодействия
             for(CustomEvents e : Progress.list){
                 if(!e.getAdded()){
                     long scheduleTime = e.getScheduledtime() - currentTime;
@@ -104,11 +109,34 @@ public class MainActivity extends AppCompatActivity {
 
                         }else mainLayout.addView( waitView );
                         CustomTimer.addTestTime(waiting.getValue());
+                    }else if(e.getClass() == Questions.class){
+                        Questions questions = (Questions) e;
+                        final ScrollView scrollView = new ScrollView( this );
+                        scrollView.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
+                        scrollView.setLayoutParams( Settings.layoutParams );
+                        LinearLayout linearLayout = new LinearLayout( this );
+                        linearLayout.setLayoutParams( Settings.layoutParams );
+                        scrollView.addView( linearLayout );
+                        ArrayList<Question> questionArray = questions.getList();
+                        for(Question q : questionArray){
+                            CustomButton customButton = new CustomButton(this, q.getGoTo());
+                            customButton.setText( q.getText() );
+                            linearLayout.addView(customButton);
+                        }
+                        if(scheduleTime>0){
+                            handler.postDelayed( new Runnable() {
+                                @Override
+                                public void run() {
+                                    mainLayout.addView(scrollView);
+                                }
+                            }, scheduleTime );
+                        }else mainLayout.addView(scrollView);
                     }
                 }
             }
         }
-    }
+    }//old version
+    /*
     protected void getStringForGame(){
         if(stage==null)
           stage = new String("nextstage2");
@@ -120,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
             addTextView(s);
         }
     }
+
 
     public void addTextView(final String s[]){
         final Handler handler = new Handler( Looper.getMainLooper());
@@ -179,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
             CustomTimer.addTime();
         }
         CustomTimer.clearTimer();
-    }
+    }*/
 
     public String getStage(){
         return stage;
