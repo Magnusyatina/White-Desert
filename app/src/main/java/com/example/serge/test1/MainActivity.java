@@ -31,6 +31,7 @@ import java.util.NoSuchElementException;
 public class MainActivity extends AppCompatActivity {
 
     LinearLayout mainLayout;
+    LinearLayout questionView;
     ScrollView mainScrollView;
     String stage;
     private Handler handler = new Handler( Looper.getMainLooper() );
@@ -40,10 +41,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.testscroll);
-        mainLayout = (LinearLayout) findViewById(R.id.mainlayout);
-        mainLayout.setOrientation(LinearLayout.VERTICAL);
-
+        setContentView(R.layout.activity_main);
+        mainLayout = (LinearLayout) findViewById(R.id.textArea);
+        questionView = (LinearLayout) findViewById(R.id.questionsLayout);
         try {
             Scenario.loadSceanrio( this );
             gameProcessed();
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     }else if(e.getClass() == Waiting.class){
                         final Waiting waiting = (Waiting) e;
                         final TextView waitView = new TextView( this );
-                        waitView.setText( "Джозеф занят" );
+                        waitView.setText(R.string.personIsWaiting);
                         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                         waitView.setLayoutParams(layoutParams);
                         waitView.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -112,12 +112,6 @@ public class MainActivity extends AppCompatActivity {
                         CustomTimer.addTestTime(waiting.getValue());
                     }else if(e.getClass() == Questions.class){
                         final Questions questions = (Questions) e;
-                        final ScrollView scrollView = new ScrollView( this );
-                        scrollView.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
-                        scrollView.setLayoutParams( Settings.layoutParams );
-                        LinearLayout linearLayout = new LinearLayout( this );
-                        linearLayout.setLayoutParams( Settings.layoutParams );
-                        scrollView.addView( linearLayout );
                         ArrayList<Question> questionArray = questions.getList();
                         for(Question q : questionArray){
                             final CustomButton customButton = new CustomButton(this, q.getGoTo());
@@ -126,98 +120,26 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     setStage(customButton.getGoTo());
+                                    questions.setAdded(true);
+                                    questionView.removeAllViews();
                                     gameProcessed();
                                 }
                             } );
-                            linearLayout.addView(customButton);
+                            if(scheduleTime>0){
+                                handler.postDelayed( new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        questionView.addView(customButton);
+                                    }
+                                }, scheduleTime );
+                            }else questionView.addView(customButton);;
                         }
-                        if(scheduleTime>0){
-                            handler.postDelayed( new Runnable() {
-                                @Override
-                                public void run() {
-                                    mainLayout.addView(scrollView);
-                                    questions.setAdded(true);
-                                }
-                            }, scheduleTime );
-                        }else mainLayout.addView(scrollView);
+
                     }
                 }
             }
-        }
-    }//old version
-    /*
-    protected void getStringForGame(){
-        if(stage==null)
-          stage = new String("nextstage2");
-        Progress.addToProgress(stage);
-        Progress.planningScheduleTime();
-        int id = this.getResources().getIdentifier(stage, "array", this.getPackageName());
-        if(id != 0){
-            String[] s = getResources().getStringArray(id);
-            addTextView(s);
         }
     }
-
-
-    public void addTextView(final String s[]){
-        final Handler handler = new Handler( Looper.getMainLooper());
-        int length = s.length;
-        for(int i = 0; i<=length;i++)
-        {
-            if(i!=length){
-                final CustomTextView customTextView = new CustomTextView( this );
-                if(s[i].indexOf("/")!=-1){
-                    String[] teststr = s[i].split("/",2);
-                    s[i] = teststr[0];
-                    final TextView waitView = new TextView(this);
-                    waitView.setText("Джозеф занят");
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    waitView.setLayoutParams(layoutParams);
-                    waitView.setGravity(Gravity.CENTER_HORIZONTAL);
-                    handler.postDelayed( new Runnable() {
-                        @Override
-                        public void run() {
-                            mainLayout.addView( waitView );
-                        }
-                    }, CustomTimer.getValue() );
-                    CustomTimer.addTime(teststr[1]);
-                }
-                customTextView.setText( s[i] );
-                handler.postDelayed( new Runnable() {
-                    @Override
-                    public void run() {
-                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        layoutParams.setMargins(0,50,0,50);
-                        customTextView.setLayoutParams( layoutParams );
-                        mainLayout.addView(customTextView);
-                    }
-                }, CustomTimer.getValue());
-            }
-            else{ //final CreateButton answer = new CreateButton();
-                int id = this.getResources().getIdentifier(stage+"_questions", "array", this.getPackageName());
-                if(id != 0){
-                    String str[] = getResources().getStringArray(id);
-                    final LinearLayout answerLayout = CreateButton.crAnswer(this, str[0],str[1]);
-                    handler.postDelayed( new Runnable() {
-                    @Override
-                    public void run() {
-                        getMainLayout().addView(answerLayout);
-                    }
-                }, CustomTimer.getValue() );
-                }else{
-                        final Button but = CreateButton.getRestartButton(this);
-                        handler.postDelayed( new Runnable() {
-                            @Override
-                            public void run() {
-                                getMainLayout().addView(but);
-                            }
-                        }, CustomTimer.getValue() );
-                    }
-            }
-            CustomTimer.addTime();
-        }
-        CustomTimer.clearTimer();
-    }*/
 
     public String getStage(){
         return stage;
@@ -225,30 +147,6 @@ public class MainActivity extends AppCompatActivity {
     public void setStage(String stage){
         this.stage = stage;
     }
-    public void firstButtonClick(View view){
-        onClickActive(0);
-    }
-    public void secondButtonClick(View view){
-        onClickActive(1);
-    }
-    public void onClickActive(int n){
-        int id = this.getResources().getIdentifier("logic_"+getStage(), "array", this.getPackageName());
-        if(id != 0){
-            String[] logicStage = this.getResources().getStringArray(id);
-           // MyServiceForGameProcess service = new MyServiceForGameProcess();
-           // startService(new Intent(this, service.getClass()));
-            setStage(logicStage[n]);
-            mainLayout.removeViewAt(mainLayout.getChildCount()-1);
-            gameProcessed();
-        }
-    }
-
-    public void restartGame(View view){
-        stage = null;
-        mainLayout.removeAllViews();
-        gameProcessed();
-    }
-
     public ScrollView getMainScrollView(){
         return  mainScrollView;
     }
