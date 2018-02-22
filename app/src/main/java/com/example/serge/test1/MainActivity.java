@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.serge.test1.Objects.CustomButton;
 import com.example.serge.test1.Objects.CustomEvents;
+import com.example.serge.test1.Objects.PlayerAnwser;
 import com.example.serge.test1.Objects.Question;
 import com.example.serge.test1.Objects.Questions;
 import com.example.serge.test1.Objects.TextMessage;
@@ -121,6 +122,10 @@ public class MainActivity extends AppCompatActivity {
                                 public void onClick(View v) {
                                     setStage(customButton.getGoTo());
                                     questions.setAdded(true);
+                                    PlayerAnwser playerAnwser = new PlayerAnwser();
+                                    playerAnwser.setText(  customButton.getText().toString() );
+                                    Progress.list.add(playerAnwser);
+                                    addPlayerAnwserView( customButton.getText().toString() );
                                     questionView.removeAllViews();
                                     gameProcessed();
                                 }
@@ -140,6 +145,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void addPlayerAnwserView(String text){
+        TextView textView = new TextView( this );
+        textView.setText( text );
+        textView.setGravity( Gravity.RIGHT );
+        mainLayout.addView(textView);
+
+    }
+
+
 
     public String getStage(){
         return stage;
