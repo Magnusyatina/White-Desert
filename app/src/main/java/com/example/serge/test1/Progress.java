@@ -2,6 +2,7 @@ package com.example.serge.test1;
 
 import android.content.Context;
 import android.provider.CalendarContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -32,8 +33,8 @@ public class Progress {
 
 
 
-    public static void loadProgress(){
-        File f = new File("saved.dat");
+    public static void loadProgress(Context context){
+        File f = new File(context.getFilesDir(), "Saves/save.dat");
         if(f.exists()){
             try {
                 ObjectInputStream in = new ObjectInputStream( new FileInputStream( f ) );
@@ -45,13 +46,19 @@ public class Progress {
             }
         }
     }
-    public static void saveProgress(){
+    public static void saveProgress(Context context){
+
+            File saveFile = new File(context.getFilesDir(), "Saves/save.dat");
+
+            Log.i("MyLogInfo", saveFile.getAbsolutePath());
         try {
-            ObjectOutputStream out = new ObjectOutputStream( new FileOutputStream(new File("saved.dat")));
+            ObjectOutputStream out = new ObjectOutputStream( new FileOutputStream(saveFile));
             out.writeObject(list);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //
+
     }
 
     public static void addToProgress(String stage){

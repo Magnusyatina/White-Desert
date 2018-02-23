@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,11 +43,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("MyLogInfo", " Create");
         setContentView(R.layout.activity_main);
         mainLayout = (LinearLayout) findViewById(R.id.textArea);
         questionView = (LinearLayout) findViewById(R.id.questionsLayout);
         try {
             Scenario.loadSceanrio( this );
+            Progress.loadProgress(this);
             gameProcessed();
         }catch (XmlPullParserException | IOException e){
             e.printStackTrace();
@@ -71,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
     }
     //Обработка прогресса, отрисовка view
     protected void testGameProcessed(){
-        if(Progress.list!=null){
             long currentTime = System.currentTimeMillis();
             //проходим по коллекции прогресса, получая объекты для дальнейшего взаимодействия
             for(CustomEvents e : Progress.list){
@@ -143,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-        }
     }
 
     public void addPlayerAnwserView(String text){
@@ -152,6 +153,20 @@ public class MainActivity extends AppCompatActivity {
         textView.setGravity( Gravity.RIGHT );
         mainLayout.addView(textView);
 
+    }
+
+    public void onPause(){
+        super.onPause();
+        Log.i("MyLogInfo", " Pause");
+        Progress.saveProgress(this);
+    }
+    public void onDestroy(){
+        super.onDestroy();
+        Log.i("MyLogInfo", " Destroy");
+    }
+    public void onResume(){
+        super.onResume();
+        Log.i("MyLogInfo", " Resume");
     }
 
 

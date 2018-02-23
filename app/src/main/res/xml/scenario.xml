@@ -11,7 +11,7 @@
     </stage>
     <stage id="nextstage1">
         <message text="Подо..те, я ...бую най.. что-ни..дь для усиле..ия сигна.."/>
-        <waiting value="160000"/>
+        <waiting value="20000"/>
         <message text="К..будь, отве..е"/>
         <message text="Мн... нуж..а помощ.."/>
         <questions>
