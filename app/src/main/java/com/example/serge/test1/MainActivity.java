@@ -50,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
         try {
             Scenario.loadSceanrio( this );
             Progress.loadProgress(this);
-            gameProcessed();
+            if(Progress.list!=null)
+                testGameProcessed();
+            else gameProcessed();
         }catch (XmlPullParserException | IOException e){
             e.printStackTrace();
         }
@@ -77,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
             long currentTime = System.currentTimeMillis();
             //проходим по коллекции прогресса, получая объекты для дальнейшего взаимодействия
             for(CustomEvents e : Progress.list){
-                if(!e.getAdded()){
                     long scheduleTime = e.getScheduledtime() - currentTime;
                     if(e.getClass() == TextMessage.class){
                         final TextMessage textMessage = (TextMessage) e;
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 }
-            }
+
     }
 
     public void addPlayerAnwserView(String text){

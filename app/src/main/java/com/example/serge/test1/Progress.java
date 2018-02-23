@@ -14,6 +14,7 @@ import com.example.serge.test1.Objects.Waiting;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -29,34 +30,68 @@ import java.util.NoSuchElementException;
 public class Progress {
 
 
-    public static ArrayList<CustomEvents> list;
+    public static ArrayList<CustomEvents> list = null;
+    public static String hell= "hell";
 
 
 
     public static void loadProgress(Context context){
-        File f = new File(context.getFilesDir(), "Saves/save.dat");
-        if(f.exists()){
-            try {
+        File file = new File(context.getFilesDir(), "save.dat");
+        if(file.exists())
+        try {
+            ObjectInputStream obj = new ObjectInputStream( new FileInputStream( file ) );
+            list = (ArrayList<CustomEvents>) obj.readObject();
+            obj.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+       /* try {
                 ObjectInputStream in = new ObjectInputStream( new FileInputStream( f ) );
                 list = (ArrayList<CustomEvents>) in.readObject();
+                Log.i("MyLogInfo", "List: "+list.size());
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
-            }
-        }
+            }*/
+
     }
     public static void saveProgress(Context context){
 
-            File saveFile = new File(context.getFilesDir(), "Saves/save.dat");
+        try {
+            if(list!=null){
+               /* File file = new File(context.getFilesDir(), "save.dat");
+                if(!file.exists())
+                    file.createNewFile();*/
+
+                FileOutputStream fout = context.openFileOutput("save.dat", Context.MODE_PRIVATE);
+                ObjectOutputStream out = new ObjectOutputStream( fout);
+                out.writeObject( list );
+                out.close();
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+           /* File saveFile = new File(context.getFilesDir(), "Saves/save.dat");
 
             Log.i("MyLogInfo", saveFile.getAbsolutePath());
         try {
             ObjectOutputStream out = new ObjectOutputStream( new FileOutputStream(saveFile));
             out.writeObject(list);
+            out.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         //
 
     }

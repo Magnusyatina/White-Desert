@@ -1,10 +1,12 @@
 package com.example.serge.test1.Objects;
 
+import java.io.Serializable;
+
 /**
  * Created by sergey37192 on 12.02.2018.
  */
 
-public class CustomEvents {
+public class CustomEvents implements Serializable{
     private long scheduledtime;
     private boolean added = false;
 

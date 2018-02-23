@@ -1,10 +1,12 @@
 package com.example.serge.test1.Objects;
 
+import java.io.Serializable;
+
 /**
  * Created by sergey37192 on 30.01.2018.
  */
 
-public class Question {
+public class Question implements Serializable{
 
     private String text;
 
