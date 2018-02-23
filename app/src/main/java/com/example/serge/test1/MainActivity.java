@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }else mainLayout.addView( waitView );
                         CustomTimer.addTestTime(waiting.getValue());
-                    }else if(e.getClass() == Questions.class){
+                    }else if(e.getClass() == Questions.class && !e.getAdded()){
                         final Questions questions = (Questions) e;
                         ArrayList<Question> questionArray = questions.getList();
                         for(Question q : questionArray){
