@@ -96,14 +96,16 @@ public class Progress {
 
     }
 
-    public static void addToProgress(String stage){
+    public static ArrayList<CustomEvents> addToProgress(String stage){
         if(list == null)
             list = new ArrayList<>();
         ArrayList<CustomEvents> EventList = null;
         if((EventList = Scenario.scenario.get(stage))!=null){
-            for(CustomEvents e : EventList){
+            list.addAll( EventList );
+            return EventList;
+            /*for(CustomEvents e : EventList){
                list.add( e );
-            }
+            }*/
         }else throw new NoSuchElementException();
     }
 

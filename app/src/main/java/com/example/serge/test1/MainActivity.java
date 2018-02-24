@@ -67,16 +67,32 @@ public class MainActivity extends AppCompatActivity {
         try {
             if (stage == null)
                 stage = new String( "start" );
-            Progress.addToProgress( stage );
+            ArrayList<CustomEvents> events = Progress.addToProgress( stage );
             Progress.planningScheduleTime();
+            gameContinue(events);
         }catch (NoSuchElementException e){
 
         }
     }
 
     //Продолжение игрового процесса
-    protected void gameContinue(){
-        getCurrentEpisode();
+    protected void gameContinue(ArrayList<CustomEvents> events){
+        long currentTime = System.currentTimeMillis();
+        //проходим по коллекции прогресса, получая объекты для дальнейшего взаимодействия
+        for(CustomEvents e : events){
+            long scheduleTime = e.getScheduledtime() - currentTime;
+            if(e.getClass() == TextMessage.class){
+                TextMessage textMessage = (TextMessage) e;
+                addToViewPort( textMessage, scheduleTime );
+            }else if(e.getClass() == Waiting.class){
+                Waiting waiting = (Waiting) e;
+                addToViewPort( waiting, scheduleTime );
+            }else if(e.getClass() == Questions.class && !e.getAdded()){
+                Questions questions = (Questions) e;
+                addToViewPort( questions, scheduleTime );
+            }
+
+        }
     }
     //Обработка прогресса, отрисовка view. НАЧАЛО ИГРОВОГО ПРОЦЕССА, ЕСЛИ ИГРА ДО ЭТОГО БЫЛА ВЫКЛЮЧЕНА
     protected void gameStart(){
@@ -132,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                     Progress.list.add(playerAnwser);
                     addPlayerAnwserView( customButton.getText().toString() );
                     questionView.removeAllViews();
-                    gameProcessed();
+                    getCurrentEpisode();
                 }
             } );
             if(time>0){
