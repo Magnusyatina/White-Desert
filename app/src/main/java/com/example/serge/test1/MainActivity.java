@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
             Scenario.loadSceanrio( this );
             Progress.loadProgress(this);
             if(Progress.list!=null)
-                testGameProcessed();
-            else gameProcessed();
+                gameStart();
+            else getCurrentEpisode();
         }catch (XmlPullParserException | IOException e){
             e.printStackTrace();
         }
@@ -69,84 +69,101 @@ public class MainActivity extends AppCompatActivity {
                 stage = new String( "start" );
             Progress.addToProgress( stage );
             Progress.planningScheduleTime();
-            testGameProcessed();
         }catch (NoSuchElementException e){
 
         }
     }
-    //Обработка прогресса, отрисовка view
-    protected void testGameProcessed(){
+
+    //Продолжение игрового процесса
+    protected void gameContinue(){
+        getCurrentEpisode();
+    }
+    //Обработка прогресса, отрисовка view. НАЧАЛО ИГРОВОГО ПРОЦЕССА, ЕСЛИ ИГРА ДО ЭТОГО БЫЛА ВЫКЛЮЧЕНА
+    protected void gameStart(){
             long currentTime = System.currentTimeMillis();
             //проходим по коллекции прогресса, получая объекты для дальнейшего взаимодействия
             for(CustomEvents e : Progress.list){
                     long scheduleTime = e.getScheduledtime() - currentTime;
                     if(e.getClass() == TextMessage.class){
-                        final TextMessage textMessage = (TextMessage) e;
-                        final TextView textView = new TextView( this);
-                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        layoutParams.setMargins(15,50,0,50);
-                        textView.setLayoutParams(layoutParams);
-                        textView.setText(textMessage.getText());
-                        if(scheduleTime>=0)
-                            handler.postDelayed( new Runnable() {
-                                @Override
-                                public void run() {
-                                    mainLayout.addView(textView);
-                                    textMessage.setAdded(true);
-                                }
-                            }, scheduleTime );
-                        else mainLayout.addView(textView);
+                        TextMessage textMessage = (TextMessage) e;
+                        addToViewPort( textMessage, scheduleTime );
                     }else if(e.getClass() == Waiting.class){
-                        final Waiting waiting = (Waiting) e;
-                        final TextView waitView = new TextView( this );
-                        waitView.setText(R.string.personIsWaiting);
-                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        waitView.setLayoutParams(layoutParams);
-                        waitView.setGravity(Gravity.CENTER_HORIZONTAL);
-                        if(scheduleTime>0){
-                            handler.postDelayed( new Runnable() {
-                                @Override
-                                public void run() {
-                                    mainLayout.addView( waitView );
-                                    waiting.setAdded( true );
-                                }
-                            }, scheduleTime );
-
-                        }else mainLayout.addView( waitView );
-                        CustomTimer.addTestTime(waiting.getValue());
+                        Waiting waiting = (Waiting) e;
+                        addToViewPort( waiting, scheduleTime );
                     }else if(e.getClass() == Questions.class && !e.getAdded()){
-                        final Questions questions = (Questions) e;
-                        ArrayList<Question> questionArray = questions.getList();
-                        for(Question q : questionArray){
-                            final CustomButton customButton = new CustomButton(this, q.getGoTo());
-                            customButton.setText( q.getText() );
-                            customButton.setOnClickListener( new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    setStage(customButton.getGoTo());
-                                    questions.setAdded(true);
-                                    PlayerAnwser playerAnwser = new PlayerAnwser();
-                                    playerAnwser.setText(  customButton.getText().toString() );
-                                    Progress.list.add(playerAnwser);
-                                    addPlayerAnwserView( customButton.getText().toString() );
-                                    questionView.removeAllViews();
-                                    gameProcessed();
-                                }
-                            } );
-                            if(scheduleTime>0){
-                                handler.postDelayed( new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        questionView.addView(customButton);
-                                    }
-                                }, scheduleTime );
-                            }else questionView.addView(customButton);;
+                       Questions questions = (Questions) e;
+                        addToViewPort( questions, scheduleTime );
                         }
 
                     }
                 }
 
     }
+
+    public void addToViewPort(TextMessage textMessage, long time){
+        final TextMessage message = textMessage;
+        final TextView textView = new TextView( this);
+        textView.setLayoutParams(Settings.textMessageViewParams);
+        textView.setText(textMessage.getText());
+        if(time>=0)
+            handler.postDelayed( new Runnable() {
+                @Override
+                public void run() {
+                    mainLayout.addView(textView);
+                    message.setAdded(true);
+                }
+            }, time );
+        else mainLayout.addView(textView);
+    }
+
+    public void addToViewPort(Questions questions, long time){
+        final Questions quest = questions;
+        ArrayList<Question> questionArray = quest.getList();
+        for(Question q : questionArray){
+            final CustomButton customButton = new CustomButton(this, q.getGoTo());
+            customButton.setText( q.getText() );
+            customButton.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setStage(customButton.getGoTo());
+                    quest.setAdded(true);
+                    PlayerAnwser playerAnwser = new PlayerAnwser();
+                    playerAnwser.setText(  customButton.getText().toString() );
+                    Progress.list.add(playerAnwser);
+                    addPlayerAnwserView( customButton.getText().toString() );
+                    questionView.removeAllViews();
+                    gameProcessed();
+                }
+            } );
+            if(time>0){
+                handler.postDelayed( new Runnable() {
+                    @Override
+                    public void run() {
+                        questionView.addView(customButton);
+                    }
+                }, time );
+            }else questionView.addView(customButton);;
+    }
+
+    public void addToViewPort(Waiting waiting, long time){
+        final Waiting wait = waiting;
+        final TextView waitView = new TextView( this );
+        waitView.setText(R.string.personIsWaiting);
+        waitView.setLayoutParams(Settings.layoutParams);
+        waitView.setGravity(Gravity.CENTER_HORIZONTAL);
+        if(time>0){
+            handler.postDelayed( new Runnable() {
+                @Override
+                public void run() {
+                    mainLayout.addView( waitView );
+                    wait.setAdded( true );
+                }
+            }, time );
+
+        }else mainLayout.addView( waitView );
+    }
+
+    public void addToViewPort(PlayerAnwser playerAnwser, long time){}
 
     public void addPlayerAnwserView(String text){
         TextView textView = new TextView( this );
