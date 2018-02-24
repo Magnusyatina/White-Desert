@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-    }
+
 
     public void addToViewPort(TextMessage textMessage, long time){
         final TextMessage message = textMessage;
@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }, time );
             }else questionView.addView(customButton);;
+         }
     }
 
     public void addToViewPort(Waiting waiting, long time){

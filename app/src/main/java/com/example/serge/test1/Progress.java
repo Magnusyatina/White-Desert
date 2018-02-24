@@ -114,6 +114,7 @@ public class Progress {
                     e.setScheduledtime(CustomTimer.getTestValue());
                     if(e.getClass() == Waiting.class) {
                         Waiting waiting = (Waiting) e;
+                      //  list.addAll( new ArrayList<CustomEvents>( );
                         CustomTimer.addTestTime(waiting.getValue());
                     }
                 }
