@@ -119,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
     public void addToViewPort(TextMessage textMessage, long time){
         final TextMessage message = textMessage;
         final TextView textView = new TextView( this);
+       // int id = getResources().getIdentifier( "dialogmesgdpi", "drawable", getPackageName() );
+        textView.setBackgroundResource( R.drawable.dialogbg );
+        textView.setPadding( 20,10,20,10 );
         textView.setLayoutParams(Settings.textMessageViewParams);
         textView.setText(textMessage.getText());
         if(time>=0)

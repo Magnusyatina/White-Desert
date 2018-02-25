@@ -28,6 +28,8 @@
     </stage>
     <stage id="die">
         <important_message text="Связь с Джозефом потеряна"/>
-        <case text="Начать заново" target="start"/>
+        <questions>
+             <case text="Начать заново" target="start"/>
+        </questions>>
     </stage>
 </scenario>

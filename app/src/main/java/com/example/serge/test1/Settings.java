@@ -9,10 +9,11 @@ import android.widget.LinearLayout;
 
 public class Settings {
     public static LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    public static LinearLayout.LayoutParams textMessageViewParams = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    public static LinearLayout.LayoutParams textMessageViewParams = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     public static LinearLayout.LayoutParams WaitingViewParams = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
     static{
         textMessageViewParams.setMargins(15,50,0,50);
+
     }
 }
