@@ -1,5 +1,6 @@
 package com.example.serge.test1;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -109,7 +110,10 @@ public class MainActivity extends AppCompatActivity {
                     }else if(e.getClass() == Questions.class && !e.getAdded()){
                        Questions questions = (Questions) e;
                         addToViewPort( questions, scheduleTime );
-                        }
+                    }else if(e.getClass() == PlayerAnwser.class){
+                        PlayerAnwser playerAnwser = (PlayerAnwser) e;
+                        addToViewPort( playerAnwser );
+                    }
 
                     }
                 }
@@ -121,7 +125,8 @@ public class MainActivity extends AppCompatActivity {
         final TextView textView = new TextView( this);
        // int id = getResources().getIdentifier( "dialogmesgdpi", "drawable", getPackageName() );
         textView.setBackgroundResource( R.drawable.dialogbg );
-        textView.setPadding( 20,10,20,10 );
+        textView.setPadding( 30,10,20,10 );
+        textView.setTextColor( Color.WHITE );
         textView.setLayoutParams(Settings.textMessageViewParams);
         textView.setText(textMessage.getText());
         if(time>=0)
@@ -149,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                     PlayerAnwser playerAnwser = new PlayerAnwser();
                     playerAnwser.setText(  customButton.getText().toString() );
                     Progress.list.add(playerAnwser);
-                    addPlayerAnwserView( customButton.getText().toString() );
+                    addToViewPort( playerAnwser );
                     questionView.removeAllViews();
                     getCurrentEpisode();
                 }
@@ -183,14 +188,14 @@ public class MainActivity extends AppCompatActivity {
         }else mainLayout.addView( waitView );
     }
 
-    public void addToViewPort(PlayerAnwser playerAnwser, long time){}
-
-    public void addPlayerAnwserView(String text){
+    public void addToViewPort(PlayerAnwser playerAnwser){
         TextView textView = new TextView( this );
-        textView.setText( text );
+        textView.setBackgroundResource( R.drawable.dialoganwserbg );
+        textView.setLayoutParams( Settings.textAnwserViewParams );
+        textView.setPadding( 30,10,20,10 );
+        textView.setText( playerAnwser.getText() );
         textView.setGravity( Gravity.RIGHT );
-        mainLayout.addView(textView);
-
+        mainLayout.addView( textView );
     }
 
     public void onPause(){

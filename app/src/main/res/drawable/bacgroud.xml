@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:id="@+id/bacgroud">
+            <shape>
+                <corners android:radius="5dip"/>
+                <gradient
+                    android:startColor="#ff9d9e9d"
+                    android:centerColor="#188ad1"
+                    android:centerY="0.75"
+                    android:endColor="#ff747674"
+                    android:angle="270"
+                    />
+            </shape>>
+        </item>>
+</selector>
