@@ -13,6 +13,7 @@ public class Settings {
     public static LinearLayout.LayoutParams textMessageViewParams = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     public static LinearLayout.LayoutParams textAnwserViewParams = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     public static LinearLayout.LayoutParams WaitingViewParams = new LinearLayout.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    public static boolean FAST_GAME = false;
 
     static{
         textMessageViewParams.setMargins(15,50,15,50);
