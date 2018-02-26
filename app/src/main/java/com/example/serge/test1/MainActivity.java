@@ -204,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         Log.i("MyLogInfo", " Pause");
         Progress.saveProgress(this);
+        startService( new Intent(this, MyServiceForGameProcess.class) );
     }
     public void onDestroy(){
         super.onDestroy();
