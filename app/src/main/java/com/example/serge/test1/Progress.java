@@ -100,12 +100,18 @@ public class Progress {
         if(list == null)
             list = new ArrayList<>();
         ArrayList<CustomEvents> EventList = null;
-        if((EventList = Scenario.scenario.get(stage))!=null){
-            list.addAll( EventList );
-            return EventList;
-            /*for(CustomEvents e : EventList){
-               list.add( e );
-            }*/
+        if((EventList = (ArrayList<CustomEvents>) Scenario.scenario.get(stage))!=null){
+            ArrayList<CustomEvents> re = new ArrayList<>(  );
+            for(CustomEvents e : EventList){
+                try {
+                    CustomEvents item = (CustomEvents) e.clone();
+                    list.add( item );
+                    re.add(item);
+                } catch (CloneNotSupportedException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            return re;
         }else throw new NoSuchElementException();
     }
 

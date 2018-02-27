@@ -18,30 +18,35 @@ public class MyServiceForGameProcess extends Service {
     String gameStage;
 
     private static final int NOTIFY_ID = 101;
+    private static long schedule_Time = 0;
+
 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int stardId){
+        schedule_Time = intent.getLongExtra( "SCHEDULE_TIME", 0 );
         Toast.makeText(this, "Служба запущена", Toast.LENGTH_SHORT).show();
-        Intent notisfactionIntent = new Intent(this, MainActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notisfactionIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        Intent notisfactionIntent = new Intent(MyServiceForGameProcess.this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(MyServiceForGameProcess.this, 0, notisfactionIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(MyServiceForGameProcess.this);
         builder.setSmallIcon( R.mipmap.ic_launcher ).
                 setAutoCancel( true)
                 .setTicker( "Оповещение" )
                 .setContentText( "Джозеф ожидает" )
                 .setContentIntent( contentIntent )
-                .setWhen( System.currentTimeMillis()+20000 )
+                .setWhen( schedule_Time )
                 .setContentTitle( "White Desert" )
                 .setDefaults( Notification.DEFAULT_ALL );
         final NotificationManager notificationManager = (NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
 
+        long timer = schedule_Time - System.currentTimeMillis();
+        if(timer>0)
         new Handler( Looper.getMainLooper()).postDelayed( new Runnable() {
             @Override
             public void run() {
                 notificationManager.notify( NOTIFY_ID, builder.build() );
             }
-        },25000 );
+        },timer );
       return Service.START_STICKY;
     }
 

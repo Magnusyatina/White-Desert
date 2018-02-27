@@ -1,6 +1,7 @@
 package com.example.serge.test1;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.shapes.Shape;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     ScrollView mainScrollView;
     String stage;
     private Handler handler = new Handler( Looper.getMainLooper() );
+    private long scheduletime = 0;
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -81,21 +83,24 @@ public class MainActivity extends AppCompatActivity {
     //Продолжение игрового процесса
     protected void gameContinue(ArrayList<CustomEvents> events){
         long currentTime = System.currentTimeMillis();
+        long timer = 0, scheduletime = 0;
         //проходим по коллекции прогресса, получая объекты для дальнейшего взаимодействия
         for(CustomEvents e : events){
-            long scheduleTime = e.getScheduledtime() - currentTime;
+            scheduletime = e.getScheduledtime();
+            timer = scheduletime - currentTime;
             if(e.getClass() == TextMessage.class){
                 TextMessage textMessage = (TextMessage) e;
-                addToViewPort( textMessage, scheduleTime );
+                addToViewPort( textMessage, timer );
             }else if(e.getClass() == Waiting.class){
                 Waiting waiting = (Waiting) e;
-                addToViewPort( waiting, scheduleTime );
-            }else if(e.getClass() == Questions.class && !e.getAdded()){
+                addToViewPort( waiting, timer );
+            }else if(e.getClass() == Questions.class){
                 Questions questions = (Questions) e;
-                addToViewPort( questions, scheduleTime );
+                addToViewPort( questions, timer );
             }
 
         }
+        this.scheduletime = scheduletime;
     }
     //Обработка прогресса, отрисовка view. НАЧАЛО ИГРОВОГО ПРОЦЕССА, ЕСЛИ ИГРА ДО ЭТОГО БЫЛА ВЫКЛЮЧЕНА
     protected void gameStart(){
@@ -204,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         Log.i("MyLogInfo", " Pause");
         Progress.saveProgress(this);
-        startService( new Intent(this, MyServiceForGameProcess.class) );
+        startService( new Intent(this, MyServiceForGameProcess.class).putExtra( "SCHEDULE_TIME", scheduletime ) );
     }
     public void onDestroy(){
         super.onDestroy();

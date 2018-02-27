@@ -37,6 +37,7 @@ public class Question implements Serializable{
         return alterGoTo;
     }
 
+
     public boolean isAlterGoTo(){
         if(alterGoTo != null)
             return true;

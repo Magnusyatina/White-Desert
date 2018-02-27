@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by sergey37192 on 12.02.2018.
  */
 
-public class CustomEvents implements Serializable{
+public class CustomEvents implements Serializable, Cloneable{
     private long scheduledtime;
     private boolean added = false;
 
@@ -15,6 +15,13 @@ public class CustomEvents implements Serializable{
     }
     public void setAdded(boolean added){
         this.added = added;
+    }
+
+
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     public long getScheduledtime(){
