@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView textView = new TextView( this);
        // int id = getResources().getIdentifier( "dialogmesgdpi", "drawable", getPackageName() );
         textView.setBackgroundResource( R.drawable.dialogbg );
-        textView.setPadding( 30,10,20,10 );
+        textView.setPadding( 30,10,20,17 );
         textView.setTextColor( Color.WHITE );
         textView.setLayoutParams(Settings.textMessageViewParams);
         textView.setText(textMessage.getText());
@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = new TextView( this );
         textView.setBackgroundResource( R.drawable.dialoganwserbg );
         textView.setLayoutParams( Settings.textAnwserViewParams );
-        textView.setPadding( 30,10,20,10 );
+        textView.setPadding( 30,10,20,17 );
         textView.setText( playerAnwser.getText() );
         textView.setGravity( Gravity.RIGHT );
         mainLayout.addView( textView );

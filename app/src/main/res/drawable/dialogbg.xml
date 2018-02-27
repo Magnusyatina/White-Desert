@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
+    <item android:top="7px"
+          android:right="7px"><shape>
+        <corners android:bottomRightRadius="27dip"
+                 android:bottomLeftRadius="7dip"
+                 android:topLeftRadius="27dip"
+                 android:topRightRadius="7dip"
+            />
+        <solid android:color="#b012302e" />
+    </shape>>
+    </item>
+    <item android:left="7px"
+        android:bottom="7px">
         <shape>
             <corners android:bottomRightRadius="27dip"
                      android:bottomLeftRadius="7dip"
@@ -8,14 +19,15 @@
                      android:topRightRadius="7dip"
                      />
             <gradient
-                android:startColor="#63d8ff"
+                android:startColor="#74c7e7"
                 android:type="radial"
                 android:gradientRadius="600dip"
                 android:centerY="0.80"
                 android:centerX="0.50"
-                android:endColor="#f1ffff"
+                android:endColor="#74c7e7"
                 android:angle="270"
                 />
         </shape>>
     </item>
+
 </layer-list>

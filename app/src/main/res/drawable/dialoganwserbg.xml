@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="7px"
+          android:left="7px"><shape>
+        <corners android:bottomRightRadius="7dip"
+                 android:bottomLeftRadius="27dip"
+                 android:topLeftRadius="7dip"
+                 android:topRightRadius="27dip"
+            />
+        <solid android:color="#b012302e" />
+    </shape>>
+    </item>
+    <item android:bottom="7px"
+          android:right="7px">
         <shape>
             <solid android:color="#EC6118"/>
             <corners android:bottomRightRadius="7dip"
@@ -9,4 +20,4 @@
                      android:topRightRadius="27dip"/>
         </shape>>
     </item>>
-</selector>
+</layer-list>

@@ -108,7 +108,7 @@ public class Progress {
                     list.add( item );
                     re.add(item);
                 } catch (CloneNotSupportedException e1) {
-                    e1.printStackTrace();
+
                 }
             }
             return re;
