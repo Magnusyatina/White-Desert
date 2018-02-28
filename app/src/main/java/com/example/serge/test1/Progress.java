@@ -105,23 +105,14 @@ public class Progress {
             for(CustomEvents e : EventList){
                 try {
                     CustomEvents item = (CustomEvents) e.clone();
-                    planningScheduleTime( item );
+                    list.add( item );
                     re.add(item);
                 } catch (CloneNotSupportedException e1) {
 
                 }
             }
-            list.addAll( re );
             return re;
         }else throw new NoSuchElementException();
-    }
-
-    public static void planningScheduleTime(CustomEvents item){
-        item.setScheduledtime( CustomTimer.getTestValue() );
-        if(item.getClass() == Waiting.class){
-            Waiting waiting = (Waiting) item;
-            CustomTimer.addTestTime( waiting.getValue() );
-        }
     }
 
     public static void planningScheduleTime(){

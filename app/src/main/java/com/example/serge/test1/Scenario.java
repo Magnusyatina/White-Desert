@@ -31,7 +31,7 @@ import java.util.TreeMap;
 public class Scenario {
     //Коллекция сценария
     public static TreeMap<String, ArrayList<CustomEvents>> scenario = new TreeMap<>();
-    static String TAG = "MyLogScenario";
+    static String TAG = "MyLog";
 
     public static void loadSceanrio(Context context) throws XmlPullParserException, IOException{
         Resources res = context.getResources();

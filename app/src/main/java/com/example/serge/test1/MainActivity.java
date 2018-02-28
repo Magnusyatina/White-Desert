@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
         Log.i("MyLogInfo", " Create");
         setContentView(R.layout.activity_main);
-        mainScrollView = (ScrollView) findViewById(R.id.mainScrollView);
         mainLayout = (LinearLayout) findViewById(R.id.textArea);
         questionView = (LinearLayout) findViewById(R.id.questionsLayout);
         try {
@@ -74,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             if (stage == null)
                 stage = new String( "start" );
             ArrayList<CustomEvents> events = Progress.addToProgress( stage );
+            Progress.planningScheduleTime();
             gameContinue(events);
         }catch (NoSuchElementException e){
 
@@ -83,11 +83,11 @@ public class MainActivity extends AppCompatActivity {
     //Продолжение игрового процесса
     protected void gameContinue(ArrayList<CustomEvents> events){
         long currentTime = System.currentTimeMillis();
-        long timer = 0, scheduleTime = 0;
+        long timer = 0, scheduletime = 0;
         //проходим по коллекции прогресса, получая объекты для дальнейшего взаимодействия
         for(CustomEvents e : events){
-            scheduleTime = e.getScheduledtime();
-            timer = scheduleTime - currentTime;
+            scheduletime = e.getScheduledtime();
+            timer = scheduletime - currentTime;
             if(e.getClass() == TextMessage.class){
                 TextMessage textMessage = (TextMessage) e;
                 addToViewPort( textMessage, timer );
@@ -100,16 +100,16 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        this.scheduletime = scheduleTime;
+        this.scheduletime = scheduletime;
     }
     //Обработка прогресса, отрисовка view. НАЧАЛО ИГРОВОГО ПРОЦЕССА, ЕСЛИ ИГРА ДО ЭТОГО БЫЛА ВЫКЛЮЧЕНА
     protected void gameStart(){
         long currentTime = System.currentTimeMillis();
-        long timer = 0, scheduleTime = 0;
+        long timer = 0, scheduletime = 0;
             //проходим по коллекции прогресса, получая объекты для дальнейшего взаимодействия
             for(CustomEvents e : Progress.list){
-                scheduleTime = e.getScheduledtime();
-                timer = scheduleTime - currentTime;
+                scheduletime = e.getScheduledtime();
+                timer = scheduletime - currentTime;
                 if(e.getClass() == TextMessage.class){
                     TextMessage textMessage = (TextMessage) e;
                     addToViewPort( textMessage, timer );
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     addToViewPort( playerAnwser );
                 }
             }
-        this.scheduletime = scheduleTime;
+        this.scheduletime = scheduletime;
     }
 
 
@@ -144,16 +144,10 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     mainLayout.addView(textView);
                     message.setAdded(true);
-                    scrollDown();
                 }
             }, time );
-        else {
-            mainLayout.addView(textView);
-            message.setAdded(true);
-        }
+        else mainLayout.addView(textView);
     }
-
-
 
     public void addToViewPort(Questions questions, long time){
         final Questions quest = questions;
@@ -171,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
                     Progress.list.add(playerAnwser);
                     addToViewPort( playerAnwser );
                     questionView.removeAllViews();
-                    scrollDown();
                     getCurrentEpisode();
                 }
             } );
@@ -182,9 +175,7 @@ public class MainActivity extends AppCompatActivity {
                         questionView.addView(customButton);
                     }
                 }, time );
-            }else {
-                questionView.addView(customButton);
-            };
+            }else questionView.addView(customButton);;
          }
     }
 
@@ -200,14 +191,10 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     mainLayout.addView( waitView );
                     wait.setAdded( true );
-                    scrollDown();
                 }
             }, time );
 
-        }else {
-            mainLayout.addView( waitView );
-            wait.setAdded( true );
-        };
+        }else mainLayout.addView( waitView );
     }
 
     public void addToViewPort(PlayerAnwser playerAnwser){
@@ -218,16 +205,6 @@ public class MainActivity extends AppCompatActivity {
         textView.setText( playerAnwser.getText() );
         textView.setGravity( Gravity.RIGHT );
         mainLayout.addView( textView );
-        playerAnwser.setAdded(true);
-    }
-
-    public void scrollDown(){
-        mainScrollView.post( new Runnable() {
-            @Override
-            public void run() {
-                mainScrollView.fullScroll( ScrollView.FOCUS_DOWN );
-            }
-        } );
     }
 
     public void onPause(){
@@ -244,7 +221,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Log.i("MyLogInfo", " Resume");
         stopService( new Intent(this, MyServiceForGameProcess.class) );
-        scrollDown();
     }
 
 
