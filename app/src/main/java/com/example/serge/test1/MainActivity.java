@@ -242,7 +242,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onResume(){
         super.onResume();
-        Log.i("MyLogInfo", " Resume");
         stopService( new Intent(this, MyServiceForGameProcess.class) );
         scrollDown();
     }
