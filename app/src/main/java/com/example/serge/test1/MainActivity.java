@@ -2,6 +2,8 @@ package com.example.serge.test1;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.shapes.Shape;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     ScrollView mainScrollView;
     String stage;
     private Handler handler = new Handler( Looper.getMainLooper() );
+    private MediaPlayer mediaPlayer = null;
     private long scheduletime = 0;
 
 
@@ -48,8 +51,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
-        Log.i("MyLogInfo", " Create");
+        setVolumeControlStream( AudioManager.STREAM_MUSIC);
         setContentView(R.layout.activity_main);
+        mediaPlayer = MediaPlayer.create(this, R.raw.soundtrack);
+        mediaPlayer.setVolume( 0.05f, 0.05f );
         mainScrollView = (ScrollView) findViewById(R.id.mainScrollView);
         mainLayout = (LinearLayout) findViewById(R.id.textArea);
         questionView = (LinearLayout) findViewById(R.id.questionsLayout);
@@ -232,6 +237,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onPause(){
         super.onPause();
+        if(mediaPlayer!=null)
+            mediaPlayer.pause();
         Log.i("MyLogInfo", " Pause");
         Progress.saveProgress(this);
         startService( new Intent(this, MyServiceForGameProcess.class).putExtra( "SCHEDULE_TIME", scheduletime ) );
@@ -244,6 +251,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         stopService( new Intent(this, MyServiceForGameProcess.class) );
         scrollDown();
+        if(mediaPlayer!=null)
+            mediaPlayer.start();
     }
 
 
