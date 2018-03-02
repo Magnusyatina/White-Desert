@@ -5,31 +5,73 @@
         <message text="К..будь, отве..е"/>
         <message text="Мн... нуж..а помощ.."/>
         <questions>
-            <case text="Да, я вас слышу" target="nextstage1"/>
-            <case text="Вас очень плохо слышно" target="nextstage2"/>
+            <case text="Слишком плохая связь, вы обрываетесь!" target="repair_communication1"/>
+            <case text="Вас очень плохо слышно!" target="repair_communication1"/>
         </questions>
     </stage>
-    <stage id="nextstage1">
-        <message text="Подо..те, я ...бую най.. что-ни..дь для усиле..ия сигна.."/>
-        <waiting value="20000"/>
-        <message text="К..будь, отве..е"/>
-        <message text="Мн... нуж..а помощ.."/>
+    <stage id="repair_communication1">
+        <message text="Я по..л, по..о..ите, я ...бую ка..будь ..лить сигн.."/>
+        <waiting value="5000"/>
+        <mesage text="Так лучше?"/>
         <questions>
-            <case text="Да, я вас слышу" target="nextstage1"/>
-            <case text="Вас очень плохо слышно" target="nextstage2"/>
-        </questions>
-    </stage>
-    <stage id="nextstage2">
-        <message text="Что мне делать, я могу продолжить идти или попробовать укрыться?"/>
-        <questions>
-            <case text="Продолжай идти" target="die"/>
-            <case text="Укройся" target="win"/>
+            <case text="Да, лучше, что у вас случилось?" target="djozef_info1"/>
+            <case text="Намного. Но кто вы?" target="djozef_info2"/>
         </questions>
     </stage>
     <stage id="die">
         <important_message text="Связь с Джозефом потеряна"/>
         <questions>
              <case text="Начать заново" target="start"/>
-        </questions>>
+        </questions>
     </stage>
+    <stage id="djozef_info1">
+        <message text="Меня зовут Джозеф."/>
+        <message text="Я совершал плановый полет на своем самолете..."/>
+        <message text="Не знаю, что произошло, но я потерял управление..."/>
+        <message text="В итоге самолет потерпел крушение!"/>
+        <message text="Я даже не знаю, где я нахожусь..."/>
+        <questions>
+            <case text="Что ты видишь вокруг себя?" target="description_of_the_place"/>
+            <case text="Успокойся, я постараюсь тебе помочь. Хорошо? " target="helpyou"/>
+        </questions>
+    </stage>
+    <stage id="djozef_info2">
+        <message text="Меня зовут Джозеф."/>
+        <message text="Я пилот на станции Мильскор."/>
+        <message text=""/>
+        <message text="В итоге самолет потерпел крушение!"/>
+        <message text="Я даже не знаю, где я нахожусь..."/>
+        <questions>
+            <case text="Что ты видишь вокруг себя?" target=""/>
+            <case text="Как твое самочувствие? С тобой все в порядке?" target=""/>
+        </questions>
+    </stage>
+    <stage id="helpyou">
+        <message text="Я уже успокоился, пока пытался связаться хоть с кем-нибудь"/>
+        <message text="Хорошо что хоть кто-то уловил мой сигнал..."/>
+        <message text="Теперь мои шансы выжить не нулевые"/>
+        <message text="Будто камень с плечь"/>
+        <questions>
+            <case text="Ты можешь описать место, где ты находишься?" target="description_of_the_place"/>
+            <case text="Как ты себя чувствуешь?" target="condition"/>
+        </questions>
+    </stage>
+    <stage name="description_of_the_place">
+        <message text="Я не знаю, что это за место"/>
+        <message text="Вогруг один снег"/>
+        <message text="Погоди, мне нужно осмотреться..."/>
+        <waiting value="15000"/>
+        <message text="Нет, абсолютно ничего, кроме моего разбитого самолета"/>
+        <questions>
+            <case text="" target=""/>
+            <case text="" target=""/>
+        </questions>>
+    </stage>>
+    <stage name="condition">
+        <message text="Если не считать моего подавленного состояния"/>
+        <message text="То мне очень холодно"/>
+        <message text="Хорошо еще то, что после крушения я остался целым и невредимым"/>
+        <message text="Иначе так бы и помер..."/>
+    </stage>>
+
 </scenario>
