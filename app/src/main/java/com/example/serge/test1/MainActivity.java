@@ -53,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
         setVolumeControlStream( AudioManager.STREAM_MUSIC);
         setContentView(R.layout.activity_main);
-        mediaPlayer = MediaPlayer.create(this, R.raw.soundtrack);
-        mediaPlayer.setVolume( 0.05f, 0.05f );
+        setMusic();
         mainScrollView = (ScrollView) findViewById(R.id.mainScrollView);
         mainLayout = (LinearLayout) findViewById(R.id.textArea);
         questionView = (LinearLayout) findViewById(R.id.questionsLayout);
@@ -69,6 +68,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    protected void setMusic(){
+        mediaPlayer = MediaPlayer.create(this, R.raw.soundtrack);
+        mediaPlayer.setVolume( 0.05f, 0.05f );
+        mediaPlayer.setLooping(true);
+    }
+
+    protected void unsetMusic(){
+
+    }
+
     protected void gameProcessed(){
         //getStringForGame();
         getCurrentEpisode();

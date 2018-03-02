@@ -112,6 +112,7 @@ public class Progress {
                 }
             }
             list.addAll( re );
+            CustomTimer.clearTimer();
             return re;
         }else throw new NoSuchElementException();
     }

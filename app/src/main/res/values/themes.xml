@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style
+        name="AnimationActivity"
+        parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowAnimationStyle">@style/DownUpActivity</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+        <item name="android:windowAnimationStyle">@style/DownUpActivity</item>
+    </style>
+
+</resources>

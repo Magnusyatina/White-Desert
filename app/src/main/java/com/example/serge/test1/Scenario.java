@@ -68,7 +68,7 @@ public class Scenario {
                         }
                     }else if(tagName.equals("waiting")){
                         Waiting waiting = new Waiting();
-                        waiting.setValue( parser.getAttributeIntValue(null, "value", 1500) );
+                        waiting.setValue(  parser.getAttributeIntValue(null, "value", 2500) );
                         events.add(waiting);
                     }else if(tagName.equals("random_event")){
                         RandomEvent randomEvent = new RandomEvent();

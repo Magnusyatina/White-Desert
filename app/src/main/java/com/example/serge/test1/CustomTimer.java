@@ -9,7 +9,7 @@ public class CustomTimer {
     private static long testSec = 1500;
     private static int time = 0;
     private static Boolean fastGame = false;
-    private static final int sec = 1500;
+    private static final long sec = 2500;
 
     public static long getTestValue(){
         if(testtime == 0)
