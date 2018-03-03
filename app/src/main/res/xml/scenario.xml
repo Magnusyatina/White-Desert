@@ -12,7 +12,7 @@
     <stage id="repair_communication1">
         <message text="Я по..л, по..о..ите, я ...бую ка..будь ..лить сигн.."/>
         <waiting value="5000"/>
-        <mesage text="Так лучше?"/>
+        <message text="Так лучше?"/>
         <questions>
             <case text="Да, лучше, что у вас случилось?" target="djozef_info1"/>
             <case text="Намного. Но кто вы?" target="djozef_info2"/>
@@ -42,8 +42,8 @@
         <message text="В итоге самолет потерпел крушение!"/>
         <message text="Я даже не знаю, где я нахожусь..."/>
         <questions>
-            <case text="Что ты видишь вокруг себя?" target=""/>
-            <case text="Как твое самочувствие? С тобой все в порядке?" target=""/>
+            <case text="Что ты видишь вокруг себя?" target="description_of_the_place"/>
+            <case text="Как твое самочувствие? С тобой все в порядке?" target="condition"/>
         </questions>
     </stage>
     <stage id="helpyou">
@@ -56,7 +56,7 @@
             <case text="Как ты себя чувствуешь?" target="condition"/>
         </questions>
     </stage>
-    <stage name="description_of_the_place">
+    <stage id="description_of_the_place">
         <message text="Я не знаю, что это за место"/>
         <message text="Вогруг один снег"/>
         <message text="Погоди, мне нужно осмотреться..."/>
@@ -67,7 +67,7 @@
             <case text="" target=""/>
         </questions>>
     </stage>>
-    <stage name="condition">
+    <stage id="condition">
         <message text="Если не считать моего подавленного состояния"/>
         <message text="То мне очень холодно"/>
         <message text="Хорошо еще то, что после крушения я остался целым и невредимым"/>
