@@ -9,6 +9,7 @@ import android.widget.ScrollView;
 
 import com.example.serge.test1.Objects.CustomEvents;
 import com.example.serge.test1.Objects.Messages;
+import com.example.serge.test1.Objects.Stage;
 import com.example.serge.test1.Objects.TextMessage;
 import com.example.serge.test1.Objects.Waiting;
 
@@ -31,6 +32,7 @@ public class Progress {
 
 
     public static ArrayList<CustomEvents> list = null;
+    public static ArrayList<Stage> progressList = null;
     public static String hell= "hell";
 
 
