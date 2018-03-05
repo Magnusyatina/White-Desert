@@ -1,4 +1,4 @@
-package com.example.serge.test1.Objects.Contains;
+package com.example.serge.test1.Objects;
 
 import java.util.ArrayList;
 

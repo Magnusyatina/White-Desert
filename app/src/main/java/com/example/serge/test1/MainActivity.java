@@ -1,6 +1,7 @@
 package com.example.serge.test1;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.shapes.Shape;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -12,18 +13,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.example.serge.test1.Objects.Contains.CustomButton;
-import com.example.serge.test1.Objects.Contains.CustomEvents;
-import com.example.serge.test1.Objects.Contains.PlayerAnwser;
-import com.example.serge.test1.Objects.Contains.Question;
-import com.example.serge.test1.Objects.Contains.Questions;
-import com.example.serge.test1.Objects.Contains.TextMessage;
-import com.example.serge.test1.Objects.Contains.Waiting;
+import com.example.serge.test1.Objects.CustomButton;
+import com.example.serge.test1.Objects.CustomEvents;
+import com.example.serge.test1.Objects.PlayerAnwser;
+import com.example.serge.test1.Objects.Question;
+import com.example.serge.test1.Objects.Questions;
+import com.example.serge.test1.Objects.TextMessage;
+import com.example.serge.test1.Objects.Waiting;
 
 import org.xmlpull.v1.XmlPullParserException;
 

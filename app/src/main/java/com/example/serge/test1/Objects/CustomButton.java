@@ -1,4 +1,4 @@
-package com.example.serge.test1.Objects.Contains;
+package com.example.serge.test1.Objects;
 
 import android.content.Context;
 import android.widget.Button;
