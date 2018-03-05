@@ -4,24 +4,20 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.util.Log;
-import android.webkit.ConsoleMessage;
-import android.widget.Toast;
 
-import com.example.serge.test1.Objects.CustomEvents;
-import com.example.serge.test1.Objects.ImportantMessage;
-import com.example.serge.test1.Objects.Messages;
-import com.example.serge.test1.Objects.Question;
-import com.example.serge.test1.Objects.Questions;
-import com.example.serge.test1.Objects.RandomEvent;
-import com.example.serge.test1.Objects.TextMessage;
-import com.example.serge.test1.Objects.Waiting;
+import com.example.serge.test1.Objects.Contains.CustomEvents;
+import com.example.serge.test1.Objects.Contains.ImportantMessage;
+import com.example.serge.test1.Objects.Contains.Question;
+import com.example.serge.test1.Objects.Contains.Questions;
+import com.example.serge.test1.Objects.Contains.RandomEvent;
+import com.example.serge.test1.Objects.Contains.TextMessage;
+import com.example.serge.test1.Objects.Contains.Waiting;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.TreeMap;
 
 /**

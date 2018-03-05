@@ -1,16 +1,9 @@
 package com.example.serge.test1;
 
 import android.content.Context;
-import android.provider.CalendarContract;
-import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
-import com.example.serge.test1.Objects.CustomEvents;
-import com.example.serge.test1.Objects.Messages;
-import com.example.serge.test1.Objects.TextMessage;
-import com.example.serge.test1.Objects.Waiting;
+import com.example.serge.test1.Objects.Contains.CustomEvents;
+import com.example.serge.test1.Objects.Contains.Waiting;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,7 +13,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 /**

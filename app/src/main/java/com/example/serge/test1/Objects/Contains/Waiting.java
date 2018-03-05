@@ -1,4 +1,4 @@
-package com.example.serge.test1.Objects;
+package com.example.serge.test1.Objects.Contains;
 
 /**
  * Created by sergey37192 on 13.02.2018.

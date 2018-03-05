@@ -1,10 +1,11 @@
-package com.example.serge.test1.Objects;
+package com.example.serge.test1.Objects.Contains;
 
 /**
- * Created by sergey37192 on 22.02.2018.
+ * Created by sergey37192 on 30.01.2018.
  */
 
-public class PlayerAnwser extends Messages {
+public class TextMessage extends Messages {
+
     private String text;
 
     public void setText(String text){
