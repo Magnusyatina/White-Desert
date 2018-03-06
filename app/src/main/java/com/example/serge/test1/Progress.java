@@ -12,6 +12,7 @@ import com.example.serge.test1.Objects.Messages;
 import com.example.serge.test1.Objects.Stage;
 import com.example.serge.test1.Objects.TextMessage;
 import com.example.serge.test1.Objects.Waiting;
+import com.example.serge.test1.Person.Person;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,9 +33,10 @@ import java.util.NoSuchElementException;
 
 public class Progress {
 
-
-    public static ArrayList<CustomEvents> list = null;
     public static LinkedHashMap<String, Stage> progressList = null;
+    public static Person person = null;
+
+
     public static String hell= "hell";
 
 
@@ -54,25 +56,12 @@ public class Progress {
             e.printStackTrace();
         }
 
-       /* try {
-                ObjectInputStream in = new ObjectInputStream( new FileInputStream( f ) );
-                list = (ArrayList<CustomEvents>) in.readObject();
-                Log.i("MyLogInfo", "List: "+list.size());
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }*/
 
     }
     public static void saveProgress(Context context){
 
         try {
             if(progressList!=null){
-               /* File file = new File(context.getFilesDir(), "save.dat");
-                if(!file.exists())
-                    file.createNewFile();*/
-
                 FileOutputStream fout = context.openFileOutput("save.dat", Context.MODE_PRIVATE);
                 ObjectOutputStream out = new ObjectOutputStream( fout);
                 out.writeObject( progressList );
@@ -84,64 +73,9 @@ public class Progress {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-           /* File saveFile = new File(context.getFilesDir(), "Saves/save.dat");
-
-            Log.i("MyLogInfo", saveFile.getAbsolutePath());
-        try {
-            ObjectOutputStream out = new ObjectOutputStream( new FileOutputStream(saveFile));
-            out.writeObject(list);
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-        //
-
     }
 
-  /*  public static ArrayList<CustomEvents> addToProgress(String stage){
-        if(list == null)
-            list = new ArrayList<>();
-        ArrayList<CustomEvents> EventList = null;
-        if((EventList = (ArrayList<CustomEvents>) Scenario.scenario.get(stage))!=null){
-            ArrayList<CustomEvents> re = new ArrayList<>(  );
-            for(CustomEvents e : EventList){
-                try {
-                    CustomEvents item = (CustomEvents) e.clone();
-                    planningScheduleTime( item );
-                    re.add(item);
-                } catch (CloneNotSupportedException e1) {
 
-                }
-            }
-            list.addAll( re );
-            CustomTimer.clearTimer();
-            return re;
-        }else throw new NoSuchElementException();
-    }*/
-
-  /*  public static Stage addToProgress(String stage){
-        if(progressList == null)
-            progressList = new ArrayList<>();
-        ArrayList<CustomEvents> EventList = null;
-        if((EventList = (ArrayList<CustomEvents>) Scenario.scenario.get(stage))!=null){
-            Stage newStage = new Stage(stage);
-            ArrayList<CustomEvents> re = new ArrayList<>();
-            for(CustomEvents e : EventList){
-                try {
-                    CustomEvents item = (CustomEvents) e.clone();
-                    planningScheduleTime( item );
-                    re.add(item);
-                } catch (CloneNotSupportedException e1) {
-                }
-            }
-            newStage.setArray( re );
-            progressList.add( newStage );
-            CustomTimer.clearTimer();
-            return newStage;
-        }else throw new NoSuchElementException();
-    }*/
 
     public static Stage addToProgress(String stage_name){
         if(progressList == null)
@@ -174,7 +108,7 @@ public class Progress {
         }
     }
 
-    public static void planningScheduleTime(){
+    /*public static void planningScheduleTime(){
         if(list!=null&&list.size()!=0){
             for(CustomEvents e : list){
                 if(!e.getAdded()){
@@ -188,7 +122,7 @@ public class Progress {
             }
             CustomTimer.clearTimer();
         }
-    }
+    }*/
 
     public static Stage getLastStage(){
         Stage lastStage = null;

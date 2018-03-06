@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
+        getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
         setVolumeControlStream( AudioManager.STREAM_MUSIC);
         setContentView(R.layout.activity_main);
-        //setMusic();
+        setMusic();
         mainScrollView = (ScrollView) findViewById(R.id.mainScrollView);
         mainLayout = (LinearLayout) findViewById(R.id.textArea);
         questionView = (LinearLayout) findViewById(R.id.questionsLayout);
@@ -122,27 +122,6 @@ public class MainActivity extends AppCompatActivity {
     }
     //Обработка прогресса, отрисовка view. НАЧАЛО ИГРОВОГО ПРОЦЕССА, ЕСЛИ ИГРА ДО ЭТОГО БЫЛА ВЫКЛЮЧЕНА
     protected void gameStart(){
-        /*long currentTime = System.currentTimeMillis();
-        long timer = 0, scheduleTime = 0;
-            //проходим по коллекции прогресса, получая объекты для дальнейшего взаимодействия
-            for(CustomEvents e : Progress.list){
-                scheduleTime = e.getScheduledtime();
-                timer = scheduleTime - currentTime;
-                if(e.getClass() == TextMessage.class){
-                    TextMessage textMessage = (TextMessage) e;
-                    addToViewPort( textMessage, timer );
-                }else if(e.getClass() == Waiting.class){
-                    Waiting waiting = (Waiting) e;
-                    addToViewPort( waiting, timer );
-                }else if(e.getClass() == Questions.class && !e.getAdded()){
-                    Questions questions = (Questions) e;
-                    addToViewPort( questions, timer );
-                }else if(e.getClass() == PlayerAnwser.class){
-                    PlayerAnwser playerAnwser = (PlayerAnwser) e;
-                    addToViewPort( playerAnwser );
-                }
-            }
-        this.scheduletime = scheduleTime;*/
         Stage currStage = null;
         for(Map.Entry<String, Stage> item : Progress.progressList.entrySet()){
             currStage = item.getValue();
