@@ -109,9 +109,12 @@ public class MainActivity extends AppCompatActivity {
             }else if(e.getClass() == Waiting.class){
                 Waiting waiting = (Waiting) e;
                 addToViewPort( waiting, timer );
-            }else if(e.getClass() == Questions.class){
+            }else if(e.getClass() == Questions.class && !e.getAdded()){
                 Questions questions = (Questions) e;
                 addToViewPort( questions, timer );
+            }else if(e.getClass() == PlayerAnwser.class){
+                PlayerAnwser playerAnwser = (PlayerAnwser) e;
+                addToViewPort( playerAnwser );
             }
 
         }

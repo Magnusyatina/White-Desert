@@ -44,7 +44,7 @@ public class Progress {
         if(file.exists())
         try {
             ObjectInputStream obj = new ObjectInputStream( new FileInputStream( file ) );
-            list = (ArrayList<CustomEvents>) obj.readObject();
+            progressList = (LinkedHashMap<String, Stage>) obj.readObject();
             obj.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -68,14 +68,14 @@ public class Progress {
     public static void saveProgress(Context context){
 
         try {
-            if(list!=null){
+            if(progressList!=null){
                /* File file = new File(context.getFilesDir(), "save.dat");
                 if(!file.exists())
                     file.createNewFile();*/
 
                 FileOutputStream fout = context.openFileOutput("save.dat", Context.MODE_PRIVATE);
                 ObjectOutputStream out = new ObjectOutputStream( fout);
-                out.writeObject( list );
+                out.writeObject( progressList );
                 out.close();
             }
 
