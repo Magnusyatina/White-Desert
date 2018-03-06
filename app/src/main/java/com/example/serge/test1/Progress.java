@@ -21,7 +21,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 /**
@@ -32,7 +34,7 @@ public class Progress {
 
 
     public static ArrayList<CustomEvents> list = null;
-    public static ArrayList<Stage> progressList = null;
+    public static LinkedHashMap<String, Stage> progressList = null;
     public static String hell= "hell";
 
 
@@ -98,7 +100,7 @@ public class Progress {
 
     }
 
-    public static ArrayList<CustomEvents> addToProgress(String stage){
+  /*  public static ArrayList<CustomEvents> addToProgress(String stage){
         if(list == null)
             list = new ArrayList<>();
         ArrayList<CustomEvents> EventList = null;
@@ -116,6 +118,51 @@ public class Progress {
             list.addAll( re );
             CustomTimer.clearTimer();
             return re;
+        }else throw new NoSuchElementException();
+    }*/
+
+  /*  public static Stage addToProgress(String stage){
+        if(progressList == null)
+            progressList = new ArrayList<>();
+        ArrayList<CustomEvents> EventList = null;
+        if((EventList = (ArrayList<CustomEvents>) Scenario.scenario.get(stage))!=null){
+            Stage newStage = new Stage(stage);
+            ArrayList<CustomEvents> re = new ArrayList<>();
+            for(CustomEvents e : EventList){
+                try {
+                    CustomEvents item = (CustomEvents) e.clone();
+                    planningScheduleTime( item );
+                    re.add(item);
+                } catch (CloneNotSupportedException e1) {
+                }
+            }
+            newStage.setArray( re );
+            progressList.add( newStage );
+            CustomTimer.clearTimer();
+            return newStage;
+        }else throw new NoSuchElementException();
+    }*/
+
+    public static Stage addToProgress(String stage_name){
+        if(progressList == null)
+            progressList = new LinkedHashMap<>(  );
+        Stage stage = null;
+        ArrayList<CustomEvents> EventList = null;
+        if((stage = (Stage) Scenario.scenarioList.get( stage_name ))!=null){
+            Stage newStage = null;
+            try {
+                newStage = (Stage) stage.clone();
+                EventList = newStage.getArray();
+                for(CustomEvents e : EventList){
+                    planningScheduleTime( e );
+                }
+                progressList.put( stage_name, stage );
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+
+            CustomTimer.clearTimer();
+            return newStage;
         }else throw new NoSuchElementException();
     }
 
@@ -141,6 +188,16 @@ public class Progress {
             }
             CustomTimer.clearTimer();
         }
+    }
+
+    public static Stage getLastStage(){
+        Stage lastStage = null;
+        if(progressList!=null){
+            for(Map.Entry<String,Stage> item : progressList.entrySet()){
+                lastStage = item.getValue();
+            }
+        }
+        return lastStage;
     }
 
 }

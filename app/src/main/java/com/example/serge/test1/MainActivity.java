@@ -25,6 +25,7 @@ import com.example.serge.test1.Objects.CustomEvents;
 import com.example.serge.test1.Objects.PlayerAnwser;
 import com.example.serge.test1.Objects.Question;
 import com.example.serge.test1.Objects.Questions;
+import com.example.serge.test1.Objects.Stage;
 import com.example.serge.test1.Objects.TextMessage;
 import com.example.serge.test1.Objects.Waiting;
 
@@ -32,6 +33,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 
@@ -50,17 +52,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
+       // getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
         setVolumeControlStream( AudioManager.STREAM_MUSIC);
         setContentView(R.layout.activity_main);
-        setMusic();
+        //setMusic();
         mainScrollView = (ScrollView) findViewById(R.id.mainScrollView);
         mainLayout = (LinearLayout) findViewById(R.id.textArea);
         questionView = (LinearLayout) findViewById(R.id.questionsLayout);
         try {
             Scenario.loadSceanrio( this );
             Progress.loadProgress(this);
-            if(Progress.list!=null)
+            if(Progress.progressList!=null)
                 gameStart();
             else getCurrentEpisode();
         }catch (XmlPullParserException | IOException e){
@@ -79,17 +81,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected void gameProcessed(){
-        //getStringForGame();
-        getCurrentEpisode();
-    }
+
     //получение нужной стадии сценария и добавление в прогресс
     protected void getCurrentEpisode(){
         try {
             if (stage == null)
                 stage = new String( "start" );
-            ArrayList<CustomEvents> events = Progress.addToProgress( stage );
-            gameContinue(events);
+            Stage el = Progress.addToProgress(stage);
+            ArrayList<CustomEvents> arrayList = el.getArray();
+            gameContinue(arrayList);
         }catch (NoSuchElementException e){
 
         }
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     }
     //Обработка прогресса, отрисовка view. НАЧАЛО ИГРОВОГО ПРОЦЕССА, ЕСЛИ ИГРА ДО ЭТОГО БЫЛА ВЫКЛЮЧЕНА
     protected void gameStart(){
-        long currentTime = System.currentTimeMillis();
+        /*long currentTime = System.currentTimeMillis();
         long timer = 0, scheduleTime = 0;
             //проходим по коллекции прогресса, получая объекты для дальнейшего взаимодействия
             for(CustomEvents e : Progress.list){
@@ -139,7 +139,12 @@ public class MainActivity extends AppCompatActivity {
                     addToViewPort( playerAnwser );
                 }
             }
-        this.scheduletime = scheduleTime;
+        this.scheduletime = scheduleTime;*/
+        Stage currStage = null;
+        for(Map.Entry<String, Stage> item : Progress.progressList.entrySet()){
+            currStage = item.getValue();
+            gameContinue( currStage.getArray() );
+        }
     }
 
 
@@ -183,11 +188,14 @@ public class MainActivity extends AppCompatActivity {
                     quest.setAdded(true);
                     PlayerAnwser playerAnwser = new PlayerAnwser();
                     playerAnwser.setText(  customButton.getText().toString() );
-                    Progress.list.add(playerAnwser);
-                    addToViewPort( playerAnwser );
-                    questionView.removeAllViews();
-                    scrollDown();
-                    getCurrentEpisode();
+                    Stage lastStage = Progress.getLastStage();
+                    if(lastStage!=null){
+                        lastStage.addToArray( playerAnwser );
+                        addToViewPort( playerAnwser );
+                        questionView.removeAllViews();
+                        scrollDown();
+                        getCurrentEpisode();
+                    }
                 }
             } );
             if(time>0){
