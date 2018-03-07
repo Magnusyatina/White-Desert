@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             Scenario.loadSceanrio( this );
             Progress.loadProgress(this);
-            if(Progress.progressList!=null)
+            if(Progress.progressList.size()!=0)
                 gameStart();
             else getCurrentEpisode();
         }catch (XmlPullParserException | IOException e){
@@ -163,35 +163,38 @@ public class MainActivity extends AppCompatActivity {
         final Questions quest = questions;
         ArrayList<Question> questionArray = quest.getList();
         for(Question q : questionArray){
-            final CustomButton customButton = new CustomButton(this, q.getGoTo());
-            customButton.setText( q.getText() );
-            customButton.setOnClickListener( new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    setStage(customButton.getGoTo());
-                    quest.setAdded(true);
-                    PlayerAnwser playerAnwser = new PlayerAnwser();
-                    playerAnwser.setText(  customButton.getText().toString() );
-                    Stage lastStage = Progress.progressList.getTail();
-                    if(lastStage!=null){
-                        lastStage.addToArray( playerAnwser );
-                        addToViewPort( playerAnwser );
-                        questionView.removeAllViews();
-                        scrollDown();
-                        getCurrentEpisode();
-                    }
-                }
-            } );
-            if(time>0){
-                handler.postDelayed( new Runnable() {
+            int itemId = q.getNeedItem();
+            if(itemId == -1 || Progress.person.checkItem( itemId )){
+                final CustomButton customButton = new CustomButton(this, q.getGoTo());
+                customButton.setText( q.getText() );
+                customButton.setOnClickListener( new View.OnClickListener() {
                     @Override
-                    public void run() {
-                        questionView.addView(customButton);
+                    public void onClick(View v) {
+                        setStage(customButton.getGoTo());
+                        quest.setAdded(true);
+                        PlayerAnwser playerAnwser = new PlayerAnwser();
+                        playerAnwser.setText(  customButton.getText().toString() );
+                        Stage lastStage = Progress.progressList.getTail();
+                        if(lastStage!=null){
+                            lastStage.addToArray( playerAnwser );
+                            addToViewPort( playerAnwser );
+                            questionView.removeAllViews();
+                            scrollDown();
+                            getCurrentEpisode();
+                        }
                     }
-                }, time );
-            }else {
-                questionView.addView(customButton);
-            };
+                } );
+                if(time>0){
+                    handler.postDelayed( new Runnable() {
+                        @Override
+                        public void run() {
+                            questionView.addView(customButton);
+                        }
+                    }, time );
+                }else {
+                    questionView.addView(customButton);
+                };
+            }
          }
     }
 

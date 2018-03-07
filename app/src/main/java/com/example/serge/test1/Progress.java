@@ -34,20 +34,24 @@ public class Progress {
 
 
 
-    public static void loadProgress(Context context){
+    public static void loadProgress(Context context) throws IOException {
         File file = new File(context.getFilesDir(), "save.dat");
+        ObjectInputStream obj = null;
         if(file.exists())
         try {
-            ObjectInputStream obj = new ObjectInputStream( new FileInputStream( file ) );
+            obj = new ObjectInputStream( new FileInputStream( file ) );
             progressList = (CustomLinkedHashMap<String, Stage>) obj.readObject();
+            person = (Person) obj.readObject();
             obj.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            obj.close();
         }
+        if(progressList== null)
+            progressList = new CustomLinkedHashMap<>();
+        if(person == null)
+            person = new Person();
 
 
     }
@@ -58,6 +62,8 @@ public class Progress {
                 FileOutputStream fout = context.openFileOutput("save.dat", Context.MODE_PRIVATE);
                 ObjectOutputStream out = new ObjectOutputStream( fout);
                 out.writeObject( progressList );
+                if(person!=null)
+                    out.writeObject( person );
                 out.close();
             }
 
@@ -71,19 +77,24 @@ public class Progress {
 
 
     public static Stage addToProgress(String stage_name){
-        if(progressList == null)
-            progressList = new CustomLinkedHashMap<>(  );
+        if(progressList == null){
+            progressList = new CustomLinkedHashMap<>();
+        }
         Stage stage = null;
         ArrayList<CustomEvents> EventList = null;
         if((stage = (Stage) Scenario.scenarioList.get( stage_name ))!=null){
-            Stage newStage = null;
+            int i = 1;
+            while(progressList.containsKey( stage_name ))
+                stage_name += i;
+            Stage newStage = new Stage(stage_name);
             try {
-                newStage = (Stage) stage.clone();
-                EventList = newStage.getArray();
+                EventList = stage.getArray();
                 for(CustomEvents e : EventList){
-                    planningScheduleTime( e );
+                    CustomEvents currE = (CustomEvents) e.clone();
+                    newStage.addToArray( currE );
+                    planningScheduleTime( currE );
                 }
-                progressList.put( stage_name, stage );
+                progressList.put( stage_name, newStage );
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
@@ -116,5 +127,5 @@ public class Progress {
             CustomTimer.clearTimer();
         }
     }*/
-    
+
 }

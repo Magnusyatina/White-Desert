@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class Person implements Serializable {
-    private boolean matches = false;
+    private boolean matches = true;
     private boolean map = false;
     private boolean flashlight = false;
     private boolean signal_pistol = false;

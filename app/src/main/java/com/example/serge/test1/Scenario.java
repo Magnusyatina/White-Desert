@@ -128,6 +128,7 @@ public class Scenario {
                         if(questions!=null){
                             Question question = new Question();
                             question.setText(parser.getAttributeValue( null, "text" ));
+                            question.setNeedItem( parser.getAttributeIntValue( null, "need_item", -1 ) );
                             question.setGoTo(parser.getAttributeValue( null, "target" ));
                             questions.put(question);
                         }

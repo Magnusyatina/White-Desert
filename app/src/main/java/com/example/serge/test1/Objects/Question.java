@@ -10,8 +10,18 @@ public class Question implements Serializable{
 
     private String text;
 
+    private int needItem = -1;
+
     private String goTo;
     private String alterGoTo;
+
+    public void setNeedItem(int needItem){
+        this.needItem = needItem;
+    }
+
+    public int getNeedItem(){
+        return needItem;
+    }
 
     public void setText(String text){
         this.text = text;
