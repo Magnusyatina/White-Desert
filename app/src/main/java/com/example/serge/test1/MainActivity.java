@@ -33,6 +33,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             Stage el = Progress.addToProgress(stage);
             ArrayList<CustomEvents> arrayList = el.getArray();
             gameContinue(arrayList);
+
         }catch (NoSuchElementException e){
 
         }
@@ -170,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                     quest.setAdded(true);
                     PlayerAnwser playerAnwser = new PlayerAnwser();
                     playerAnwser.setText(  customButton.getText().toString() );
-                    Stage lastStage = Progress.getLastStage();
+                    Stage lastStage = Progress.progressList.getTail();
                     if(lastStage!=null){
                         lastStage.addToArray( playerAnwser );
                         addToViewPort( playerAnwser );

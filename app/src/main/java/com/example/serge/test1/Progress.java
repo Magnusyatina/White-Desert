@@ -1,16 +1,10 @@
 package com.example.serge.test1;
 
 import android.content.Context;
-import android.provider.CalendarContract;
-import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
+import com.example.serge.test1.CustomClasses.CustomLinkedHashMap;
 import com.example.serge.test1.Objects.CustomEvents;
-import com.example.serge.test1.Objects.Messages;
 import com.example.serge.test1.Objects.Stage;
-import com.example.serge.test1.Objects.TextMessage;
 import com.example.serge.test1.Objects.Waiting;
 import com.example.serge.test1.Person.Person;
 
@@ -23,7 +17,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -33,7 +26,7 @@ import java.util.NoSuchElementException;
 
 public class Progress {
 
-    public static LinkedHashMap<String, Stage> progressList = null;
+    public static CustomLinkedHashMap<String, Stage> progressList = null;
     public static Person person = null;
 
 
@@ -46,7 +39,7 @@ public class Progress {
         if(file.exists())
         try {
             ObjectInputStream obj = new ObjectInputStream( new FileInputStream( file ) );
-            progressList = (LinkedHashMap<String, Stage>) obj.readObject();
+            progressList = (CustomLinkedHashMap<String, Stage>) obj.readObject();
             obj.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -79,7 +72,7 @@ public class Progress {
 
     public static Stage addToProgress(String stage_name){
         if(progressList == null)
-            progressList = new LinkedHashMap<>(  );
+            progressList = new CustomLinkedHashMap<>(  );
         Stage stage = null;
         ArrayList<CustomEvents> EventList = null;
         if((stage = (Stage) Scenario.scenarioList.get( stage_name ))!=null){
@@ -123,15 +116,5 @@ public class Progress {
             CustomTimer.clearTimer();
         }
     }*/
-
-    public static Stage getLastStage(){
-        Stage lastStage = null;
-        if(progressList!=null){
-            for(Map.Entry<String,Stage> item : progressList.entrySet()){
-                lastStage = item.getValue();
-            }
-        }
-        return lastStage;
-    }
-
+    
 }
