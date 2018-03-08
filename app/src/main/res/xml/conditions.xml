@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<conditons>
+    <condition id="matches">
+            <item value="1"/>
+    </condition>
+    <conditon id="map"><item value="2"/></conditon>
+    <conditon id="flashlight"><item value="3"/></conditon>
+    <conditon id="signal_pistol"><item value="4"/></conditon>
+    <conditon id="knife"><item value="5"/></conditon>
+</conditons>
