@@ -88,8 +88,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             if (stage == null)
                 stage = new String( "start" );
-            Stage el = Progress.addToProgress(stage);
-            ArrayList<CustomEvents> arrayList = el.getArray();
+            ArrayList<CustomEvents> arrayList = Progress.addToProgress(stage);
             gameContinue(arrayList);
 
         }catch (NoSuchElementException e){
@@ -124,10 +123,10 @@ public class MainActivity extends AppCompatActivity {
     }
     //Обработка прогресса, отрисовка view. НАЧАЛО ИГРОВОГО ПРОЦЕССА, ЕСЛИ ИГРА ДО ЭТОГО БЫЛА ВЫКЛЮЧЕНА
     protected void gameStart(){
-        Stage currStage = null;
-        for(Map.Entry<String, Stage> item : Progress.progressList.entrySet()){
+        ArrayList<CustomEvents> currStage = null;
+        for(Map.Entry<String, ArrayList<CustomEvents>> item : Progress.progressList.entrySet()){
             currStage = item.getValue();
-            gameContinue( currStage.getArray() );
+            gameContinue( currStage );
         }
     }
 
@@ -174,9 +173,9 @@ public class MainActivity extends AppCompatActivity {
                         quest.setAdded(true);
                         PlayerAnwser playerAnwser = new PlayerAnwser();
                         playerAnwser.setText(  customButton.getText().toString() );
-                        Stage lastStage = Progress.progressList.getTail();
+                        ArrayList<CustomEvents> lastStage = Progress.progressList.getTail();
                         if(lastStage!=null){
-                            lastStage.addToArray( playerAnwser );
+                            lastStage.add( playerAnwser );
                             addToViewPort( playerAnwser );
                             questionView.removeAllViews();
                             scrollDown();

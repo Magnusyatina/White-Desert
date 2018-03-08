@@ -26,7 +26,7 @@ import java.util.NoSuchElementException;
 
 public class Progress {
 
-    public static CustomLinkedHashMap<String, Stage> progressList = null;
+    public static CustomLinkedHashMap<String, ArrayList<CustomEvents>> progressList = null;
     public static Person person = null;
 
 
@@ -40,7 +40,7 @@ public class Progress {
         if(file.exists())
         try {
             obj = new ObjectInputStream( new FileInputStream( file ) );
-            progressList = (CustomLinkedHashMap<String, Stage>) obj.readObject();
+            progressList = (CustomLinkedHashMap<String, ArrayList<CustomEvents>>) obj.readObject();
             person = (Person) obj.readObject();
             obj.close();
         } catch (FileNotFoundException e) {
@@ -76,31 +76,31 @@ public class Progress {
 
 
 
-    public static Stage addToProgress(String stage_name){
+    public static ArrayList<CustomEvents> addToProgress(String stage_name){
         if(progressList == null){
             progressList = new CustomLinkedHashMap<>();
         }
         Stage stage = null;
         ArrayList<CustomEvents> EventList = null;
+        ArrayList<CustomEvents> newEventList = null;
         if((stage = (Stage) Scenario.scenarioList.get( stage_name ))!=null){
             int i = 1;
             while(progressList.containsKey( stage_name ))
                 stage_name += i;
-            Stage newStage = new Stage(stage_name);
             try {
                 EventList = stage.getArray();
+                newEventList = new ArrayList<>( );
                 for(CustomEvents e : EventList){
                     CustomEvents currE = (CustomEvents) e.clone();
-                    newStage.addToArray( currE );
                     planningScheduleTime( currE );
+                    newEventList.add( currE );
                 }
-                progressList.put( stage_name, newStage );
+                progressList.put( stage_name, newEventList );
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
-
             CustomTimer.clearTimer();
-            return newStage;
+            return newEventList;
         }else throw new NoSuchElementException();
     }
 
