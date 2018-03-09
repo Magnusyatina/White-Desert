@@ -7,6 +7,9 @@ package com.example.serge.test1.Objects;
 public class Messages extends CustomEvents{
     private String text;
 
+    public Integer addItemId;
+    public Integer removeItemId;
+
     public void setText(String text){
         this.text = text;
     }
@@ -14,5 +17,7 @@ public class Messages extends CustomEvents{
     public String getText(){
         return text;
     }
+
+    
 
 }
