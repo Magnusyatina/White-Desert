@@ -12,5 +12,6 @@ public class Conditions {
     public static void parseXml(Context context){
         Resources res = context.getResources();
 
+
     }
 }
