@@ -1,6 +1,7 @@
 package com.example.serge.test1;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.drawable.shapes.Shape;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -8,14 +9,17 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -257,6 +261,21 @@ public class MainActivity extends AppCompatActivity {
         scrollDown();
         if(mediaPlayer!=null)
             mediaPlayer.start();
+    }
+
+    public void switchBag(View view){
+        LinearLayout inventory = (LinearLayout) findViewById( R.id.inventory );
+        if(inventory.getVisibility() == View.INVISIBLE){
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) inventory.getLayoutParams();
+            Display display = getWindowManager().getDefaultDisplay();
+            Point point = new Point();
+            display.getSize( point );
+            params.setMargins( (int)(point.x*0.1), (int)(point.y*0.2),0,0 );
+            params.height = (int) (point.y*0.2);
+            params.width = (int) (point.x*0.8);
+            inventory.setLayoutParams( params );
+            inventory.setVisibility( View.VISIBLE );
+        }else inventory.setVisibility( View.INVISIBLE );
     }
 
 

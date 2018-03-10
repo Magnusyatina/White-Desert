@@ -11,7 +11,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteY="8dp"
+        android:animateLayoutChanges="true">
         <ScrollView
             android:id="@+id/mainScrollView"
             android:layout_width="match_parent"
@@ -21,7 +22,8 @@
                 android:id="@+id/textArea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+                android:orientation="vertical"
+                />
         </ScrollView>
 
         <LinearLayout
@@ -51,9 +53,34 @@
                 android:id="@+id/button2"
                 android:layout_width="33dp"
                 android:layout_height="match_parent"
-                android:text="inventory"/>
+                android:text="inventory"
+                android:onClick="switchBag"/>
 
         </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/inventory"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        android:weightSum="2"
+        style="@style/InventoryTheme"
+
+        >
+
+        <TextView
+            android:id="@+id/TitleInventory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Inventory"
+            android:layout_gravity="left"
+            android:layout_marginLeft="15dp"/>
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+              android:background="#c2e0f1"
+            ></View>>
+    </LinearLayout>>
 
 </FrameLayout>
 
