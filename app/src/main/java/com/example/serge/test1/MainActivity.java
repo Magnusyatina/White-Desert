@@ -25,11 +25,13 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.serge.test1.Objects.AddItem;
 import com.example.serge.test1.Objects.CustomButton;
 import com.example.serge.test1.Objects.CustomEvents;
 import com.example.serge.test1.Objects.PlayerAnwser;
 import com.example.serge.test1.Objects.Question;
 import com.example.serge.test1.Objects.Questions;
+import com.example.serge.test1.Objects.RemoveItem;
 import com.example.serge.test1.Objects.Stage;
 import com.example.serge.test1.Objects.TextMessage;
 import com.example.serge.test1.Objects.Waiting;
@@ -122,6 +124,12 @@ public class MainActivity extends AppCompatActivity {
             }else if(e.getClass() == PlayerAnwser.class){
                 PlayerAnwser playerAnwser = (PlayerAnwser) e;
                 addToViewPort( playerAnwser );
+            }else if(e.getClass() == AddItem.class && !e.getAdded()){
+                AddItem item = (AddItem) e;
+                addItem( item, timer );
+            }else if(e.getClass() == RemoveItem.class && !e.getAdded()){
+                RemoveItem item = (RemoveItem) e;
+                removeItem( item, timer );
             }
 
         }
@@ -133,6 +141,41 @@ public class MainActivity extends AppCompatActivity {
         for(Map.Entry<String, ArrayList<CustomEvents>> item : Progress.progressList.entrySet()){
             currStage = item.getValue();
             gameContinue( currStage );
+        }
+    }
+
+    private void addItem(final AddItem addItem, long time){
+        final int itemId;
+        if((itemId = addItem.getItem())!=-1){
+            if(time>0){
+                handler.postDelayed( new Runnable() {
+                    @Override
+                    public void run() {
+                        Progress.person.setItem( itemId );
+                        addItem.setAdded( true );
+                    }
+                }, time );
+            }else {
+                Progress.person.setItem( itemId );
+                addItem.setAdded( true );
+            };
+        }
+    }
+    private void removeItem(final RemoveItem removeItem, long time){
+        final int itemId;
+        if((itemId = removeItem.getItem())!=-1){
+            if(time>0){
+                handler.postDelayed( new Runnable() {
+                    @Override
+                    public void run() {
+                        Progress.person.unsetItem( itemId );
+                        removeItem.setAdded( true );
+                    }
+                },time );
+            }else {
+                Progress.person.unsetItem( itemId );
+                removeItem.setAdded( true );
+                };
         }
     }
 

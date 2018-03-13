@@ -7,12 +7,14 @@ import android.util.Log;
 import android.webkit.ConsoleMessage;
 import android.widget.Toast;
 
+import com.example.serge.test1.Objects.AddItem;
 import com.example.serge.test1.Objects.CustomEvents;
 import com.example.serge.test1.Objects.ImportantMessage;
 import com.example.serge.test1.Objects.Messages;
 import com.example.serge.test1.Objects.Question;
 import com.example.serge.test1.Objects.Questions;
 import com.example.serge.test1.Objects.RandomEvent;
+import com.example.serge.test1.Objects.RemoveItem;
 import com.example.serge.test1.Objects.Stage;
 import com.example.serge.test1.Objects.TextMessage;
 import com.example.serge.test1.Objects.Waiting;
@@ -140,6 +142,15 @@ public class Scenario {
                         RandomEvent randomEvent = new RandomEvent();
                         randomEvent.setStage(parser.getAttributeValue(null, "stage"));
                         stage.addToArray( randomEvent );
+                    }
+                    else if(tagName.equals("add_item")){
+                        AddItem addItem = new AddItem();
+                        addItem.setItem(parser.getAttributeIntValue( null, "item", -1 ));
+                        stage.addToArray( addItem );
+                    }else if(tagName.equals("remove_item")){
+                        RemoveItem removeItem = new RemoveItem();
+                        removeItem.setItem(parser.getAttributeIntValue( null, "item", -1 ));
+                        stage.addToArray( removeItem );
                     }
 
                 }

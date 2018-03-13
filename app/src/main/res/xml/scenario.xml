@@ -64,8 +64,8 @@
         <waiting value="15000"/>
         <message text="Нет, абсолютно ничего, кроме моего разбитого самолета"/>
         <questions>
-            <case text="" target=""/>
-            <case text="" target=""/>
+            <case text="Попробуй найти что-нибудь полезное!" target="find_item1"/>
+            <case text="Тебе не холодно?" target="condition_about_cold"/>
         </questions>>
     </stage>>
     <stage id="condition">
@@ -73,6 +73,40 @@
         <message text="То мне очень холодно"/>
         <message text="Хорошо еще то, что после крушения я остался целым и невредимым"/>
         <message text="Иначе так бы и помер..."/>
+        <questions>
+            <case text="Попробуй разжечь костер!" need_item="1" target="kindling_a_fire_next_to_the_plane"/>
+            <case text="Найди укрытие!" target="shelter_search"/>
+            <case text="Обыщи округу, может сможешь найти полезные предметы" target="find_item1"/>
+        </questions>
     </stage>>
+    <stage id="condition_about_cold">
+        <message text="Очень"/>
+        <message text="Я точно не уверен, но по ощущения около -30"/>
+        <message text="Надо поскорее согреться"/>
+        <message text="Иначе превращусь в ледышку!"/>
+        <questions>
+            <case text="Попробуй разжечь костер!" need_item="1" target="kindling_a_fire_next_to_the_plane"/>
+            <case text="Попробуй найти укрытие и отдохнуть" target="shelter_search"/>
+            <case text="Обыщи округу" target="find_item1"/>
+        </questions>
+    </stage>>
+    <stage id="find_item1">
+        <message text="Да, так и поступлю"/>
+        <message text="Надеюсь мне повезет и я смогу найти коробку со спичками"/>
+        <message text="Пожелай мне удачи!"/>
+        <message text="Через пару минут отпишусь"/>
+        <waiting value="120000"/>
+        <message text="Отлично, я нашел спички! Будет теперь с помощью чего я смогу разжечь костер"/>
+        <add_item item="1"/>
+        <questions>
+            <case text="Попробуй разжечь костер!" target="kindling_a_fire_next_to_the_plane"/>
+        </questions>
+    </stage>
+    <stage id="shelter_search">
+        <message text="Да, хорошая идея"/>
+        <message text="Как раз наберусь сил перед тем, как уйти отсюда"/>
+        <die/>
+    </stage>>
+
 
 </scenario>
