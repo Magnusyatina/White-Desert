@@ -49,12 +49,15 @@
 
             </ScrollView>
 
-            <Button
+            <ImageButton
                 android:id="@+id/button2"
-                android:layout_width="33dp"
-                android:layout_height="match_parent"
-                android:text="inventory"
-                android:onClick="switchBag"/>
+                android:background="@null"
+                android:src="@drawable/bag"
+                android:onClick="switchBag"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                />
 
         </LinearLayout>
 
@@ -64,7 +67,7 @@
         android:layout_height="300dp"
         android:orientation="vertical"
         android:visibility="invisible"
-        android:weightSum="2"
+        android:weightSum="4"
         style="@style/InventoryTheme"
 
         >
@@ -80,6 +83,14 @@
             android:layout_height="1dp"
               android:background="#c2e0f1"
             ></View>>
+        <LinearLayout
+            android:id="@+id/ContainsItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            ></LinearLayout>>
     </LinearLayout>>
 
 </FrameLayout>

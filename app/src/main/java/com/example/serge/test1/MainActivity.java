@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout mainLayout;
     LinearLayout questionView;
     ScrollView mainScrollView;
+    LinearLayout inventory;
     String stage;
     private Handler handler = new Handler( Looper.getMainLooper() );
     private MediaPlayer mediaPlayer = null;
@@ -264,18 +266,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void switchBag(View view){
-        LinearLayout inventory = (LinearLayout) findViewById( R.id.inventory );
+
+        LinearLayout container = (LinearLayout) findViewById( R.id.ContainsItem );
+        if(inventory == null)
+            createInventory();
         if(inventory.getVisibility() == View.INVISIBLE){
-            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) inventory.getLayoutParams();
-            Display display = getWindowManager().getDefaultDisplay();
-            Point point = new Point();
-            display.getSize( point );
-            params.setMargins( (int)(point.x*0.1), (int)(point.y*0.2),0,0 );
-            params.height = (int) (point.y*0.2);
-            params.width = (int) (point.x*0.8);
-            inventory.setLayoutParams( params );
             inventory.setVisibility( View.VISIBLE );
-        }else inventory.setVisibility( View.INVISIBLE );
+            container = (LinearLayout) findViewById( R.id.ContainsItem );
+            if(Progress.person.checkItem( 1 )){
+                ImageView imgeView = new ImageView(this);
+                imgeView.setBackgroundResource( R.drawable.matches2 );
+                imgeView.setLayoutParams( Settings.item );
+                container.addView( imgeView );
+
+            }
+            if(Progress.person.checkItem( 2 )){
+                ImageView imgeView = new ImageView(this);
+                imgeView.setBackgroundResource( R.drawable.map2 );
+                imgeView.setLayoutParams( Settings.item );
+                container.addView( imgeView );
+            }
+            if(Progress.person.checkItem( 3 )){
+                ImageView imgeView = new ImageView(this);
+                imgeView.setBackgroundResource( R.drawable.flashlight2 );
+                imgeView.setLayoutParams( Settings.item );
+                container.addView( imgeView );
+            }
+
+
+        }else {
+            inventory.setVisibility( View.INVISIBLE );
+            container.removeAllViews();
+        };
+    }
+
+    private void createInventory(){
+        inventory = (LinearLayout) findViewById( R.id.inventory );
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) inventory.getLayoutParams();
+        Display display = getWindowManager().getDefaultDisplay();
+        Point point = new Point();
+        display.getSize( point );
+        params.setMargins( (int)(point.x*0.1), (int)(point.y*0.2),0,0 );
+        params.height = (int) (point.y*0.2);
+        params.width = (int) (point.x*0.8);
+        inventory.setLayoutParams( params );
     }
 
 

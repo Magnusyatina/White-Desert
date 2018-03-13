@@ -8,8 +8,8 @@ import java.io.Serializable;
 
 public class Person implements Serializable {
     private boolean matches = true;
-    private boolean map = false;
-    private boolean flashlight = false;
+    private boolean map = true;
+    private boolean flashlight = true;
     private boolean signal_pistol = false;
 
     public boolean checkItem(int i){
