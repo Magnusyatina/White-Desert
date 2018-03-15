@@ -7,16 +7,21 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@drawable/cold_1mdpi"
         tools:context="com.example.serge.test1.MainActivity"
-
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp"
         android:animateLayoutChanges="true">
+    <LinearLayout android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        >
         <ScrollView
             android:id="@+id/mainScrollView"
             android:layout_width="match_parent"
-            android:layout_height="400dp">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
 
             <LinearLayout
                 android:id="@+id/textArea"
@@ -27,11 +32,13 @@
         </ScrollView>
 
         <LinearLayout
-            android:layout_marginTop="400dp"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:weightSum="1">
+            android:layout_weight="3"
+            android:weightSum="1"
+            android:background="@drawable/panel">
 
 
 
@@ -60,6 +67,7 @@
                 />
 
         </LinearLayout>
+    </LinearLayout>>
 
     <LinearLayout
         android:id="@+id/inventory"
