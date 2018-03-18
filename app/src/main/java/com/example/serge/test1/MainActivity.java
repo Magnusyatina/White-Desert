@@ -214,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
             int itemId = q.getNeedItem();
             if(itemId == -1 || Progress.person.checkItem( itemId )){
                 final CustomButton customButton = new CustomButton(this, q.getGoTo());
+                customButton.setLayoutParams( Settings.questionViewParams );
                 customButton.setText( q.getText() );
                 customButton.setOnClickListener( new View.OnClickListener() {
                     @Override

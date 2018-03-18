@@ -1,12 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+
 
     <style name="DownUpActivity" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/activity_down_up_enter</item>
@@ -15,10 +10,10 @@
         <item name="android:activityCloseEnterAnimation">@anim/activity_down_up_close_enter</item>
     </style>
 
-    <style name="InventoryTheme" parent="Theme.AppCompat.DayNight.Dialog">
-        <item name="android:background">@drawable/inventorybackground</item>>
-        <item name="android:color">@color/colorPrimaryDark</item>>
 
+
+    <style name="CustonButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/custombutton</item>>
     </style>>
 
 

@@ -12,6 +12,7 @@ public class CustomButton extends android.support.v7.widget.AppCompatButton {
 
     public CustomButton(Context context, String goTo) {
         super( context );
+
         this.goTo = goTo;
     }
 
