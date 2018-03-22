@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.serge.test1.Objects.AddItem;
 import com.example.serge.test1.Objects.CustomEvents;
+import com.example.serge.test1.Objects.Die;
 import com.example.serge.test1.Objects.ImportantMessage;
 import com.example.serge.test1.Objects.Messages;
 import com.example.serge.test1.Objects.Question;
@@ -151,6 +152,9 @@ public class Scenario {
                         RemoveItem removeItem = new RemoveItem();
                         removeItem.setItem(parser.getAttributeIntValue( null, "item", -1 ));
                         stage.addToArray( removeItem );
+                    }else if(tagName.equals("die")){
+                        Die die = new Die();
+                        stage.addToArray( die );
                     }
 
                 }

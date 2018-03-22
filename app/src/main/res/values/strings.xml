@@ -22,4 +22,5 @@
     <string-array  name="stage03">
         <item>Я очень устал...</item>
     </string-array>
+    <string name="die">Джозеф умер</string>>
 </resources>

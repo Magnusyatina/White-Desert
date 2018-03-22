@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.example.serge.test1.Objects.AddItem;
 import com.example.serge.test1.Objects.CustomButton;
 import com.example.serge.test1.Objects.CustomEvents;
+import com.example.serge.test1.Objects.Die;
 import com.example.serge.test1.Objects.PlayerAnwser;
 import com.example.serge.test1.Objects.Question;
 import com.example.serge.test1.Objects.Questions;
@@ -130,6 +131,10 @@ public class MainActivity extends AppCompatActivity {
             }else if(e.getClass() == RemoveItem.class && !e.getAdded()){
                 RemoveItem item = (RemoveItem) e;
                 removeItem( item, timer );
+            }else if(e.getClass() == Die.class){
+                Die die = (Die) e;
+                addToViewPort( die, timer );
+                break;
             }
 
         }
@@ -278,6 +283,27 @@ public class MainActivity extends AppCompatActivity {
         textView.setGravity( Gravity.RIGHT );
         mainLayout.addView( textView );
         playerAnwser.setAdded(true);
+    }
+
+    public void addToViewPort(final Die die, long time){
+        final TextView textView = new TextView(this);
+        textView.setLayoutParams( Settings.WaitingViewParams );
+        textView.setPadding( 30,10,20,17 );
+        textView.setText(R.string.die);
+        textView.setGravity(Gravity.CENTER_HORIZONTAL);
+        if(time > 0){
+            handler.postDelayed( new Runnable() {
+                @Override
+                public void run() {
+                    mainLayout.addView( textView );
+                    die.setAdded( true );
+                    scrollDown();
+                }
+            }, time );
+        }else {
+            mainLayout.addView( textView );
+            die.setAdded( true );
+        }
     }
 
     public void scrollDown(){
