@@ -18,10 +18,12 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -42,6 +44,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private Handler handler = new Handler( Looper.getMainLooper() );
     private MediaPlayer mediaPlayer = null;
     private long scheduletime = 0;
+    private ListView mDrawerListView;
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -65,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
         setVolumeControlStream( AudioManager.STREAM_MUSIC);
         setContentView(R.layout.activity_main);
+        mDrawerListView = (ListView) findViewById(R.id.left_drawer);
+        mDrawerListView.setAdapter( new ArrayAdapter<String>(this, R.layout.drawer_list_item, getResources().getStringArray(R.array.menu_items) ) );
         setMusic();
         mainScrollView = (ScrollView) findViewById(R.id.mainScrollView);
         mainLayout = (LinearLayout) findViewById(R.id.textArea);

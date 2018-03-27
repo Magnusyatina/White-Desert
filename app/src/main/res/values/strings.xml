@@ -23,4 +23,9 @@
         <item>Я очень устал...</item>
     </string-array>
     <string name="die">Джозеф умер</string>>
+    <string-array name="menu_items">
+        <item>Новая игра</item>
+        <item>Настройки</item>
+        <item>Справка</item>
+    </string-array>>
 </resources>
