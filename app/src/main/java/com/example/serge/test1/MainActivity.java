@@ -65,21 +65,35 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        //Установка полноэкранного режима
         getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN );
+
+        //Настройка звука
         setVolumeControlStream( AudioManager.STREAM_MUSIC);
+
+
         setContentView(R.layout.activity_main);
-        mDrawerListView = (ListView) findViewById(R.id.left_drawer);
-        mDrawerListView.setAdapter( new ArrayAdapter<String>(this, R.layout.drawer_list_item, getResources().getStringArray(R.array.menu_items) ) );
+
+
+        //Установка звукового сопровождения
         setMusic();
         mainScrollView = (ScrollView) findViewById(R.id.mainScrollView);
         mainLayout = (LinearLayout) findViewById(R.id.textArea);
         questionView = (LinearLayout) findViewById(R.id.questionsLayout);
         try {
+
+            //Вызов функции загрузки сценария из файла
             Scenario.loadSceanrio( this );
+
+            //Вызов функции загрузки прогресса
             Progress.loadProgress(this);
             if(Progress.progressList.size()!=0)
+                //Если коллекция прогресса не пуста, вызывается функция обработки прогресса
                 gameStart();
+            //Иначе вызывается функция получения текущей стадии
             else getCurrentEpisode();
         }catch (XmlPullParserException | IOException e){
             e.printStackTrace();
@@ -88,8 +102,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void setMusic(){
+        //Создание плеера
         mediaPlayer = MediaPlayer.create(this, R.raw.soundtrack);
+
+        //Установка параметра громкости звучания
         mediaPlayer.setVolume( 0.05f, 0.05f );
+
+        //Установка зацикливания звуковой дорожки
         mediaPlayer.setLooping(true);
     }
 
@@ -102,8 +121,12 @@ public class MainActivity extends AppCompatActivity {
     protected void getCurrentEpisode(){
         try {
             if (stage == null)
+                //Если переменная стадии null, присвается идентификатор начала сценария
                 stage = new String( "start" );
+
+            //Вызов функции добавления в прогресс событий, относящихся к определенной стадии и возврат этих событий
             ArrayList<CustomEvents> arrayList = Progress.addToProgress(stage);
+            //Вызов функции обработки событий
             gameContinue(arrayList);
 
         }catch (NoSuchElementException e){
@@ -155,6 +178,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    //Добавление предмета в инвентарь
     private void addItem(final AddItem addItem, long time){
         final int itemId;
         if((itemId = addItem.getItem())!=-1){
@@ -172,6 +197,8 @@ public class MainActivity extends AppCompatActivity {
             };
         }
     }
+
+    //Удаление предмета из инвентаря
     private void removeItem(final RemoveItem removeItem, long time){
         final int itemId;
         if((itemId = removeItem.getItem())!=-1){
@@ -191,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    //Вывод сообщения от персонажа на экран
     public void addToViewPort(TextMessage textMessage, long time){
         final TextMessage message = textMessage;
         final TextView textView = new TextView( this);
@@ -217,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    //Вывод вопросов на экран
     public void addToViewPort(Questions questions, long time){
         final Questions quest = questions;
         ArrayList<Question> questionArray = quest.getList();

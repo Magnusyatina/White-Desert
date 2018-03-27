@@ -25,7 +25,15 @@
     <string name="die">Джозеф умер</string>>
     <string-array name="menu_items">
         <item>Новая игра</item>
-        <item>Настройки</item>
+        <item>Настройки<item>Hell</item>>></item>
+
         <item>Справка</item>
     </string-array>>
+    <string name="new_game">Новая игра</string>
+    <string name="settings">Настройки</string>
+    <string name="info">Справка</string>
+    <string name="music_on">Вкл.</string>
+    <string name="music_off">Выкл.</string>
+    <string name="fast_game">Быстрая игра</string>
+    <string name="normal_game">Медленная игра</string>
 </resources>
