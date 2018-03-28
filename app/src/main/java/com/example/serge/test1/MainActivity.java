@@ -1,8 +1,8 @@
 package com.example.serge.test1;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.shapes.Shape;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -11,7 +11,6 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,14 +18,10 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +34,6 @@ import com.example.serge.test1.Objects.PlayerAnwser;
 import com.example.serge.test1.Objects.Question;
 import com.example.serge.test1.Objects.Questions;
 import com.example.serge.test1.Objects.RemoveItem;
-import com.example.serge.test1.Objects.Stage;
 import com.example.serge.test1.Objects.TextMessage;
 import com.example.serge.test1.Objects.Waiting;
 
@@ -47,8 +41,6 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -230,11 +222,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void addToViewPort(TextMessage textMessage, long time){
         final TextMessage message = textMessage;
         final TextView textView = new TextView( this);
-       // int id = getResources().getIdentifier( "dialogmesgdpi", "drawable", getPackageName() );
-        textView.setBackgroundResource( R.drawable.dialogbg );
+        textView.setBackgroundResource( R.drawable.person_answer_background );
         textView.setPadding( 30,10,20,17 );
-        textView.setTextColor( Color.WHITE );
-        textView.setLayoutParams(Settings.textMessageViewParams);
+        textView.setTextSize((float)(getResources().getDimensionPixelSize( R.dimen.custom_text_size )));
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT );
+        int pxSize = getResources().getDimensionPixelSize( R.dimen.custom_margin_top );
+        layoutParams.setMargins( pxSize, pxSize,pxSize,pxSize );
+        textView.setLayoutParams( layoutParams);
+
         textView.setText(textMessage.getText());
         if(time>=0)
             handler.postDelayed( new Runnable() {
@@ -249,6 +244,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mainLayout.addView(textView);
             message.setAdded(true);
         }
+    }
+
+
+    public void addToViewPort(PlayerAnwser playerAnwser){
+        TextView textView = new TextView( this );
+
+        textView.setBackgroundResource( R.drawable.player_answer_background );
+
+        getResources().getDimensionPixelSize( R.dimen.custom_margin_top );
+        textView.setPadding( 30,10,20,17 );
+        textView.setTextSize((float)(getResources().getDimensionPixelSize( R.dimen.custom_text_size )));;
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT );
+        int pxSize = getResources().getDimensionPixelSize( R.dimen.custom_margin_top );
+        layoutParams.setMargins( pxSize, pxSize,pxSize,pxSize );
+        layoutParams.gravity = Gravity.RIGHT;
+        textView.setLayoutParams( layoutParams);
+
+        textView.setText( playerAnwser.getText() );
+        //textView.setGravity( Gravity.RIGHT );
+        mainLayout.addView( textView );
+        playerAnwser.setAdded(true);
     }
 
 
@@ -315,16 +331,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         };
     }
 
-    public void addToViewPort(PlayerAnwser playerAnwser){
-        TextView textView = new TextView( this );
-        textView.setBackgroundResource( R.drawable.dialoganwserbg );
-        textView.setLayoutParams( Settings.textAnwserViewParams );
-        textView.setPadding( 30,10,20,17 );
-        textView.setText( playerAnwser.getText() );
-        textView.setGravity( Gravity.RIGHT );
-        mainLayout.addView( textView );
-        playerAnwser.setAdded(true);
-    }
+
 
     public void addToViewPort(final Die die, long time){
         final TextView textView = new TextView(this);
