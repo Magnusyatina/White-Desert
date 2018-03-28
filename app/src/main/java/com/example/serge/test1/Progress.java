@@ -112,6 +112,12 @@ public class Progress {
         }
     }
 
+    public static void dump_of_progress(){
+        person = new Person();
+        progressList.clear();
+        progressList = new CustomLinkedHashMap<>();
+    }
+
     /*public static void planningScheduleTime(){
         if(list!=null&&list.size()!=0){
             for(CustomEvents e : list){

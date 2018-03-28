@@ -8,13 +8,16 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -26,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.serge.test1.Objects.AddItem;
 import com.example.serge.test1.Objects.CustomButton;
@@ -49,7 +53,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     LinearLayout mainLayout;
     LinearLayout questionView;
@@ -57,9 +61,10 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout inventory;
     String stage;
     private Handler handler = new Handler( Looper.getMainLooper() );
+    private NavigationView navView;
     private MediaPlayer mediaPlayer = null;
     private long scheduletime = 0;
-    private ListView mDrawerListView;
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -76,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_main);
+
+        navView = (NavigationView) findViewById(R.id.nav_view);
+        navView.setNavigationItemSelectedListener( this );
 
 
         //Установка звукового сопровождения
@@ -417,16 +425,28 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public String getStage(){
-        return stage;
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch(id){
+            case R.id.new_game: Toast.makeText( this, "Новая игра", Toast.LENGTH_SHORT ).show(); start_new_game(); break;
+            case R.id.about: Toast.makeText( this, "Справка", Toast.LENGTH_SHORT ).show(); break;
+            default: break;
+        }
+        return true;
     }
+
+    public void start_new_game(){
+        Progress.dump_of_progress();
+        stage = null;
+        mainLayout.removeAllViews();
+        questionView.removeAllViews();
+        getCurrentEpisode();
+    }
+
+
     public void setStage(String stage){
         this.stage = stage;
-    }
-    public ScrollView getMainScrollView(){
-        return  mainScrollView;
-    }
-    public LinearLayout getMainLayout(){
-        return mainLayout;
     }
 }
