@@ -1,7 +1,6 @@
 package com.example.serge.test1;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -11,8 +10,10 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navView = (NavigationView) findViewById(R.id.nav_view);
         navView.setNavigationItemSelectedListener( this );
+        SwitchCompat switchCompat = (SwitchCompat) navView.getMenu().getItem( 3 ).getActionView();
 
 
         //Установка звукового сопровождения
@@ -89,8 +91,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Scenario.loadSceanrio( this );
 
             //Вызов функции загрузки прогресса
-            Progress.loadProgress(this);
-            if(Progress.progressList.size()!=0)
+            WWProgress.loadProgress(this);
+            if(WWProgress.progressList.size()!=0)
                 //Если коллекция прогресса не пуста, вызывается функция обработки прогресса
                 gameStart();
             //Иначе вызывается функция получения текущей стадии
@@ -125,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 stage = new String( "start" );
 
             //Вызов функции добавления в прогресс событий, относящихся к определенной стадии и возврат этих событий
-            ArrayList<CustomEvents> arrayList = Progress.addToProgress(stage);
+            ArrayList<CustomEvents> arrayList = WWProgress.addToProgress(stage);
             //Вызов функции обработки событий
             gameContinue(arrayList);
 
@@ -172,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //Обработка прогресса, отрисовка view. НАЧАЛО ИГРОВОГО ПРОЦЕССА, ЕСЛИ ИГРА ДО ЭТОГО БЫЛА ВЫКЛЮЧЕНА
     protected void gameStart(){
         ArrayList<CustomEvents> currStage = null;
-        for(Map.Entry<String, ArrayList<CustomEvents>> item : Progress.progressList.entrySet()){
+        for(Map.Entry<String, ArrayList<CustomEvents>> item : WWProgress.progressList.entrySet()){
             currStage = item.getValue();
             gameContinue( currStage );
         }
@@ -187,12 +189,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 handler.postDelayed( new Runnable() {
                     @Override
                     public void run() {
-                        Progress.person.setItem( itemId );
+                        WWProgress.person.setItem( itemId );
                         addItem.setAdded( true );
                     }
                 }, time );
             }else {
-                Progress.person.setItem( itemId );
+                WWProgress.person.setItem( itemId );
                 addItem.setAdded( true );
             };
         }
@@ -206,12 +208,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 handler.postDelayed( new Runnable() {
                     @Override
                     public void run() {
-                        Progress.person.unsetItem( itemId );
+                        WWProgress.person.unsetItem( itemId );
                         removeItem.setAdded( true );
                     }
                 },time );
             }else {
-                Progress.person.unsetItem( itemId );
+                WWProgress.person.unsetItem( itemId );
                 removeItem.setAdded( true );
                 };
         }
@@ -262,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         textView.setLayoutParams( layoutParams);
 
         textView.setText( playerAnwser.getText() );
-        //textView.setGravity( Gravity.RIGHT );
+
         mainLayout.addView( textView );
         playerAnwser.setAdded(true);
     }
@@ -274,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ArrayList<Question> questionArray = quest.getList();
         for(Question q : questionArray){
             int itemId = q.getNeedItem();
-            if(itemId == -1 || Progress.person.checkItem( itemId )){
+            if(itemId == -1 || WWProgress.person.checkItem( itemId )){
                 final CustomButton customButton = new CustomButton(this, q.getGoTo());
                 customButton.setLayoutParams( Settings.questionViewParams );
                 customButton.setText( q.getText() );
@@ -285,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         quest.setAdded(true);
                         PlayerAnwser playerAnwser = new PlayerAnwser();
                         playerAnwser.setText(  customButton.getText().toString() );
-                        ArrayList<CustomEvents> lastStage = Progress.progressList.getTail();
+                        ArrayList<CustomEvents> lastStage = WWProgress.progressList.getTail();
                         if(lastStage!=null){
                             lastStage.add( playerAnwser );
                             addToViewPort( playerAnwser );
@@ -368,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(mediaPlayer!=null)
             mediaPlayer.pause();
         Log.i("MyLogInfo", " Pause");
-        Progress.saveProgress(this);
+        WWProgress.saveProgress(this);
         startService( new Intent(this, MyServiceForGameProcess.class).putExtra( "SCHEDULE_TIME", scheduletime ) );
     }
     public void onDestroy(){
@@ -391,20 +393,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(inventory.getVisibility() == View.INVISIBLE){
             inventory.setVisibility( View.VISIBLE );
             container = (LinearLayout) findViewById( R.id.ContainsItem );
-            if(Progress.person.checkItem( 1 )){
+            if(WWProgress.person.checkItem( 1 )){
                 ImageView imgeView = new ImageView(this);
                 imgeView.setBackgroundResource( R.drawable.matches2 );
                 imgeView.setLayoutParams( Settings.item );
                 container.addView( imgeView );
 
             }
-            if(Progress.person.checkItem( 2 )){
+            if(WWProgress.person.checkItem( 2 )){
                 ImageView imgeView = new ImageView(this);
                 imgeView.setBackgroundResource( R.drawable.map2 );
                 imgeView.setLayoutParams( Settings.item );
                 container.addView( imgeView );
             }
-            if(Progress.person.checkItem( 3 )){
+            if(WWProgress.person.checkItem( 3 )){
                 ImageView imgeView = new ImageView(this);
                 imgeView.setBackgroundResource( R.drawable.flashlight2 );
                 imgeView.setLayoutParams( Settings.item );
@@ -439,17 +441,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch(id){
             case R.id.new_game: Toast.makeText( this, "Новая игра", Toast.LENGTH_SHORT ).show(); start_new_game(); break;
             case R.id.about: Toast.makeText( this, "Справка", Toast.LENGTH_SHORT ).show(); break;
+            case R.id.game_condition_switch: Toast.makeText( this, "1 свитч", Toast.LENGTH_SHORT ).show(); break;
+            case R.id.music_switch: Toast.makeText( this, "2 свитч", Toast.LENGTH_SHORT ).show(); break;
             default: break;
         }
         return true;
     }
 
     public void start_new_game(){
-        Progress.dump_of_progress();
-        stage = null;
-        mainLayout.removeAllViews();
-        questionView.removeAllViews();
-        getCurrentEpisode();
+        AlertDialog.Builder ad = new AlertDialog.Builder( this );
+
+        ad.setMessage( R.string.question_about_the_new_game )
+                .setCancelable( false )
+                .setPositiveButton( R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        WWProgress.dump_of_progress();
+                        stage = null;
+                        mainLayout.removeAllViews();
+                        questionView.removeAllViews();
+                        getCurrentEpisode();
+                        dialog.cancel();
+                    }
+                } )
+                .setNegativeButton( R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                } );
+        ad.show();
+
     }
 
 

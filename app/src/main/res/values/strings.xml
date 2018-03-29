@@ -32,9 +32,10 @@
     <string name="new_game">Новая игра</string>
     <string name="settings">Настройки</string>
     <string name="info">Справка</string>
-    <string name="music_on">Вкл.</string>
-    <string name="music_off">Выкл.</string>
-    <string name="fast_game">Быстрая игра</string>
-    <string name="normal_game">Медленная игра</string>
+    <string name="music_condition">Музыка (Вкл/Выкл)</string>
+    <string name="game_condidion">Быстрая игра (Вкл/Выкл)</string>
+    <string name="question_about_the_new_game">Вы хотите начать новую игру?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 
 </resources>

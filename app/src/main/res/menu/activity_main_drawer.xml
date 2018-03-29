@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:checkableBehavior="single">
         <item android:title="@string/new_game" android:id="@+id/new_game"></item>>
-        <item android:title="@string/settings"
-            >
-            <menu>
-                    <item
-                        android:id="@+id/music_settings"
-                        android:title="Share" >
-                    </item>>
-                    <item
-                        android:id="@+id/game_settings"
-                        android:title="Send" >
-                    </item>>
 
-            </menu>
-        </item>
+        <item
+                    android:id="@+id/music_switch"
+                    android:title="@string/music_condition"
+                    app:actionLayout="@layout/music_switch_panel"
+                    app:showAsAction="always"
+                    />
+        <item
+                    android:id="@+id/game_condition_switch"
+                    android:title="@string/game_condidion"
+                    app:actionLayout="@layout/game_condition_switch_panel"
+                    app:showAsAction="always"></item>
+
         <item android:title="@string/info" android:id="@+id/about"></item>>
     </group>
-    </menu>
+</menu>
