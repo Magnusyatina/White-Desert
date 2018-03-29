@@ -281,8 +281,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 customButton.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setStage(customButton.getGoTo());
                         quest.setAdded(true);
+                        setStage(customButton.getGoTo());
+                        
                         PlayerAnwser playerAnwser = new PlayerAnwser();
                         playerAnwser.setText(  customButton.getText().toString() );
                         ArrayList<CustomEvents> lastStage = WWProgress.getProgressList();

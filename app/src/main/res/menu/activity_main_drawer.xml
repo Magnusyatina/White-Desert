@@ -2,7 +2,7 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
-    <group android:checkableBehavior="single">
+
         <item android:title="@string/new_game" android:id="@+id/new_game"></item>>
 
         <item
@@ -18,5 +18,5 @@
                     app:showAsAction="always"></item>
 
         <item android:title="@string/info" android:id="@+id/about"></item>>
-    </group>
+
 </menu>
