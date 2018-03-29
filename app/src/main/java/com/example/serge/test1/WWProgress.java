@@ -28,6 +28,7 @@ public class WWProgress {
 
     public static CustomLinkedHashMap<String, ArrayList<CustomEvents>> progressList = null;
     public static Person person = null;
+    private static Progress progress = null;
 
 
     public static String hell= "hell";
@@ -40,31 +41,38 @@ public class WWProgress {
         if(file.exists())
         try {
             obj = new ObjectInputStream( new FileInputStream( file ) );
-            progressList = (CustomLinkedHashMap<String, ArrayList<CustomEvents>>) obj.readObject();
-            person = (Person) obj.readObject();
+            progress = (Progress) obj.readObject();
+          /*  progressList = (CustomLinkedHashMap<String, ArrayList<CustomEvents>>) obj.readObject();
+            person = (Person) obj.readObject();*/
             obj.close();
         } catch (FileNotFoundException e) {
 
         } catch (ClassNotFoundException e) {
             obj.close();
         }
-        if(progressList== null)
+        if(progress == null)
+            progress = new Progress();
+        /*if(progressList== null)
             progressList = new CustomLinkedHashMap<>();
         if(person == null)
-            person = new Person();
-
-
+            person = new Person();*/
     }
     public static void saveProgress(Context context){
 
         try {
-            if(progressList!=null){
+            if(progress!=null){
+                FileOutputStream fout = context.openFileOutput( "save.dat", Context.MODE_PRIVATE );
+                ObjectOutputStream objout = new ObjectOutputStream( fout );
+                objout.writeObject(progress);
+                objout.close();
+
+            /*if(progressList!=null){
                 FileOutputStream fout = context.openFileOutput("save.dat", Context.MODE_PRIVATE);
                 ObjectOutputStream out = new ObjectOutputStream( fout);
                 out.writeObject( progressList );
                 if(person!=null)
                     out.writeObject( person );
-                out.close();
+                out.close();*/
             }
 
         } catch (FileNotFoundException e) {
@@ -77,16 +85,16 @@ public class WWProgress {
 
 
     public static ArrayList<CustomEvents> addToProgress(String stage_name){
-        if(progressList == null){
+       /* if(progressList == null){
             progressList = new CustomLinkedHashMap<>();
-        }
+        }*/
         Stage stage = null;
         ArrayList<CustomEvents> EventList = null;
         ArrayList<CustomEvents> newEventList = null;
         if((stage = (Stage) Scenario.scenarioList.get( stage_name ))!=null){
-            int i = 1;
+            /*int i = 1;
             while(progressList.containsKey( stage_name ))
-                stage_name += i;
+                stage_name += i;*/
             try {
                 EventList = stage.getArray();
                 newEventList = new ArrayList<>( );
@@ -95,7 +103,8 @@ public class WWProgress {
                     planningScheduleTime( currE );
                     newEventList.add( currE );
                 }
-                progressList.put( stage_name, newEventList );
+               // progressList.put( stage_name, newEventList );
+                progress.getProgressList().addAll( newEventList );
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
@@ -112,10 +121,31 @@ public class WWProgress {
         }
     }
 
+    public static ArrayList<CustomEvents> getProgressList(){
+        return progress.getProgressList();
+    }
+
+    public static Person getPerson(){
+        return progress.getPerson();
+    }
+
     public static void dump_of_progress(){
-        person = new Person();
+        /*person = new Person();
         progressList.clear();
-        progressList = new CustomLinkedHashMap<>();
+        progressList = new CustomLinkedHashMap<>();*/
+        progress = new Progress();
+    }
+
+    public static void setItem(int itemId){
+         progress.getPerson().setItem( itemId );
+    }
+
+    public static void unsetItem(int itemId){
+        progress.getPerson().unsetItem( itemId );
+    }
+
+    public static boolean checkItem(int itemId){
+        return progress.getPerson().checkItem( itemId );
     }
 
     /*public static void planningScheduleTime(){

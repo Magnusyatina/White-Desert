@@ -14,25 +14,18 @@ public class Progress implements Serializable {
     private ArrayList<CustomEvents> progressList = new ArrayList<>();
     private ArrayList<String> stageList = new ArrayList<>();
     private Person person = new Person();
-    private String currenStage;
 
-    public ArrayList<CustomEvents> getProgressList(){
-        return  progressList;
+
+    public ArrayList<CustomEvents> getProgressList() {
+        return progressList;
     }
 
-    public ArrayList<String> getStageList(){
+    public ArrayList<String> getStageList() {
         return stageList;
     }
 
-    public Person getPerson(){
+    public Person getPerson() {
         return person;
     }
 
-    public String getCurrenStage(){
-        return currenStage;
-    }
-
-    public void setCurrenStage(String currenStage){
-        this.currenStage = currenStage;
-    }
 }

@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             //Вызов функции загрузки прогресса
             WWProgress.loadProgress(this);
-            if(WWProgress.progressList.size()!=0)
+            if(WWProgress.getProgressList().size()!=0)
                 //Если коллекция прогресса не пуста, вызывается функция обработки прогресса
                 gameStart();
             //Иначе вызывается функция получения текущей стадии
@@ -173,11 +173,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     //Обработка прогресса, отрисовка view. НАЧАЛО ИГРОВОГО ПРОЦЕССА, ЕСЛИ ИГРА ДО ЭТОГО БЫЛА ВЫКЛЮЧЕНА
     protected void gameStart(){
-        ArrayList<CustomEvents> currStage = null;
-        for(Map.Entry<String, ArrayList<CustomEvents>> item : WWProgress.progressList.entrySet()){
-            currStage = item.getValue();
-            gameContinue( currStage );
-        }
+        ArrayList<CustomEvents> currStage = WWProgress.getProgressList();
+        gameContinue( currStage );
+
     }
 
 
@@ -189,12 +187,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 handler.postDelayed( new Runnable() {
                     @Override
                     public void run() {
-                        WWProgress.person.setItem( itemId );
+                        WWProgress.setItem( itemId );
                         addItem.setAdded( true );
                     }
                 }, time );
             }else {
-                WWProgress.person.setItem( itemId );
+                WWProgress.setItem( itemId );
                 addItem.setAdded( true );
             };
         }
@@ -208,12 +206,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 handler.postDelayed( new Runnable() {
                     @Override
                     public void run() {
-                        WWProgress.person.unsetItem( itemId );
+                        WWProgress.unsetItem( itemId );
                         removeItem.setAdded( true );
                     }
                 },time );
             }else {
-                WWProgress.person.unsetItem( itemId );
+                WWProgress.unsetItem( itemId );
                 removeItem.setAdded( true );
                 };
         }
@@ -276,7 +274,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ArrayList<Question> questionArray = quest.getList();
         for(Question q : questionArray){
             int itemId = q.getNeedItem();
-            if(itemId == -1 || WWProgress.person.checkItem( itemId )){
+            if(itemId == -1 || WWProgress.checkItem( itemId )){
                 final CustomButton customButton = new CustomButton(this, q.getGoTo());
                 customButton.setLayoutParams( Settings.questionViewParams );
                 customButton.setText( q.getText() );
@@ -287,14 +285,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         quest.setAdded(true);
                         PlayerAnwser playerAnwser = new PlayerAnwser();
                         playerAnwser.setText(  customButton.getText().toString() );
-                        ArrayList<CustomEvents> lastStage = WWProgress.progressList.getTail();
-                        if(lastStage!=null){
-                            lastStage.add( playerAnwser );
-                            addToViewPort( playerAnwser );
-                            questionView.removeAllViews();
-                            scrollDown();
-                            getCurrentEpisode();
-                        }
+                        ArrayList<CustomEvents> lastStage = WWProgress.getProgressList();
+                        lastStage.add( playerAnwser );
+                        addToViewPort( playerAnwser );
+                        questionView.removeAllViews();
+                        scrollDown();
+                        getCurrentEpisode();
                     }
                 } );
                 if(time>0){
@@ -393,20 +389,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(inventory.getVisibility() == View.INVISIBLE){
             inventory.setVisibility( View.VISIBLE );
             container = (LinearLayout) findViewById( R.id.ContainsItem );
-            if(WWProgress.person.checkItem( 1 )){
+            if(WWProgress.checkItem( 1 )){
                 ImageView imgeView = new ImageView(this);
                 imgeView.setBackgroundResource( R.drawable.matches2 );
                 imgeView.setLayoutParams( Settings.item );
                 container.addView( imgeView );
 
             }
-            if(WWProgress.person.checkItem( 2 )){
+            if(WWProgress.checkItem( 2 )){
                 ImageView imgeView = new ImageView(this);
                 imgeView.setBackgroundResource( R.drawable.map2 );
                 imgeView.setLayoutParams( Settings.item );
                 container.addView( imgeView );
             }
-            if(WWProgress.person.checkItem( 3 )){
+            if(WWProgress.checkItem( 3 )){
                 ImageView imgeView = new ImageView(this);
                 imgeView.setBackgroundResource( R.drawable.flashlight2 );
                 imgeView.setLayoutParams( Settings.item );
