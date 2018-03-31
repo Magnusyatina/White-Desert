@@ -1,5 +1,6 @@
 package com.example.serge.test1.Objects;
 
+import com.example.serge.test1.Engine;
 import com.example.serge.test1.MainActivity;
 
 import java.io.Serializable;
@@ -20,7 +21,7 @@ public class CustomEvents implements Serializable, Cloneable{
     }
 
 
-    public void start(MainActivity activity){
+    public void start(Engine engine){
     }
 
 
@@ -29,7 +30,7 @@ public class CustomEvents implements Serializable, Cloneable{
         return super.clone();
     }
 
-    protected long getTimer(){
+    public long getTimer(){
         long currentTime = System.currentTimeMillis();
         return (scheduledtime - currentTime);
     }

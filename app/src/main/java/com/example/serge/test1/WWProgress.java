@@ -40,8 +40,6 @@ public class WWProgress {
         try {
             obj = new ObjectInputStream( new FileInputStream( file ) );
             progress = (Progress) obj.readObject();
-          /*  progressList = (CustomLinkedHashMap<String, ArrayList<CustomEvents>>) obj.readObject();
-            person = (Person) obj.readObject();*/
             obj.close();
         } catch (FileNotFoundException e) {
 
@@ -50,10 +48,6 @@ public class WWProgress {
         }
         if(progress == null)
             progress = new Progress();
-        /*if(progressList== null)
-            progressList = new CustomLinkedHashMap<>();
-        if(person == null)
-            person = new Person();*/
     }
     public static void saveProgress(Context context){
 
@@ -63,14 +57,6 @@ public class WWProgress {
                 ObjectOutputStream objout = new ObjectOutputStream( fout );
                 objout.writeObject(progress);
                 objout.close();
-
-            /*if(progressList!=null){
-                FileOutputStream fout = context.openFileOutput("save.dat", Context.MODE_PRIVATE);
-                ObjectOutputStream out = new ObjectOutputStream( fout);
-                out.writeObject( progressList );
-                if(person!=null)
-                    out.writeObject( person );
-                out.close();*/
             }
 
         } catch (FileNotFoundException e) {
@@ -83,9 +69,7 @@ public class WWProgress {
 
 
     public static ArrayList<CustomEvents> addToProgress(String stage_name){
-       /* if(progressList == null){
-            progressList = new CustomLinkedHashMap<>();
-        }*/
+
         Stage stage = null;
         ArrayList<CustomEvents> EventList = null;
         ArrayList<CustomEvents> newEventList = null;
@@ -101,7 +85,6 @@ public class WWProgress {
                     planningScheduleTime( currE );
                     newEventList.add( currE );
                 }
-               // progressList.put( stage_name, newEventList );
                 getProgressList().addAll( newEventList );
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
@@ -128,9 +111,6 @@ public class WWProgress {
     }
 
     public static void dump_of_progress(){
-        /*person = new Person();
-        progressList.clear();
-        progressList = new CustomLinkedHashMap<>();*/
         progress = new Progress();
     }
 
@@ -145,21 +125,4 @@ public class WWProgress {
     public static boolean checkItem(int itemId){
         return getPerson().checkItem( itemId );
     }
-
-    /*public static void planningScheduleTime(){
-        if(list!=null&&list.size()!=0){
-            for(CustomEvents e : list){
-                if(!e.getAdded()){
-                    e.setScheduledtime(CustomTimer.getTestValue());
-                    if(e.getClass() == Waiting.class) {
-                        Waiting waiting = (Waiting) e;
-                      //  list.addAll( new ArrayList<CustomEvents>( );
-                        CustomTimer.addTestTime(waiting.getValue());
-                    }
-                }
-            }
-            CustomTimer.clearTimer();
-        }
-    }*/
-
 }

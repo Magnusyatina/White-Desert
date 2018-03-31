@@ -1,5 +1,6 @@
 package com.example.serge.test1.Objects;
 
+import com.example.serge.test1.Engine;
 import com.example.serge.test1.MainActivity;
 
 /**
@@ -7,9 +8,8 @@ import com.example.serge.test1.MainActivity;
  */
 
 public class ImportantMessage extends Messages {
-    public void start(MainActivity activity){
-
+    public void start(Engine engine){
+        engine.onEvent( this );
     }
-
 
 }

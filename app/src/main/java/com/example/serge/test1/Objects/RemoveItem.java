@@ -1,5 +1,6 @@
 package com.example.serge.test1.Objects;
 
+import com.example.serge.test1.Engine;
 import com.example.serge.test1.MainActivity;
 
 /**
@@ -9,10 +10,10 @@ import com.example.serge.test1.MainActivity;
 public class RemoveItem extends CustomEvents{
     Integer item;
 
-    public void start(MainActivity activity){
+    public void start(Engine engine){
         if(!added){
             long time = getTimer();
-            activity.onEvent( this, time );
+            engine.onEvent( this);
 
         }
 

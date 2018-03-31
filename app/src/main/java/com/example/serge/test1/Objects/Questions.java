@@ -1,5 +1,6 @@
 package com.example.serge.test1.Objects;
 
+import com.example.serge.test1.Engine;
 import com.example.serge.test1.MainActivity;
 
 import java.util.ArrayList;
@@ -19,10 +20,10 @@ public class Questions extends CustomEvents {
         }
     }
 
-    public void start(MainActivity activity){
+    public void start(Engine engine){
         if(!added){
             long time = getTimer();
-            activity.onEvent( this, time );
+            engine.onEvent( this );
 
         }
 

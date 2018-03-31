@@ -31,6 +31,7 @@ import com.example.serge.test1.Objects.AddItem;
 import com.example.serge.test1.Objects.CustomButton;
 import com.example.serge.test1.Objects.CustomEvents;
 import com.example.serge.test1.Objects.Die;
+import com.example.serge.test1.Objects.ImportantMessage;
 import com.example.serge.test1.Objects.PlayerAnwser;
 import com.example.serge.test1.Objects.Question;
 import com.example.serge.test1.Objects.Questions;
@@ -45,14 +46,13 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Engine{
 
     LinearLayout mainLayout;
     LinearLayout questionView;
     ScrollView mainScrollView;
     LinearLayout inventory;
     String stage;
-    private Handler handler = new Handler( Looper.getMainLooper() );
     private NavigationView navView;
     private MediaPlayer mediaPlayer = null;
     public long scheduletime = 0;
@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         setContentView(R.layout.activity_main);
+
+        Shared.eventPool = new EventPool();
+        Shared.eventPool.onBind( this );
 
         navView = (NavigationView) findViewById(R.id.nav_view);
         navView.setNavigationItemSelectedListener( this );
@@ -137,35 +140,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     //Продолжение игрового процесса
     protected void gameContinue(ArrayList<CustomEvents> events){
-        long currentTime = System.currentTimeMillis();
-        long timer = 0, scheduleTime = 0;
-        //проходим по коллекции прогресса, получая объекты для дальнейшего взаимодействия
         for(CustomEvents e : events){
-            /*scheduleTime = e.getScheduledtime();
-            timer = scheduleTime - currentTime;
-            if(e.getClass() == TextMessage.class){
-                TextMessage textMessage = (TextMessage) e;
-                onEvent( textMessage, timer );
-            }else if(e.getClass() == Waiting.class){
-                Waiting waiting = (Waiting) e;
-                onEvent( waiting, timer );
-            }else if(e.getClass() == Questions.class && !e.getAdded()){
-                Questions questions = (Questions) e;
-                onEvent( questions, timer );
-            }else if(e.getClass() == PlayerAnwser.class){
-                PlayerAnwser playerAnwser = (PlayerAnwser) e;
-                onEvent( playerAnwser );
-            }else if(e.getClass() == AddItem.class && !e.getAdded()){
-                AddItem item = (AddItem) e;
-                onEvent( item, timer );
-            }else if(e.getClass() == RemoveItem.class && !e.getAdded()){
-                RemoveItem item = (RemoveItem) e;
-                onEvent( item, timer );
-            }else if(e.getClass() == Die.class){
-                Die die = (Die) e;
-                onEvent( die, timer );
-                break;*/
-            e.start( this );
+            long time = e.getTimer();
+            if(time>0)
+                Shared.eventPool.notify( e, time );
+            else Shared.eventPool.notify(e);
             this.scheduletime = e.getScheduledtime();
         }
 
@@ -179,46 +158,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     //Добавление предмета в инвентарь
-    public void onEvent(final AddItem addItem, long time){
+    public void onEvent(final AddItem addItem){
         final int itemId;
         if((itemId = addItem.getItem())!=-1){
-            if(time>0){
-                handler.postDelayed( new Runnable() {
-                    @Override
-                    public void run() {
-                        WWProgress.setItem( itemId );
-                        addItem.setAdded( true );
-                    }
-                }, time );
-            }else {
-                WWProgress.setItem( itemId );
-                addItem.setAdded( true );
-            };
+            WWProgress.setItem( itemId );
+            addItem.setAdded( true );
         }
     }
 
     //Удаление предмета из инвентаря
-    public void onEvent(final RemoveItem removeItem, long time){
+    public void onEvent(RemoveItem removeItem){
         final int itemId;
         if((itemId = removeItem.getItem())!=-1){
-            if(time>0){
-                handler.postDelayed( new Runnable() {
-                    @Override
-                    public void run() {
-                        WWProgress.unsetItem( itemId );
-                        removeItem.setAdded( true );
-                    }
-                },time );
-            }else {
-                WWProgress.unsetItem( itemId );
-                removeItem.setAdded( true );
-                };
+            WWProgress.unsetItem( itemId );
+            removeItem.setAdded( true );
         }
     }
 
 
     //Вывод сообщения от персонажа на экран
-    public void onEvent(TextMessage textMessage, long time){
+    public void onEvent(TextMessage textMessage){
         final TextMessage message = textMessage;
         final TextView textView = new TextView( this);
         textView.setBackgroundResource( R.drawable.person_answer_background );
@@ -228,21 +187,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int pxSize = getResources().getDimensionPixelSize( R.dimen.custom_margin_top );
         layoutParams.setMargins( pxSize, pxSize,pxSize,pxSize );
         textView.setLayoutParams( layoutParams);
-
         textView.setText(textMessage.getText());
-        if(time>=0)
-            handler.postDelayed( new Runnable() {
-                @Override
-                public void run() {
-                    mainLayout.addView(textView);
-                    message.setAdded(true);
-                    scrollDown();
-                }
-            }, time );
-        else {
-            mainLayout.addView(textView);
-            message.setAdded(true);
-        }
+        mainLayout.addView(textView);
+        message.setAdded(true);
+        scrollDown();
     }
 
 
@@ -267,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     //Вывод вопросов на экран
-    public void onEvent(Questions questions, long time){
+    public void onEvent(Questions questions){
         final Questions quest = questions;
         ArrayList<Question> questionArray = quest.getList();
         for(Question q : questionArray){
@@ -292,63 +240,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         getCurrentEpisode();
                     }
                 } );
-                if(time>0){
-                    handler.postDelayed( new Runnable() {
-                        @Override
-                        public void run() {
-                            questionView.addView(customButton);
-                        }
-                    }, time );
-                }else {
-                    questionView.addView(customButton);
-                };
+                questionView.addView(customButton);
             }
          }
     }
 
-    public void onEvent(Waiting waiting, long time){
+    public void onEvent(Waiting waiting){
         final Waiting wait = waiting;
         final TextView waitView = new TextView( this );
         waitView.setText(R.string.personIsWaiting);
         waitView.setLayoutParams(Settings.layoutParams);
         waitView.setGravity(Gravity.CENTER_HORIZONTAL);
-        if(time>0){
-            handler.postDelayed( new Runnable() {
-                @Override
-                public void run() {
-                    mainLayout.addView( waitView );
-                    wait.setAdded( true );
-                    scrollDown();
-                }
-            }, time );
+        mainLayout.addView( waitView );
+        wait.setAdded( true );
+        scrollDown();
 
-        }else {
-            mainLayout.addView( waitView );
-            wait.setAdded( true );
-        };
     }
 
 
 
-    public void onEvent(final Die die, long time){
+    public void onEvent(Die die){
         final TextView textView = new TextView(this);
         textView.setLayoutParams( Settings.WaitingViewParams );
         textView.setPadding( 30,10,20,17 );
         textView.setText(R.string.die);
         textView.setGravity(Gravity.CENTER_HORIZONTAL);
-        if(time > 0){
-            handler.postDelayed( new Runnable() {
-                @Override
-                public void run() {
-                    mainLayout.addView( textView );
-                    die.setAdded( true );
-                    scrollDown();
-                }
-            }, time );
-        }else {
-            mainLayout.addView( textView );
-            die.setAdded( true );
-        }
+        mainLayout.addView( textView );
+        die.setAdded( true );
+        scrollDown();
+    }
+
+    @Override
+    public void onEvent(ImportantMessage importantMessage) {
+
     }
 
     public void scrollDown(){
