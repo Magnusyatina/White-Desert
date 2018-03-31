@@ -1,5 +1,7 @@
 package com.example.serge.test1.Objects;
 
+import com.example.serge.test1.MainActivity;
+
 import java.io.Serializable;
 
 /**
@@ -7,8 +9,8 @@ import java.io.Serializable;
  */
 
 public class CustomEvents implements Serializable, Cloneable{
-    private long scheduledtime;
-    private boolean added = false;
+    protected long scheduledtime;
+    protected boolean added = false;
 
     public void setScheduledtime(long scheduledtime){
         this.scheduledtime = scheduledtime;
@@ -18,10 +20,18 @@ public class CustomEvents implements Serializable, Cloneable{
     }
 
 
+    public void start(MainActivity activity){
+    }
+
 
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    protected long getTimer(){
+        long currentTime = System.currentTimeMillis();
+        return (scheduledtime - currentTime);
     }
 
     public long getScheduledtime(){

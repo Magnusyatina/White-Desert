@@ -42,7 +42,6 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Handler handler = new Handler( Looper.getMainLooper() );
     private NavigationView navView;
     private MediaPlayer mediaPlayer = null;
-    private long scheduletime = 0;
+    public long scheduletime = 0;
 
 
 
@@ -142,34 +141,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         long timer = 0, scheduleTime = 0;
         //проходим по коллекции прогресса, получая объекты для дальнейшего взаимодействия
         for(CustomEvents e : events){
-            scheduleTime = e.getScheduledtime();
+            /*scheduleTime = e.getScheduledtime();
             timer = scheduleTime - currentTime;
             if(e.getClass() == TextMessage.class){
                 TextMessage textMessage = (TextMessage) e;
-                addToViewPort( textMessage, timer );
+                onEvent( textMessage, timer );
             }else if(e.getClass() == Waiting.class){
                 Waiting waiting = (Waiting) e;
-                addToViewPort( waiting, timer );
+                onEvent( waiting, timer );
             }else if(e.getClass() == Questions.class && !e.getAdded()){
                 Questions questions = (Questions) e;
-                addToViewPort( questions, timer );
+                onEvent( questions, timer );
             }else if(e.getClass() == PlayerAnwser.class){
                 PlayerAnwser playerAnwser = (PlayerAnwser) e;
-                addToViewPort( playerAnwser );
+                onEvent( playerAnwser );
             }else if(e.getClass() == AddItem.class && !e.getAdded()){
                 AddItem item = (AddItem) e;
-                addItem( item, timer );
+                onEvent( item, timer );
             }else if(e.getClass() == RemoveItem.class && !e.getAdded()){
                 RemoveItem item = (RemoveItem) e;
-                removeItem( item, timer );
+                onEvent( item, timer );
             }else if(e.getClass() == Die.class){
                 Die die = (Die) e;
-                addToViewPort( die, timer );
-                break;
-            }
-
+                onEvent( die, timer );
+                break;*/
+            e.start( this );
+            this.scheduletime = e.getScheduledtime();
         }
-        this.scheduletime = scheduleTime;
+
     }
     //Обработка прогресса, отрисовка view. НАЧАЛО ИГРОВОГО ПРОЦЕССА, ЕСЛИ ИГРА ДО ЭТОГО БЫЛА ВЫКЛЮЧЕНА
     protected void gameStart(){
@@ -180,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     //Добавление предмета в инвентарь
-    private void addItem(final AddItem addItem, long time){
+    public void onEvent(final AddItem addItem, long time){
         final int itemId;
         if((itemId = addItem.getItem())!=-1){
             if(time>0){
@@ -199,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     //Удаление предмета из инвентаря
-    private void removeItem(final RemoveItem removeItem, long time){
+    public void onEvent(final RemoveItem removeItem, long time){
         final int itemId;
         if((itemId = removeItem.getItem())!=-1){
             if(time>0){
@@ -219,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     //Вывод сообщения от персонажа на экран
-    public void addToViewPort(TextMessage textMessage, long time){
+    public void onEvent(TextMessage textMessage, long time){
         final TextMessage message = textMessage;
         final TextView textView = new TextView( this);
         textView.setBackgroundResource( R.drawable.person_answer_background );
@@ -247,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    public void addToViewPort(PlayerAnwser playerAnwser){
+    public void onEvent(PlayerAnwser playerAnwser){
         TextView textView = new TextView( this );
 
         textView.setBackgroundResource( R.drawable.player_answer_background );
@@ -260,7 +259,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         layoutParams.setMargins( pxSize, pxSize,pxSize,pxSize );
         layoutParams.gravity = Gravity.RIGHT;
         textView.setLayoutParams( layoutParams);
-
         textView.setText( playerAnwser.getText() );
 
         mainLayout.addView( textView );
@@ -269,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     //Вывод вопросов на экран
-    public void addToViewPort(Questions questions, long time){
+    public void onEvent(Questions questions, long time){
         final Questions quest = questions;
         ArrayList<Question> questionArray = quest.getList();
         for(Question q : questionArray){
@@ -283,12 +281,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public void onClick(View v) {
                         quest.setAdded(true);
                         setStage(customButton.getGoTo());
-                        
+
                         PlayerAnwser playerAnwser = new PlayerAnwser();
                         playerAnwser.setText(  customButton.getText().toString() );
                         ArrayList<CustomEvents> lastStage = WWProgress.getProgressList();
                         lastStage.add( playerAnwser );
-                        addToViewPort( playerAnwser );
+                        onEvent( playerAnwser );
                         questionView.removeAllViews();
                         scrollDown();
                         getCurrentEpisode();
@@ -308,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          }
     }
 
-    public void addToViewPort(Waiting waiting, long time){
+    public void onEvent(Waiting waiting, long time){
         final Waiting wait = waiting;
         final TextView waitView = new TextView( this );
         waitView.setText(R.string.personIsWaiting);
@@ -332,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    public void addToViewPort(final Die die, long time){
+    public void onEvent(final Die die, long time){
         final TextView textView = new TextView(this);
         textView.setLayoutParams( Settings.WaitingViewParams );
         textView.setPadding( 30,10,20,17 );
@@ -427,6 +425,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         params.height = (int) (point.y*0.2);
         params.width = (int) (point.x*0.8);
         inventory.setLayoutParams( params );
+
     }
 
 

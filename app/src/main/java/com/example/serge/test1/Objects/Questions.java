@@ -1,5 +1,7 @@
 package com.example.serge.test1.Objects;
 
+import com.example.serge.test1.MainActivity;
+
 import java.util.ArrayList;
 
 /**
@@ -15,6 +17,15 @@ public class Questions extends CustomEvents {
                 list = new ArrayList<>();
             list.add( q );
         }
+    }
+
+    public void start(MainActivity activity){
+        if(!added){
+            long time = getTimer();
+            activity.onEvent( this, time );
+
+        }
+
     }
 
     public ArrayList<Question> getList(){

@@ -26,8 +26,6 @@ import java.util.NoSuchElementException;
 
 public class WWProgress {
 
-    public static CustomLinkedHashMap<String, ArrayList<CustomEvents>> progressList = null;
-    public static Person person = null;
     private static Progress progress = null;
 
 
@@ -104,7 +102,7 @@ public class WWProgress {
                     newEventList.add( currE );
                 }
                // progressList.put( stage_name, newEventList );
-                progress.getProgressList().addAll( newEventList );
+                getProgressList().addAll( newEventList );
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
@@ -137,15 +135,15 @@ public class WWProgress {
     }
 
     public static void setItem(int itemId){
-         progress.getPerson().setItem( itemId );
+         getPerson().setItem( itemId );
     }
 
     public static void unsetItem(int itemId){
-        progress.getPerson().unsetItem( itemId );
+        getPerson().unsetItem( itemId );
     }
 
     public static boolean checkItem(int itemId){
-        return progress.getPerson().checkItem( itemId );
+        return getPerson().checkItem( itemId );
     }
 
     /*public static void planningScheduleTime(){
