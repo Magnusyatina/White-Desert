@@ -5,6 +5,8 @@ import android.os.Looper;
 
 import com.example.serge.test1.Objects.CustomEvents;
 
+import java.util.LinkedList;
+
 /**
  * Created by sergey37192 on 01.04.2018.
  */
@@ -13,6 +15,7 @@ public class EventPool {
     //Пул событий
     private Engine engine;
     private Handler mHandler = new Handler( Looper.getMainLooper());
+
 
     public void onBind(Engine engine){
         this.engine = engine;
@@ -30,7 +33,13 @@ public class EventPool {
             public void run() {
                 EventPool.this.notify( customEvents );
             }
-        },delay );
+        }, delay );
     }
+
+    public void stopAll(){
+        mHandler.removeCallbacksAndMessages( null );
+    }
+
+
 
 }
