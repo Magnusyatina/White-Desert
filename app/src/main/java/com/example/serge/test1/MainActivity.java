@@ -20,6 +20,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,7 +47,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Engine{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CompoundButton.OnCheckedChangeListener, Engine{
 
     LinearLayout mainLayout;
     LinearLayout questionView;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String stage;
     private NavigationView navView;
     private MediaPlayer mediaPlayer = null;
+    SwitchCompat switchCompat;
     public long scheduletime = 0;
 
 
@@ -76,14 +78,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Shared.eventPool = new EventPool();
         Shared.eventPool.onBind( this );
+        Shared.context = this;
+
+
 
         navView = (NavigationView) findViewById(R.id.nav_view);
         navView.setNavigationItemSelectedListener( this );
-        SwitchCompat switchCompat = (SwitchCompat) navView.getMenu().getItem( 3 ).getActionView();
+        switchCompat = (SwitchCompat) navView.getMenu().getItem( 1 ).getActionView();
+        switchCompat.setOnCheckedChangeListener( this );
+        switchCompat.setChecked( true );
 
 
-        //Установка звукового сопровождения
-        setMusic();
+
         mainScrollView = (ScrollView) findViewById(R.id.mainScrollView);
         mainLayout = (LinearLayout) findViewById(R.id.textArea);
         questionView = (LinearLayout) findViewById(R.id.questionsLayout);
@@ -105,20 +111,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    protected void setMusic(){
-        //Создание плеера
-        mediaPlayer = MediaPlayer.create(this, R.raw.soundtrack);
-
-        //Установка параметра громкости звучания
-        mediaPlayer.setVolume( 0.05f, 0.05f );
-
-        //Установка зацикливания звуковой дорожки
-        mediaPlayer.setLooping(true);
+    protected void setMusic(boolean isChecked){
+        if(isChecked)
+            Music.play();
+        else Music.stop();
     }
 
-    protected void unsetMusic(){
-
-    }
 
 
     //получение нужной стадии сценария и добавление в прогресс
@@ -284,25 +282,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } );
     }
 
-    public void onPause(){
-        super.onPause();
-        if(mediaPlayer!=null)
-            mediaPlayer.pause();
-        Log.i("MyLogInfo", " Pause");
-        WWProgress.saveProgress(this);
-        startService( new Intent(this, MyServiceForGameProcess.class).putExtra( "SCHEDULE_TIME", scheduletime ) );
-    }
-    public void onDestroy(){
-        super.onDestroy();
-        Log.i("MyLogInfo", " Destroy");
-    }
-    public void onResume(){
-        super.onResume();
-        stopService( new Intent(this, MyServiceForGameProcess.class) );
-        scrollDown();
-        if(mediaPlayer!=null)
-            mediaPlayer.start();
-    }
+
 
     public void switchBag(View view){
 
@@ -355,18 +335,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        switch(id){
-            case R.id.new_game: Toast.makeText( this, "Новая игра", Toast.LENGTH_SHORT ).show(); start_new_game(); break;
-            case R.id.about: Toast.makeText( this, "Справка", Toast.LENGTH_SHORT ).show(); break;
-            case R.id.game_condition_switch: Toast.makeText( this, "1 свитч", Toast.LENGTH_SHORT ).show(); break;
-            case R.id.music_switch: Toast.makeText( this, "2 свитч", Toast.LENGTH_SHORT ).show(); break;
-            default: break;
-        }
-        return true;
-    }
 
     public void start_new_game(){
         AlertDialog.Builder ad = new AlertDialog.Builder( this );
@@ -398,5 +366,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void setStage(String stage){
         this.stage = stage;
+    }
+
+    public void onPause(){
+        super.onPause();
+        Music.stop();
+        Log.i("MyLogInfo", " Pause");
+        WWProgress.saveProgress(this);
+        startService( new Intent(this, MyServiceForGameProcess.class).putExtra( "SCHEDULE_TIME", scheduletime ) );
+    }
+    public void onDestroy(){
+        super.onDestroy();
+        Log.i("MyLogInfo", " Destroy");
+    }
+    public void onResume(){
+        super.onResume();
+        stopService( new Intent(this, MyServiceForGameProcess.class) );
+        scrollDown();
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        switch(id){
+            case R.id.new_game: Toast.makeText( this, "Новая игра", Toast.LENGTH_SHORT ).show(); start_new_game(); break;
+            case R.id.about: Toast.makeText( this, "Справка", Toast.LENGTH_SHORT ).show(); break;
+            default: break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        int id = buttonView.getId();
+        switch(id){
+            case R.id.music_switch_panel: setMusic(isChecked); break;
+        }
     }
 }

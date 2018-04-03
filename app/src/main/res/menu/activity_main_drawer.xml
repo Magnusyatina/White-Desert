@@ -5,8 +5,7 @@
 
         <item android:title="@string/new_game" android:id="@+id/new_game"></item>>
 
-        <item
-                    android:id="@+id/music_switch"
+        <item       android:id="@+id/switch_music"
                     android:title="@string/music_condition"
                     app:actionLayout="@layout/music_switch_panel"
                     app:showAsAction="always"
