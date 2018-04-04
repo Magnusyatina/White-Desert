@@ -27,6 +27,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 /**
  * Created by sergey37192 on 04.04.2018.
@@ -59,8 +60,10 @@ public class Engine extends EventObserverAdapter {
     public void getCurrentEpisode(String stageId){
         if(stageId == null)
             stageId = "start";
+        try{
         ArrayList<CustomEvents> arrayList = WWProgress.addToProgress( stageId );
-        gameContinue( arrayList );
+        gameContinue( arrayList );}
+        catch (NoSuchElementException ex){}
     }
 
     public void gameContinue(ArrayList<CustomEvents> events){

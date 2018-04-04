@@ -65,7 +65,7 @@ public class WWProgress {
 
 
 
-    public static ArrayList<CustomEvents> addToProgress(String stage_name){
+    public static ArrayList<CustomEvents> addToProgress(String stage_name) throws NoSuchElementException{
 
         Stage stage = null;
         ArrayList<CustomEvents> EventList = null;
