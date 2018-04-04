@@ -1,6 +1,7 @@
 package com.example.serge.test1;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -18,6 +19,7 @@ import com.example.serge.test1.CustomEvents.Question;
 import com.example.serge.test1.CustomEvents.Questions;
 import com.example.serge.test1.CustomEvents.RemoveItem;
 import com.example.serge.test1.CustomEvents.StartGame;
+import com.example.serge.test1.CustomEvents.StartNewGame;
 import com.example.serge.test1.CustomEvents.TextMessage;
 import com.example.serge.test1.CustomEvents.Waiting;
 
@@ -31,7 +33,6 @@ import java.util.ArrayList;
  */
 
 public class Engine extends EventObserverAdapter {
-
 
     private long scheduletime = 0;
     LinearLayout mainLayout;
@@ -80,6 +81,13 @@ public class Engine extends EventObserverAdapter {
         else getCurrentEpisode(null);
     }
 
+    @Override
+    public void onEvent(StartNewGame startNewGame) {
+        WWProgress.dump_of_progress();
+        mainLayout.removeAllViews();
+        getCurrentEpisode( null );
+    }
+    //Добавление предмета в инвентарь
     public void onEvent(final AddItem addItem){
         final int itemId;
         if((itemId = addItem.getItem())!=-1){
@@ -97,7 +105,6 @@ public class Engine extends EventObserverAdapter {
         }
     }
 
-
     //Вывод сообщения от персонажа на экран
     public void onEvent(TextMessage textMessage){
         final TextMessage message = textMessage;
@@ -114,13 +121,10 @@ public class Engine extends EventObserverAdapter {
         message.setAdded(true);
         scrollDown();
     }
-
-
+    //Вывод ответа пользователя на экран
     public void onEvent(PlayerAnwser playerAnwser){
         TextView textView = new TextView( Shared.context );
-
         textView.setBackgroundResource( R.drawable.player_answer_background );
-
         Shared.context.getResources().getDimensionPixelSize( R.dimen.custom_margin_top );
         textView.setPadding( 30,10,20,17 );
         textView.setTextSize((float)(Shared.context.getResources().getDimensionPixelSize( R.dimen.custom_text_size )));;
@@ -134,7 +138,6 @@ public class Engine extends EventObserverAdapter {
         mainLayout.addView( textView );
         playerAnwser.setAdded(true);
     }
-
 
     //Вывод вопросов на экран
     public void onEvent(Questions questions){
@@ -177,8 +180,6 @@ public class Engine extends EventObserverAdapter {
 
     }
 
-
-
     public void onEvent(Die die){
         final TextView textView = new TextView(Shared.context);
         textView.setLayoutParams( Settings.WaitingViewParams );
@@ -193,6 +194,18 @@ public class Engine extends EventObserverAdapter {
     @Override
     public void onEvent(ImportantMessage importantMessage) {
 
+    }
+
+    @Override
+    public void onPause() {
+        WWProgress.saveProgress( Shared.context );
+        Shared.context.startService( new Intent(Shared.context, MyServiceForGameProcess.class).putExtra( "SCHEDULE_TIME", scheduletime ) );
+    }
+
+    @Override
+    public void onResume() {
+        Shared.context.stopService( new Intent(Shared.context, MyServiceForGameProcess.class) );
+        scrollDown();
     }
 
     public void scrollDown(){

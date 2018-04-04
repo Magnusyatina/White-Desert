@@ -7,6 +7,7 @@ import com.example.serge.test1.CustomEvents.PlayerAnwser;
 import com.example.serge.test1.CustomEvents.Questions;
 import com.example.serge.test1.CustomEvents.RemoveItem;
 import com.example.serge.test1.CustomEvents.StartGame;
+import com.example.serge.test1.CustomEvents.StartNewGame;
 import com.example.serge.test1.CustomEvents.TextMessage;
 import com.example.serge.test1.CustomEvents.Waiting;
 
@@ -61,7 +62,29 @@ public class EventObserverAdapter implements EventObserver {
     }
 
     @Override
+    public void onEvent(StartNewGame startNewGame) {
+
+    }
+
+    @Override
     public void onCreate() {
         Shared.eventPool.onBind( this );
     }
+
+    @Override
+    public void onPause() {
+
+    }
+
+    @Override
+    public void onResume() {
+
+    }
+
+    @Override
+    public void start() {
+        onCreate();
+    }
+
+
 }

@@ -7,6 +7,7 @@ import com.example.serge.test1.CustomEvents.PlayerAnwser;
 import com.example.serge.test1.CustomEvents.Questions;
 import com.example.serge.test1.CustomEvents.RemoveItem;
 import com.example.serge.test1.CustomEvents.StartGame;
+import com.example.serge.test1.CustomEvents.StartNewGame;
 import com.example.serge.test1.CustomEvents.TextMessage;
 import com.example.serge.test1.CustomEvents.Waiting;
 
@@ -33,6 +34,14 @@ public interface EventObserver {
 
     public void onEvent(StartGame startGame);
 
+    public void onEvent(StartNewGame startNewGame);
+
     public void onCreate();
+
+    public void onPause();
+
+    public void onResume();
+
+    public void start();
 
 }
