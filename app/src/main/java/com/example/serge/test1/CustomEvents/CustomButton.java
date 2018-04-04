@@ -1,7 +1,6 @@
-package com.example.serge.test1.Objects;
+package com.example.serge.test1.CustomEvents;
 
 import android.content.Context;
-import android.widget.Button;
 
 /**
  * Created by sergey37192 on 21.02.2018.

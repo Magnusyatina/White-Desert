@@ -5,8 +5,6 @@ import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
@@ -28,17 +26,18 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.serge.test1.Objects.AddItem;
-import com.example.serge.test1.Objects.CustomButton;
-import com.example.serge.test1.Objects.CustomEvents;
-import com.example.serge.test1.Objects.Die;
-import com.example.serge.test1.Objects.ImportantMessage;
-import com.example.serge.test1.Objects.PlayerAnwser;
-import com.example.serge.test1.Objects.Question;
-import com.example.serge.test1.Objects.Questions;
-import com.example.serge.test1.Objects.RemoveItem;
-import com.example.serge.test1.Objects.TextMessage;
-import com.example.serge.test1.Objects.Waiting;
+import com.example.serge.test1.CustomEvents.AddItem;
+import com.example.serge.test1.CustomEvents.CustomButton;
+import com.example.serge.test1.CustomEvents.CustomEvents;
+import com.example.serge.test1.CustomEvents.Die;
+import com.example.serge.test1.CustomEvents.ImportantMessage;
+import com.example.serge.test1.CustomEvents.PlayerAnwser;
+import com.example.serge.test1.CustomEvents.Question;
+import com.example.serge.test1.CustomEvents.Questions;
+import com.example.serge.test1.CustomEvents.RemoveItem;
+import com.example.serge.test1.CustomEvents.StartGame;
+import com.example.serge.test1.CustomEvents.TextMessage;
+import com.example.serge.test1.CustomEvents.Waiting;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -47,7 +46,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CompoundButton.OnCheckedChangeListener, Engine{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CompoundButton.OnCheckedChangeListener{
 
     LinearLayout mainLayout;
     LinearLayout questionView;
@@ -77,8 +76,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         Shared.eventPool = new EventPool();
-        Shared.eventPool.onBind( this );
+        Shared.eventObserver = new Engine();
         Shared.context = this;
+        Shared.activity = this;
 
 
 
@@ -93,7 +93,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mainScrollView = (ScrollView) findViewById(R.id.mainScrollView);
         mainLayout = (LinearLayout) findViewById(R.id.textArea);
         questionView = (LinearLayout) findViewById(R.id.questionsLayout);
-        try {
+        Shared.eventObserver.onCreate();
+        Shared.eventPool.notify( new StartGame() );
+        /*try {
 
             //Вызов функции загрузки сценария из файла
             Scenario.loadSceanrio( this );
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             else getCurrentEpisode();
         }catch (XmlPullParserException | IOException e){
             e.printStackTrace();
-        }
+        }*/
 
     }
 
@@ -124,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         try {
             if (stage == null)
                 //Если переменная стадии null, присвается идентификатор начала сценария
-                stage = new String( "start" );
+                stage = new String( "onCreate" );
 
             //Вызов функции добавления в прогресс событий, относящихся к определенной стадии и возврат этих событий
             ArrayList<CustomEvents> arrayList = WWProgress.addToProgress(stage);
@@ -268,10 +270,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         scrollDown();
     }
 
-    @Override
-    public void onEvent(ImportantMessage importantMessage) {
-
-    }
 
     public void scrollDown(){
         mainScrollView.post( new Runnable() {

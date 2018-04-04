@@ -4,28 +4,24 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.util.Log;
-import android.webkit.ConsoleMessage;
-import android.widget.Toast;
 
-import com.example.serge.test1.Objects.AddItem;
-import com.example.serge.test1.Objects.CustomEvents;
-import com.example.serge.test1.Objects.Die;
-import com.example.serge.test1.Objects.ImportantMessage;
-import com.example.serge.test1.Objects.Messages;
-import com.example.serge.test1.Objects.Question;
-import com.example.serge.test1.Objects.Questions;
-import com.example.serge.test1.Objects.RandomEvent;
-import com.example.serge.test1.Objects.RemoveItem;
-import com.example.serge.test1.Objects.Stage;
-import com.example.serge.test1.Objects.TextMessage;
-import com.example.serge.test1.Objects.Waiting;
+import com.example.serge.test1.CustomEvents.AddItem;
+import com.example.serge.test1.CustomEvents.CustomEvents;
+import com.example.serge.test1.CustomEvents.Die;
+import com.example.serge.test1.CustomEvents.ImportantMessage;
+import com.example.serge.test1.CustomEvents.Question;
+import com.example.serge.test1.CustomEvents.Questions;
+import com.example.serge.test1.CustomEvents.RandomEvent;
+import com.example.serge.test1.CustomEvents.RemoveItem;
+import com.example.serge.test1.CustomEvents.Stage;
+import com.example.serge.test1.CustomEvents.TextMessage;
+import com.example.serge.test1.CustomEvents.Waiting;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.TreeMap;
 
 /**

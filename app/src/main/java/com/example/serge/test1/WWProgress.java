@@ -2,10 +2,9 @@ package com.example.serge.test1;
 
 import android.content.Context;
 
-import com.example.serge.test1.CustomClasses.CustomLinkedHashMap;
-import com.example.serge.test1.Objects.CustomEvents;
-import com.example.serge.test1.Objects.Stage;
-import com.example.serge.test1.Objects.Waiting;
+import com.example.serge.test1.CustomEvents.CustomEvents;
+import com.example.serge.test1.CustomEvents.Stage;
+import com.example.serge.test1.CustomEvents.Waiting;
 import com.example.serge.test1.Person.Person;
 
 import java.io.File;
@@ -16,8 +15,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 /**

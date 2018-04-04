@@ -1,6 +1,6 @@
 package com.example.serge.test1;
 
-import com.example.serge.test1.Objects.CustomEvents;
+import com.example.serge.test1.CustomEvents.CustomEvents;
 import com.example.serge.test1.Person.Person;
 
 import java.io.Serializable;

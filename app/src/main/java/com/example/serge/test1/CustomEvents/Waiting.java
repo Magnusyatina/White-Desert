@@ -1,7 +1,6 @@
-package com.example.serge.test1.Objects;
+package com.example.serge.test1.CustomEvents;
 
-import com.example.serge.test1.Engine;
-import com.example.serge.test1.MainActivity;
+import com.example.serge.test1.EventObserver;
 
 /**
  * Created by sergey37192 on 13.02.2018.
@@ -19,9 +18,9 @@ public class Waiting extends  CustomEvents {
         return value;
     }
 
-    public void start(Engine engine){
+    public void start(EventObserver eventObserver){
         long time = getTimer();
-        engine.onEvent( this );
+        eventObserver.onEvent( this );
 
     }
 

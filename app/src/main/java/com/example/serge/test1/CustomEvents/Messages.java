@@ -1,4 +1,4 @@
-package com.example.serge.test1.Objects;
+package com.example.serge.test1.CustomEvents;
 
 import com.example.serge.test1.MainActivity;
 

@@ -3,9 +3,8 @@ package com.example.serge.test1;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.example.serge.test1.Objects.CustomEvents;
-
-import java.util.LinkedList;
+import com.example.serge.test1.CustomEvents.CustomEvents;
+import com.example.serge.test1.CustomEvents.Event;
 
 /**
  * Created by sergey37192 on 01.04.2018.
@@ -13,25 +12,25 @@ import java.util.LinkedList;
 
 public class EventPool {
     //Пул событий
-    private Engine engine;
+    private EventObserver eventObserver;
     private Handler mHandler = new Handler( Looper.getMainLooper());
 
 
-    public void onBind(Engine engine){
-        this.engine = engine;
+    public void onBind(EventObserver eventObserver){
+        this.eventObserver = eventObserver;
     }
 
-    public void notify(CustomEvents customEvents){
-        if(engine!=null){
-            customEvents.start( engine );
+    public void notify(Event event){
+        if(eventObserver !=null){
+            event.start( eventObserver );
         }
     }
 
-    public void notify(final CustomEvents customEvents, long delay){
+    public void notify(final Event event, long delay){
         mHandler.postDelayed( new Runnable() {
             @Override
             public void run() {
-                EventPool.this.notify( customEvents );
+                EventPool.this.notify( event );
             }
         }, delay );
     }

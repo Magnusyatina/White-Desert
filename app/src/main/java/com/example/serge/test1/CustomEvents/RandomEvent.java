@@ -1,6 +1,4 @@
-package com.example.serge.test1.Objects;
-
-import com.example.serge.test1.MainActivity;
+package com.example.serge.test1.CustomEvents;
 
 /**
  * Created by sergey37192 on 13.02.2018.

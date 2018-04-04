@@ -1,7 +1,6 @@
-package com.example.serge.test1.Objects;
+package com.example.serge.test1.CustomEvents;
 
-import com.example.serge.test1.Engine;
-import com.example.serge.test1.MainActivity;
+import com.example.serge.test1.EventObserver;
 
 import java.io.Serializable;
 
@@ -9,7 +8,7 @@ import java.io.Serializable;
  * Created by sergey37192 on 12.02.2018.
  */
 
-public class CustomEvents implements Serializable, Cloneable{
+public class CustomEvents implements Serializable, Cloneable, Event{
     protected long scheduledtime;
     protected boolean added = false;
 
@@ -21,7 +20,7 @@ public class CustomEvents implements Serializable, Cloneable{
     }
 
 
-    public void start(Engine engine){
+    public void start(EventObserver eventObserver){
     }
 
 
