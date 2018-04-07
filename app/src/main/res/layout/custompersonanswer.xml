@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.serge.test1.CustomView.CustomPersonAnswer xmlns:android="http://schemas.android.com/apk/res/android"
+
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+    android:background="@drawable/person_answer_background"
+    android:padding="10dp"
+    android:textSize="12sp"
+    android:layout_gravity="left"
+    android:layout_margin="10dp">
+
+</com.example.serge.test1.CustomView.CustomPersonAnswer>

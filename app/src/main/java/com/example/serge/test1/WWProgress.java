@@ -1,6 +1,8 @@
 package com.example.serge.test1;
 
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.serge.test1.CustomEvents.CustomEvents;
 import com.example.serge.test1.CustomEvents.Stage;
@@ -71,14 +73,12 @@ public class WWProgress {
         ArrayList<CustomEvents> EventList = null;
         ArrayList<CustomEvents> newEventList = null;
         if((stage = (Stage) Scenario.scenarioList.get( stage_name ))!=null){
-            /*int i = 1;
-            while(progressList.containsKey( stage_name ))
-                stage_name += i;*/
             try {
                 EventList = stage.getArray();
                 newEventList = new ArrayList<>( );
                 for(CustomEvents e : EventList){
                     CustomEvents currE = (CustomEvents) e.clone();
+                    currE.setStage( stage_name );
                     planningScheduleTime( currE );
                     newEventList.add( currE );
                 }
@@ -122,4 +122,36 @@ public class WWProgress {
     public static boolean checkItem(int itemId){
         return getPerson().checkItem( itemId );
     }
+
+    public static void backInTime(CustomEvents customEvents){
+        ArrayList<CustomEvents> arrayList = WWProgress.getProgressList();
+        int end = arrayList.size();
+        int start = 0;
+        for(CustomEvents customEvents1 : arrayList){
+
+            if(customEvents == customEvents1)
+                break;
+            start++;
+        }
+        int count = end - start;
+        while(count>0){
+            arrayList.remove( start );
+            count--;
+        }
+
+
+    }
+
+    public static CustomEvents getLastEvent(Class<?> specialClass){
+        ArrayList<CustomEvents> arrayList = getProgressList();
+        int count = 1;
+        CustomEvents customEvents = null;
+        for(CustomEvents customEvents1 : arrayList){
+            if(customEvents1.getClass() == specialClass)
+                customEvents = customEvents1;
+        }
+        return customEvents;
+    }
+
+
 }

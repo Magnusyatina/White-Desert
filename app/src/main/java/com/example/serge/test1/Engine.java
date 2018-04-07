@@ -1,8 +1,8 @@
 package com.example.serge.test1;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -12,7 +12,7 @@ import com.example.serge.test1.CustomEvents.AddItem;
 import com.example.serge.test1.CustomEvents.CustomButton;
 import com.example.serge.test1.CustomEvents.CustomEvents;
 import com.example.serge.test1.CustomEvents.Die;
-import com.example.serge.test1.CustomEvents.Event;
+
 import com.example.serge.test1.CustomEvents.ImportantMessage;
 import com.example.serge.test1.CustomEvents.PlayerAnwser;
 import com.example.serge.test1.CustomEvents.Question;
@@ -22,6 +22,8 @@ import com.example.serge.test1.CustomEvents.StartGame;
 import com.example.serge.test1.CustomEvents.StartNewGame;
 import com.example.serge.test1.CustomEvents.TextMessage;
 import com.example.serge.test1.CustomEvents.Waiting;
+import com.example.serge.test1.CustomView.CustomButtonPlayerAnswer;
+import com.example.serge.test1.CustomView.CustomPersonAnswer;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -110,57 +112,58 @@ public class Engine extends EventObserverAdapter {
 
     //Вывод сообщения от персонажа на экран
     public void onEvent(TextMessage textMessage){
-        final TextMessage message = textMessage;
-        final TextView textView = new TextView( Shared.context );
-        textView.setBackgroundResource( R.drawable.person_answer_background );
-        textView.setPadding( 30,10,20,17 );
-        textView.setTextSize((float)(Shared.context.getResources().getDimensionPixelSize( R.dimen.custom_text_size )));
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT );
-        int pxSize = Shared.context.getResources().getDimensionPixelSize( R.dimen.custom_margin_top );
-        layoutParams.setMargins( pxSize, pxSize,pxSize,pxSize );
-        textView.setLayoutParams( layoutParams);
-        textView.setText(textMessage.getText());
-        mainLayout.addView(textView);
-        message.setAdded(true);
+        LayoutInflater layoutInflater = Shared.activity.getLayoutInflater();
+        CustomPersonAnswer customPersonAnswer = (CustomPersonAnswer) layoutInflater.inflate( R.layout.custompersonanswer, mainLayout, false );
+        customPersonAnswer.setText( textMessage.getText() );
+        mainLayout.addView( customPersonAnswer );
+        textMessage.setAdded( true );
         scrollDown();
     }
     //Вывод ответа пользователя на экран
-    public void onEvent(PlayerAnwser playerAnwser){
-        TextView textView = new TextView( Shared.context );
-        textView.setBackgroundResource( R.drawable.player_answer_background );
-        Shared.context.getResources().getDimensionPixelSize( R.dimen.custom_margin_top );
-        textView.setPadding( 30,10,20,17 );
-        textView.setTextSize((float)(Shared.context.getResources().getDimensionPixelSize( R.dimen.custom_text_size )));;
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT );
-        int pxSize = Shared.context.getResources().getDimensionPixelSize( R.dimen.custom_margin_top );
-        layoutParams.setMargins( pxSize, pxSize,pxSize,pxSize );
-        layoutParams.gravity = Gravity.RIGHT;
-        textView.setLayoutParams( layoutParams);
-        textView.setText( playerAnwser.getText() );
-
-        mainLayout.addView( textView );
+    public void onEvent(final PlayerAnwser playerAnwser){
+        LayoutInflater layoutInflater = Shared.activity.getLayoutInflater();
+        final CustomButtonPlayerAnswer customButtonAnswer = (CustomButtonPlayerAnswer) layoutInflater.inflate( R.layout.custombuttonanswer, mainLayout, false);
+        customButtonAnswer.setText( playerAnwser.getText() );
+        customButtonAnswer.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Shared.eventPool.stopAll();
+                WWProgress.backInTime(playerAnwser);
+                int start = mainLayout.indexOfChild( customButtonAnswer );
+                int count = mainLayout.getChildCount() - start;
+                mainLayout.removeViews( start, count );
+                questionView.removeAllViews();
+                CustomEvents customEvents = WWProgress.getLastEvent( Questions.class );
+                if(customEvents!=null)
+                {
+                    customEvents.setAdded( false );
+                    Shared.eventPool.notify( customEvents );
+                }
+            }
+        } );
+        mainLayout.addView( customButtonAnswer );
         playerAnwser.setAdded(true);
     }
 
     //Вывод вопросов на экран
-    public void onEvent(Questions questions){
-        final Questions quest = questions;
-        ArrayList<Question> questionArray = quest.getList();
+    public void onEvent(final Questions questions){
+        ArrayList<Question> questionArray = questions.getList();
         for(Question q : questionArray){
             int itemId = q.getNeedItem();
             if(itemId == -1 || WWProgress.checkItem( itemId )){
+
                 final CustomButton customButton = new CustomButton(Shared.context, q.getGoTo());
                 customButton.setLayoutParams( Settings.questionViewParams );
                 customButton.setText( q.getText() );
                 customButton.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        quest.setAdded(true);
+                        questions.setAdded(true);
                         PlayerAnwser playerAnwser = new PlayerAnwser();
+                        playerAnwser.setStage(questions.getStage());
                         playerAnwser.setText(  customButton.getText().toString() );
-                        ArrayList<CustomEvents> lastStage = WWProgress.getProgressList();
-                        lastStage.add( playerAnwser );
-                        onEvent( playerAnwser );
+                        WWProgress.getProgressList().add( playerAnwser );
+                        Shared.eventPool.notify( playerAnwser );
                         questionView.removeAllViews();
                         scrollDown();
                         getCurrentEpisode(customButton.getGoTo());

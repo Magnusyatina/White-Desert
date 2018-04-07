@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class CustomEvents implements Serializable, Cloneable, Event{
     protected long scheduledtime;
     protected boolean added = false;
+    private String stage;
 
     public void setScheduledtime(long scheduledtime){
         this.scheduledtime = scheduledtime;
@@ -32,6 +33,14 @@ public class CustomEvents implements Serializable, Cloneable, Event{
     public long getTimer(){
         long currentTime = System.currentTimeMillis();
         return (scheduledtime - currentTime);
+    }
+
+    public void setStage(String stage){
+        this.stage = stage;
+    }
+
+    public String getStage(){
+        return stage;
     }
 
     public long getScheduledtime(){

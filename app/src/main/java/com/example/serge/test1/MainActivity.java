@@ -10,7 +10,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
+import android.util.AttributeSet;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,6 +20,9 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -57,7 +62,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+
+
         navView = (NavigationView) findViewById(R.id.nav_view);
+
         navView.setNavigationItemSelectedListener( this );
         switchCompat = (SwitchCompat) navView.getMenu().getItem( 1 ).getActionView();
         switchCompat.setOnCheckedChangeListener( this );
