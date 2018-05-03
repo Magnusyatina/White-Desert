@@ -27,11 +27,6 @@ public class WWProgress {
 
     private static Progress progress = null;
 
-
-    public static String hell= "hell";
-
-
-
     public static void loadProgress(Context context) throws IOException {
         File file = new File(context.getFilesDir(), "save.dat");
         ObjectInputStream obj = null;
@@ -80,15 +75,20 @@ public class WWProgress {
                     CustomEvents currE = (CustomEvents) e.clone();
                     currE.setStage( stage_name );
                     planningScheduleTime( currE );
+                    addToProgress( currE );
                     newEventList.add( currE );
                 }
-                getProgressList().addAll( newEventList );
+//                getProgressList().addAll( newEventList );
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
             CustomTimer.clearTimer();
             return newEventList;
         }else throw new NoSuchElementException();
+    }
+
+    public static void addToProgress(CustomEvents customEvent){
+        getProgressList().add( customEvent );
     }
 
     public static void planningScheduleTime(CustomEvents item){
@@ -144,7 +144,6 @@ public class WWProgress {
 
     public static CustomEvents getLastEvent(Class<?> specialClass){
         ArrayList<CustomEvents> arrayList = getProgressList();
-        int count = 1;
         CustomEvents customEvents = null;
         for(CustomEvents customEvents1 : arrayList){
             if(customEvents1.getClass() == specialClass)

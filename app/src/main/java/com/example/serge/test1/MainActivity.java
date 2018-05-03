@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .setPositiveButton( R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Shared.eventPool.stopAll();
                     Shared.eventPool.notify( new StartNewGame() );
                     }
                 } )

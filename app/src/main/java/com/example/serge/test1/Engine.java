@@ -1,12 +1,16 @@
 package com.example.serge.test1;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.serge.test1.CustomEvents.AddItem;
 import com.example.serge.test1.CustomEvents.CustomButton;
@@ -90,6 +94,7 @@ public class Engine extends EventObserverAdapter {
     public void onEvent(StartNewGame startNewGame) {
         WWProgress.dump_of_progress();
         mainLayout.removeAllViews();
+        questionView.removeAllViews();
         getCurrentEpisode( null );
     }
     //Добавление предмета в инвентарь
@@ -124,21 +129,37 @@ public class Engine extends EventObserverAdapter {
         LayoutInflater layoutInflater = Shared.activity.getLayoutInflater();
         final CustomButtonPlayerAnswer customButtonAnswer = (CustomButtonPlayerAnswer) layoutInflater.inflate( R.layout.custombuttonanswer, mainLayout, false);
         customButtonAnswer.setText( playerAnwser.getText() );
-        customButtonAnswer.setOnClickListener( new View.OnClickListener() {
+        customButtonAnswer.setOnLongClickListener( new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
-                Shared.eventPool.stopAll();
-                WWProgress.backInTime(playerAnwser);
-                int start = mainLayout.indexOfChild( customButtonAnswer );
-                int count = mainLayout.getChildCount() - start;
-                mainLayout.removeViews( start, count );
-                questionView.removeAllViews();
-                CustomEvents customEvents = WWProgress.getLastEvent( Questions.class );
-                if(customEvents!=null)
-                {
-                    customEvents.setAdded( false );
-                    Shared.eventPool.notify( customEvents );
-                }
+            public boolean onLongClick(View v) {
+                Toast.makeText(Shared.context, "Сработало событие", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(Shared.context);
+                builder.setMessage( "Вы хотите вернуться на этот этап?" )
+                        .setCancelable( false )
+                        .setPositiveButton( R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Shared.eventPool.stopAll();
+                                WWProgress.backInTime( playerAnwser );
+                                int start = mainLayout.indexOfChild( customButtonAnswer );
+                                int count = mainLayout.getChildCount() - start;
+                                mainLayout.removeViews( start, count );
+                                questionView.removeAllViews();
+                                CustomEvents qe = WWProgress.getLastEvent( Questions.class );
+                                if(qe!=null){
+                                    qe.setAdded( false );
+                                    Shared.eventPool.notify( qe );
+                                }
+                            }
+                        } )
+                        .setNegativeButton( R.string.no, new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        } );
+                builder.show();
+                return false;
             }
         } );
         mainLayout.addView( customButtonAnswer );
