@@ -2,7 +2,9 @@ package com.example.serge.test1.CustomView;
 
 import android.content.Context;
 import android.util.AttributeSet;
+
 import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * Created by sergey37192 on 08.04.2018.

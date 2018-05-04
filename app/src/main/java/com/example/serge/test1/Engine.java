@@ -174,6 +174,7 @@ public class Engine extends EventObserverAdapter {
             if(itemId == -1 || WWProgress.checkItem( itemId )){
 
                 final CustomButton customButton = new CustomButton(Shared.context, q.getGoTo());
+
                 customButton.setLayoutParams( Settings.questionViewParams );
                 customButton.setText( q.getText() );
                 customButton.setOnClickListener( new View.OnClickListener() {
