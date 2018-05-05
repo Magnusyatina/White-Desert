@@ -12,13 +12,15 @@
 
     </style>
 
+
+
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowAnimationStyle">@style/DownUpActivity</item>
-        <item name="android:buttonStyle">@style/CustonButton</item>
+
     </style>
 
     <style name="InventoryTheme" parent="Theme.AppCompat.DayNight.Dialog">

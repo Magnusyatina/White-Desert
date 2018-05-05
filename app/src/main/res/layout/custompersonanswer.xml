@@ -7,6 +7,6 @@
     android:padding="10dp"
     android:textSize="12sp"
     android:layout_gravity="left"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp" android:elevation="6dp">
 
 </com.example.serge.test1.CustomView.CustomPersonAnswer>

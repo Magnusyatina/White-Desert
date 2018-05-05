@@ -176,6 +176,7 @@ public class Engine extends EventObserverAdapter {
                 final CustomButton customButton = new CustomButton(Shared.context, q.getGoTo());
                 customButton.setLayoutParams( Settings.questionViewParams );
                 customButton.setText( q.getText() );
+                customButton.setBackgroundResource( R.drawable.custombutton );
                 customButton.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

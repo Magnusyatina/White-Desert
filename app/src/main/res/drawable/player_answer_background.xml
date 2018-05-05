@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:top="7px"
-          android:left="7px"><shape>
-        <corners android:bottomRightRadius="7dip"
-                 android:bottomLeftRadius="27dip"
-                 android:topLeftRadius="7dip"
-                 android:topRightRadius="27dip"
-            />
-        <solid android:color="#b012302e" />
-    </shape>>
-    </item>
     <item android:bottom="7px"
           android:right="7px">
         <shape>

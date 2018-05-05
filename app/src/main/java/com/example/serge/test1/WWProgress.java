@@ -64,27 +64,29 @@ public class WWProgress {
 
     public static ArrayList<CustomEvents> addToProgress(String stage_name) throws NoSuchElementException{
 
-        Stage stage = null;
-        ArrayList<CustomEvents> EventList = null;
+        Stage stage = (Stage) Scenario.scenarioList.get( stage_name );
+
+        if(stage == null)
+            throw new NoSuchElementException();
+
         ArrayList<CustomEvents> newEventList = null;
-        if((stage = (Stage) Scenario.scenarioList.get( stage_name ))!=null){
-            try {
-                EventList = stage.getArray();
-                newEventList = new ArrayList<>( );
-                for(CustomEvents e : EventList){
-                    CustomEvents currE = (CustomEvents) e.clone();
-                    currE.setStage( stage_name );
-                    planningScheduleTime( currE );
-                    addToProgress( currE );
-                    newEventList.add( currE );
-                }
-//                getProgressList().addAll( newEventList );
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
+        try {
+            ArrayList<CustomEvents> EventList = stage.getArray();
+            newEventList = new ArrayList<>( );
+            for(CustomEvents e : EventList){
+                CustomEvents currE = (CustomEvents) e.clone();
+                currE.setStage( stage_name );
+                planningScheduleTime( currE );
+                addToProgress( currE );
+                newEventList.add( currE );
             }
-            CustomTimer.clearTimer();
-            return newEventList;
-        }else throw new NoSuchElementException();
+//                getProgressList().addAll( newEventList );
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        CustomTimer.clearTimer();
+        return newEventList;
+
     }
 
     public static void addToProgress(CustomEvents customEvent){
