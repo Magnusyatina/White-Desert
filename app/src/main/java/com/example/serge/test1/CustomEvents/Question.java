@@ -12,8 +12,8 @@ public class Question implements Serializable{
 
     private int needItem = -1;
 
-    private String goTo;
-    private String alterGoTo;
+    private String target;
+    private String alterTarget;
 
     public void setNeedItem(int needItem){
         this.needItem = needItem;
@@ -31,25 +31,25 @@ public class Question implements Serializable{
         return  text;
     }
 
-    public void setGoTo(String goTo){
-        this.goTo = goTo;
+    public void setTarget(String target){
+        this.target = target;
     }
 
-    public String getGoTo(){
-        return goTo;
+    public String getTarget(){
+        return target;
     }
 
-    public void setAlterGoTo(String alterGoTo){
-        this.alterGoTo = alterGoTo;
+    public void setAlterTarget(String alterTarget){
+        this.alterTarget = alterTarget;
     }
 
     public String getAlterGoTo(){
-        return alterGoTo;
+        return alterTarget;
     }
 
 
-    public boolean isAlterGoTo(){
-        if(alterGoTo != null)
+    public boolean getAlterTarget(){
+        if(alterTarget != null)
             return true;
         else return false;
     }

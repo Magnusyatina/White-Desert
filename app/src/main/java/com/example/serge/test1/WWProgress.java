@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.serge.test1.CustomEvents.CustomEvents;
+import com.example.serge.test1.CustomEvents.RandomEvent;
 import com.example.serge.test1.CustomEvents.Stage;
 import com.example.serge.test1.CustomEvents.Waiting;
 import com.example.serge.test1.Person.Person;
@@ -76,6 +77,15 @@ public class WWProgress {
             for(CustomEvents e : EventList){
                 CustomEvents currE = (CustomEvents) e.clone();
                 currE.setStage( stage_name );
+                if(currE instanceof RandomEvent){
+                    RandomEvent re = (RandomEvent) currE;
+                    if(re.check()){
+                        planningScheduleTime( re );
+                        addToProgress( re );
+                        newEventList.add( re );
+                        break;
+                    }else continue;
+                }
                 planningScheduleTime( currE );
                 addToProgress( currE );
                 newEventList.add( currE );

@@ -5,6 +5,7 @@ import com.example.serge.test1.CustomEvents.Die;
 import com.example.serge.test1.CustomEvents.ImportantMessage;
 import com.example.serge.test1.CustomEvents.PlayerAnwser;
 import com.example.serge.test1.CustomEvents.Questions;
+import com.example.serge.test1.CustomEvents.RandomEvent;
 import com.example.serge.test1.CustomEvents.RemoveItem;
 import com.example.serge.test1.CustomEvents.StartGame;
 import com.example.serge.test1.CustomEvents.StartNewGame;
@@ -43,6 +44,11 @@ public class EventObserverAdapter implements EventObserver {
 
     @Override
     public void onEvent(RemoveItem removeItem) {
+
+    }
+
+    @Override
+    public void onEvent(RandomEvent randomEvent) {
 
     }
 

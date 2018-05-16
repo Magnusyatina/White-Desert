@@ -4,12 +4,20 @@
         <message text="Алл.. меня кто..удь слы..т"/>
         <message text="К..будь, отве..е"/>
         <message text="Мн... нуж..а помощ.."/>
+        <random_event target="random_event1"/>
         <questions>
             <case text="Слишком плохая связь, вы обрываетесь!" target="repair_communication1"/>
             <case text="Вас очень плохо слышно!" target="repair_communication1"/>
             <case text="Разожги костер!" need_item="1"/>
         </questions>
     </stage>
+
+    <stage id="random_event1">
+        <message text="А, подожди, что происходит"/>
+        <message text="Почему так холодно"/>
+        <message text="Это невыносимо"/>
+    </stage>>
+
     <stage id="repair_communication1">
         <message text="Я по..л, по..о..ите, я ...бую ка..будь ..лить сигн.."/>
         <waiting value="5000"/>

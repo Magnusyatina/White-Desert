@@ -66,7 +66,7 @@ public class Scenario {
                             Question question = new Question();
                             question.setText(parser.getAttributeValue( null, "text" ));
                             question.setNeedItem( parser.getAttributeIntValue( null, "need_item", -1 ) );
-                            question.setGoTo(parser.getAttributeValue( null, "target" ));
+                            question.setTarget(parser.getAttributeValue( null, "target" ));
                             questions.put(question);
                         }
                     }else if(tagName.equals("waiting")){
@@ -75,7 +75,7 @@ public class Scenario {
                         stage.addToArray( waiting );
                     }else if(tagName.equals("random_event")){
                         RandomEvent randomEvent = new RandomEvent();
-                        randomEvent.setStage(parser.getAttributeValue(null, "stage"));
+                        randomEvent.setTarget(parser.getAttributeValue(null, "target"));
                         stage.addToArray( randomEvent );
                     }
                     else if(tagName.equals("add_item")){

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -21,6 +20,7 @@ import com.example.serge.test1.CustomEvents.ImportantMessage;
 import com.example.serge.test1.CustomEvents.PlayerAnwser;
 import com.example.serge.test1.CustomEvents.Question;
 import com.example.serge.test1.CustomEvents.Questions;
+import com.example.serge.test1.CustomEvents.RandomEvent;
 import com.example.serge.test1.CustomEvents.RemoveItem;
 import com.example.serge.test1.CustomEvents.StartGame;
 import com.example.serge.test1.CustomEvents.StartNewGame;
@@ -124,6 +124,14 @@ public class Engine extends EventObserverAdapter {
         textMessage.setAdded( true );
         scrollDown();
     }
+
+    @Override
+    public void onEvent(RandomEvent randomEvent) {
+        String stageId = randomEvent.getTarget();
+        getCurrentEpisode( stageId );
+        WWProgress.getProgressList().remove( randomEvent );
+    }
+
     //Вывод ответа пользователя на экран
     public void onEvent(final PlayerAnwser playerAnwser){
         LayoutInflater layoutInflater = Shared.activity.getLayoutInflater();
@@ -173,7 +181,7 @@ public class Engine extends EventObserverAdapter {
             int itemId = q.getNeedItem();
             if(itemId == -1 || WWProgress.checkItem( itemId )){
 
-                final CustomButton customButton = new CustomButton(Shared.context, q.getGoTo());
+                final CustomButton customButton = new CustomButton(Shared.context, q.getTarget());
                 customButton.setLayoutParams( Settings.questionViewParams );
                 customButton.setText( q.getText() );
                 customButton.setBackgroundResource( R.drawable.custombutton );
@@ -182,7 +190,7 @@ public class Engine extends EventObserverAdapter {
                     public void onClick(View v) {
                         questions.setAdded(true);
                         PlayerAnwser playerAnwser = new PlayerAnwser();
-                        playerAnwser.setStage(questions.getStage());
+                        playerAnwser.setStage(questions.getTarget());
                         playerAnwser.setText(  customButton.getText().toString() );
                         WWProgress.getProgressList().add( playerAnwser );
                         Shared.eventPool.notify( playerAnwser );

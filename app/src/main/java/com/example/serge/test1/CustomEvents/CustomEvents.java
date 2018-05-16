@@ -39,7 +39,7 @@ public class CustomEvents implements Serializable, Cloneable, Event{
         this.stage = stage;
     }
 
-    public String getStage(){
+    public String getTarget(){
         return stage;
     }
 
