@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.serge.test1.CustomEvents.AddItem;
-import com.example.serge.test1.CustomEvents.CustomButton;
+import com.example.serge.test1.CustomView.CustomButton;
 import com.example.serge.test1.CustomEvents.CustomEvents;
 import com.example.serge.test1.CustomEvents.Die;
 
@@ -28,6 +28,7 @@ import com.example.serge.test1.CustomEvents.TextMessage;
 import com.example.serge.test1.CustomEvents.Waiting;
 import com.example.serge.test1.CustomView.CustomButtonPlayerAnswer;
 import com.example.serge.test1.CustomView.CustomPersonAnswer;
+import com.example.serge.test1.CustomView.CustomWaitingView;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -69,7 +70,9 @@ public class Engine extends EventObserverAdapter {
         try{
         ArrayList<CustomEvents> arrayList = WWProgress.addToProgress( stageId );
         gameContinue( arrayList );}
-        catch (NoSuchElementException ex){}
+        catch (NoSuchElementException ex){
+            Shared.activity.finish();
+        }
     }
 
     public void gameContinue(ArrayList<CustomEvents> events){
@@ -206,10 +209,9 @@ public class Engine extends EventObserverAdapter {
 
     public void onEvent(Waiting waiting){
         final Waiting wait = waiting;
-        final TextView waitView = new TextView( Shared.context );
+        LayoutInflater inflater = Shared.activity.getLayoutInflater();
+        CustomWaitingView waitView = (CustomWaitingView) inflater.inflate( R.layout.waiting_view, mainLayout, false );
         waitView.setText(R.string.personIsWaiting);
-        waitView.setLayoutParams(Settings.layoutParams);
-        waitView.setGravity(Gravity.CENTER_HORIZONTAL);
         mainLayout.addView( waitView );
         wait.setAdded( true );
         scrollDown();

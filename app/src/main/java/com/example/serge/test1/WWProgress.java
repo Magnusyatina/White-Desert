@@ -1,8 +1,6 @@
 package com.example.serge.test1;
 
 import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.example.serge.test1.CustomEvents.CustomEvents;
 import com.example.serge.test1.CustomEvents.RandomEvent;
@@ -104,7 +102,7 @@ public class WWProgress {
     }
 
     public static void planningScheduleTime(CustomEvents item){
-        item.setScheduledtime( CustomTimer.getTestValue() );
+        item.setScheduledtime( CustomTimer.getValue() );
         if(item.getClass() == Waiting.class){
             Waiting waiting = (Waiting) item;
             CustomTimer.addTestTime( waiting.getValue() );

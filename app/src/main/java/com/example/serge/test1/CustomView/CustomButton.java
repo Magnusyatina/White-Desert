@@ -1,4 +1,4 @@
-package com.example.serge.test1.CustomEvents;
+package com.example.serge.test1.CustomView;
 
 import android.content.Context;
 
