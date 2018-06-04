@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Shared.eventObserver = new Engine();
         Shared.context = this;
         Shared.activity = this;
+        PropertyReader propertyReader = new PropertyReader( this );
+        Shared.properties = propertyReader.load_properties( "config.properties" );
 
 
 

@@ -34,9 +34,11 @@ public class WWProgress {
             obj = new ObjectInputStream( new FileInputStream( file ) );
             progress = (Progress) obj.readObject();
             obj.close();
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException ignored) {
 
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException ignored) {
+
+        }finally {
             obj.close();
         }
         if(progress == null)
