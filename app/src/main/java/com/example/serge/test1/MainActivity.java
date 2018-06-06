@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.example.serge.test1.CustomEvents.StartGame;
 import com.example.serge.test1.CustomEvents.StartNewGame;
 
+import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CompoundButton.OnCheckedChangeListener{
@@ -62,18 +63,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         PropertyReader propertyReader = new PropertyReader( this );
         Shared.properties = propertyReader.load_properties( "config.properties" );
 
-
-
-
-
+        propertyReader.save_properties( "config.properties" );
         navView = (NavigationView) findViewById(R.id.nav_view);
 
         navView.setNavigationItemSelectedListener( this );
         switchCompat = (SwitchCompat) navView.getMenu().getItem( 1 ).getActionView();
         switchCompat.setOnCheckedChangeListener( this );
         switchCompat.setChecked( true );
-
-
         Shared.eventObserver.start();
         Shared.eventPool.notify( new StartGame() );
 

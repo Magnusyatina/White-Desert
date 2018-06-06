@@ -8,15 +8,9 @@
                      android:topLeftRadius="27dip"
                      android:topRightRadius="7dip"
                      />
-            <gradient
-                android:startColor="#74c7e7"
-                android:type="radial"
-                android:gradientRadius="600dip"
-                android:centerY="0.80"
-                android:centerX="0.50"
-                android:endColor="#74c7e7"
-                android:angle="270"
-                />
+            <solid android:color="#981e1d1d"/>
+            <stroke android:color="#74c7e7"
+                    android:width="1dp"/>
         </shape>>
     </item>
 </layer-list>
