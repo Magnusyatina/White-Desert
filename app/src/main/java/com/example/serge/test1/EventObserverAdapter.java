@@ -1,6 +1,7 @@
 package com.example.serge.test1;
 
 import com.example.serge.test1.CustomEvents.AddItem;
+import com.example.serge.test1.CustomEvents.CustomMusic;
 import com.example.serge.test1.CustomEvents.Die;
 import com.example.serge.test1.CustomEvents.ImportantMessage;
 import com.example.serge.test1.CustomEvents.PlayerAnwser;
@@ -69,6 +70,11 @@ public class EventObserverAdapter implements EventObserver {
 
     @Override
     public void onEvent(StartNewGame startNewGame) {
+
+    }
+
+    @Override
+    public void onEvent(CustomMusic music) {
 
     }
 

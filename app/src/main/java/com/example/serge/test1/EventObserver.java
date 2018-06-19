@@ -1,6 +1,7 @@
 package com.example.serge.test1;
 
 import com.example.serge.test1.CustomEvents.AddItem;
+import com.example.serge.test1.CustomEvents.CustomMusic;
 import com.example.serge.test1.CustomEvents.Die;
 import com.example.serge.test1.CustomEvents.ImportantMessage;
 import com.example.serge.test1.CustomEvents.PlayerAnwser;
@@ -38,6 +39,8 @@ public interface EventObserver {
     public void onEvent(StartGame startGame);
 
     public void onEvent(StartNewGame startNewGame);
+
+    public void onEvent(CustomMusic music);
 
     public void onCreate();
 

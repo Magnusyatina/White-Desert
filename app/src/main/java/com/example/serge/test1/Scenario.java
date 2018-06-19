@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.serge.test1.CustomEvents.AddItem;
 import com.example.serge.test1.CustomEvents.CustomEvents;
+import com.example.serge.test1.CustomEvents.CustomMusic;
 import com.example.serge.test1.CustomEvents.Die;
 import com.example.serge.test1.CustomEvents.ImportantMessage;
 import com.example.serge.test1.CustomEvents.Question;
@@ -89,6 +90,10 @@ public class Scenario {
                     }else if(tagName.equals("die")){
                         Die die = new Die();
                         stage.addToArray( die );
+                    }else if(tagName.equals("music")){
+                        CustomMusic music = new CustomMusic();
+
+                        stage.addToArray( music );
                     }
 
                 }

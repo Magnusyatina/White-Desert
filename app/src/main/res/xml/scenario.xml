@@ -9,6 +9,7 @@
             <case text="Слишком плохая связь, вы обрываетесь!" target="repair_communication1"/>
             <case text="Вас очень плохо слышно!" target="repair_communication1"/>
             <case text="Разожги костер!" need_item="1"/>
+        <case text="Заблокированный овтет" target="blaskovich"/>
         </questions>
     </stage>
 

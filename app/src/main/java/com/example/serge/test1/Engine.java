@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.serge.test1.CustomEvents.AddItem;
+import com.example.serge.test1.CustomEvents.CustomMusic;
 import com.example.serge.test1.CustomView.CustomButton;
 import com.example.serge.test1.CustomEvents.CustomEvents;
 import com.example.serge.test1.CustomEvents.Die;
@@ -107,7 +108,7 @@ public class Engine extends EventObserverAdapter {
         final int itemId;
         if((itemId = addItem.getItem())!=-1){
             WWProgress.setItem( itemId );
-            addItem.setAdded( true );
+            WWProgress.getProgressList().remove( addItem );
         }
     }
 
@@ -116,7 +117,7 @@ public class Engine extends EventObserverAdapter {
         final int itemId;
         if((itemId = removeItem.getItem())!=-1){
             WWProgress.unsetItem( itemId );
-            removeItem.setAdded( true );
+            WWProgress.getProgressList().remove( removeItem );
         }
     }
 
@@ -128,6 +129,11 @@ public class Engine extends EventObserverAdapter {
         mainLayout.addView( customPersonAnswer );
         textMessage.setAdded( true );
         scrollDown();
+    }
+
+    @Override
+    public void onEvent(CustomMusic music) {
+        super.onEvent( music );
     }
 
     @Override
@@ -204,6 +210,8 @@ public class Engine extends EventObserverAdapter {
                         getCurrentEpisode(customButton.getGoTo());
                     }
                 } );
+                if(!Scenario.scenarioList.containsKey( customButton.getGoTo() ))
+                    customButton.setEnabled( false );
                 questionView.addView(customButton);
             }
         }

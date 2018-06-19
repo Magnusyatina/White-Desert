@@ -79,7 +79,7 @@ public class WWProgress {
                 currE.setStage( stage_name );
                 if(currE instanceof RandomEvent){
                     RandomEvent re = (RandomEvent) currE;
-                    if(re.check()){
+                    if(!re.check()){
                         planningScheduleTime( re );
                         addToProgress( re );
                         newEventList.add( re );

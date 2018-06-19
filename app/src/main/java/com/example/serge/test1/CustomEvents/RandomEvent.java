@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class RandomEvent extends CustomEvents {
     private String target;
-    private int coef = 50;
+    private int coef = 15;
 
     public RandomEvent(int coef){
         this.coef = coef;
