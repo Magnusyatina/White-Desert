@@ -56,6 +56,8 @@ public class Engine extends EventObserverAdapter {
         try {
             Scenario.loadSceanrio( Shared.context );
             WWProgress.loadProgress( Shared.context );
+            Music.createMediaPlayer();
+            Music.play();
             mainLayout = (LinearLayout) Shared.activity.findViewById( R.id.textArea );
             mainScrollView = (ScrollView) Shared.activity.findViewById( R.id.mainScrollView );
             questionView = (LinearLayout) Shared.activity.findViewById( R.id.questionsLayout );
@@ -133,7 +135,11 @@ public class Engine extends EventObserverAdapter {
 
     @Override
     public void onEvent(CustomMusic music) {
-        super.onEvent( music );
+        String str_music = music.get_music_name();
+        int resId = Shared.context.getResources().getIdentifier( str_music, "raw", Shared.context.getPackageName() );
+        if(resId != 0)
+            Music.createMediaPlayer( resId );
+        WWProgress.getProgressList().remove( music );
     }
 
     @Override
