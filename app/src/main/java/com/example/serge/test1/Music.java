@@ -20,8 +20,7 @@ public class Music {
             mediaPlayer.pause();
     }
 
-    public static void createMediaPlayer(){
-        String music_name = Shared.properties.getProperty( "music_title" );
+    public static void createMediaPlayer(String music_name){
         if(music_name == null)
             return;
 
@@ -38,6 +37,5 @@ public class Music {
         mediaPlayer = MediaPlayer.create( Shared.context, resId );
         mediaPlayer.setVolume( 0.5f, 0.5f );
         mediaPlayer.setLooping( true );
-
     }
 }

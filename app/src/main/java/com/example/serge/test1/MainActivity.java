@@ -10,9 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
-import android.util.AttributeSet;
 import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -20,16 +18,13 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.serge.test1.CustomEvents.SetGameMode;
+import com.example.serge.test1.CustomEvents.SetMusic;
 import com.example.serge.test1.CustomEvents.StartGame;
 import com.example.serge.test1.CustomEvents.StartNewGame;
-
-import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CompoundButton.OnCheckedChangeListener{
@@ -37,7 +32,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private LinearLayout inventory;
     private NavigationView navView;
-    private SwitchCompat switchCompat;
+    private SwitchCompat switchMusicCompat;
+    private SwitchCompat switchModeCompat;
 
 
 
@@ -55,31 +51,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         setContentView(R.layout.activity_main);
-
+        Shared.properties = PropertyReader.load_properties(this, "config.properties" );
         Shared.eventPool = new EventPool();
         Shared.eventObserver = new Engine();
         Shared.context = this;
         Shared.activity = this;
-        PropertyReader propertyReader = new PropertyReader( this );
-        Shared.properties = propertyReader.load_properties( "config.properties" );
 
-        propertyReader.save_properties( "config.properties" );
+
         navView = (NavigationView) findViewById(R.id.nav_view);
 
         navView.setNavigationItemSelectedListener( this );
-        switchCompat = (SwitchCompat) navView.getMenu().getItem( 1 ).getActionView();
-        switchCompat.setOnCheckedChangeListener( this );
-        switchCompat.setChecked( true );
+        switchMusicCompat = (SwitchCompat) navView.getMenu().getItem( 1 ).getActionView();
+        switchMusicCompat.setOnCheckedChangeListener( this );
+        switchMusicCompat.setChecked( true );
+        switchModeCompat = (SwitchCompat) navView.getMenu().getItem(2).getActionView();
+        switchModeCompat.setOnCheckedChangeListener( this );
+
         Shared.eventObserver.start();
         Shared.eventPool.notify( new StartGame() );
 
     }
 
-    protected void setMusic(boolean isChecked){
-        if(isChecked)
-            Music.play();
-        else Music.stop();
-    }
+
 
     public void switchBag(View view){
 
@@ -153,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onPause(){
         super.onPause();
         Music.stop();
+        PropertyReader.save_properties( this, "config.properties", Shared.properties );
         Shared.eventObserver.onPause();
     }
 
@@ -180,6 +174,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = buttonView.getId();
         switch(id){
             case R.id.music_switch_panel: setMusic(isChecked); break;
+            case R.id.game_condition_switch: set_game_mode( isChecked ); break;
+            default: break;
         }
+    }
+
+    protected void setMusic(boolean isChecked){
+        SetMusic setMusic = new SetMusic();
+        setMusic.setEnable( isChecked );
+        Shared.eventPool.notify(setMusic);
+    }
+
+    protected void set_game_mode(boolean isChecked){
+        SetGameMode gameMode = new SetGameMode();
+        gameMode.setFast_game( isChecked );
+        Shared.eventPool.notify( gameMode );
     }
 }

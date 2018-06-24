@@ -23,6 +23,7 @@
         <message text="Я по..л, по..о..ите, я ...бую ка..будь ..лить сигн.."/>
         <waiting value="5000"/>
         <message text="Так лучше?"/>
+        <music title="main_theme_2"/>
         <questions>
             <case text="Да, лучше, что у вас случилось?" target="djozef_info1"/>
             <case text="Намного. Но кто вы?" target="djozef_info2"/>
@@ -109,8 +110,21 @@
         <add_item item="1"/>
         <questions>
             <case text="Попробуй разжечь костер!" target="kindling_a_fire_next_to_the_plane"/>
+            <case text="Есть идеи, что ты будешь делать дальше?" target="kindling_a_fire_net_to_the_plane"/>
         </questions>
     </stage>
+    <stage id="kindling_a_fire_net_to_the_plane">
+        <message text="Да, для начала нужно разжечь костер"/>
+        <message text="Вроде как место для укрытия я нашел"/>
+        <message text="Возле него и разожгу костер"/>
+        <message text="Только надо поторопится, а то я почти превратился в ходячую сосульку"/>
+        <message text="Еще чуть-чуть и все"/>
+        <message text="Может твои теплые слова смогут меня немного согреть?"/>
+        <questions>
+            <case text="Тебе бы по меньше болтать, а то действительно замерзнешь" target="wonderful jokes_01"/>
+            <case text="Почему сразу я? Может что сам расскажешь? Например, всегда ли ты попадаешь в такие передряги?" target="wonderful_jokes_02"/>
+        </questions>>
+    </stage>>
     <stage id="shelter_search">
         <message text="Да, хорошая идея"/>
         <message text="Как раз наберусь сил перед тем, как уйти отсюда"/>

@@ -15,50 +15,46 @@ import java.io.OutputStreamWriter;
 import java.util.Properties;
 
 public class PropertyReader {
-    private Context context;
-    private Properties properties;
 
-    public PropertyReader(Context context){
-        this.context = context;
-        properties = new Properties(  );
-    }
-
-    public Properties load_properties(String file_name) {
+    public static Properties load_properties(Context context, String file_name) {
         File file = new File(context.getFilesDir(), file_name);
+        Properties properties = new Properties(  );
         try{
             if(!file.exists())
-                return get_asset_prop( file_name );
+                return get_asset_prop( context, file_name, properties );
             InputStreamReader in = new InputStreamReader( new FileInputStream( file ) );
             properties.load( in );
-        } catch (FileNotFoundException e) {
-                e.printStackTrace();
-        } catch (IOException e) {
-                e.printStackTrace();
-        }
 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return properties;
     }
 
-    private Properties get_asset_prop(String file) throws  IOException{
+    private static Properties get_asset_prop(Context context, String file, Properties properties) throws  IOException{
         AssetManager assetManager = context.getAssets();
 
         InputStream inputStream;
-
         inputStream = assetManager.open( file );
         properties.load(inputStream);
 
         return properties;
     }
 
-    public void save_properties(String file_name){
+    public static void save_properties(Context context, String file_name, Properties properties){
+        if(properties == null)
+            return;
 
         try {
             FileOutputStream out = context.openFileOutput( file_name, Context.MODE_PRIVATE );
-            Shared.properties.store(out, "gg");
+            properties.store(out, "gg");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

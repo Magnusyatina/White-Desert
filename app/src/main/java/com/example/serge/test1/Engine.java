@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.serge.test1.CustomEvents.AddItem;
 import com.example.serge.test1.CustomEvents.CustomMusic;
+import com.example.serge.test1.CustomEvents.SetGameMode;
+import com.example.serge.test1.CustomEvents.SetMusic;
 import com.example.serge.test1.CustomView.CustomButton;
 import com.example.serge.test1.CustomEvents.CustomEvents;
 import com.example.serge.test1.CustomEvents.Die;
@@ -56,7 +58,7 @@ public class Engine extends EventObserverAdapter {
         try {
             Scenario.loadSceanrio( Shared.context );
             WWProgress.loadProgress( Shared.context );
-            Music.createMediaPlayer();
+            Music.createMediaPlayer(Shared.properties.getProperty( "music_title" ));
             Music.play();
             mainLayout = (LinearLayout) Shared.activity.findViewById( R.id.textArea );
             mainScrollView = (ScrollView) Shared.activity.findViewById( R.id.mainScrollView );
@@ -137,8 +139,12 @@ public class Engine extends EventObserverAdapter {
     public void onEvent(CustomMusic music) {
         String str_music = music.get_music_name();
         int resId = Shared.context.getResources().getIdentifier( str_music, "raw", Shared.context.getPackageName() );
-        if(resId != 0)
+        if(resId != 0){
             Music.createMediaPlayer( resId );
+            Shared.properties.setProperty( "music_title", str_music );
+            if(Shared.properties.getProperty( "music" ).equals( "on" ))
+                Music.play();
+        }
         WWProgress.getProgressList().remove( music );
     }
 
@@ -243,6 +249,25 @@ public class Engine extends EventObserverAdapter {
         mainLayout.addView( textView );
         die.setAdded( true );
         scrollDown();
+    }
+
+    @Override
+    public void onEvent(SetGameMode gameMode) {
+        boolean isgame_mode = gameMode.getFast_game();
+        if(isgame_mode){
+            Shared.properties.setProperty( "fast_game", "on" );
+        }
+        else{
+            Shared.properties.setProperty( "fast_game", "off" );
+        }
+        CustomTimer.set_mode( isgame_mode );
+    }
+
+    @Override
+    public void onEvent(SetMusic setMusic) {
+        if(setMusic.isEnable())
+            Music.play();
+        else Music.stop();
     }
 
     @Override

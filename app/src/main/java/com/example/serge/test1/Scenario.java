@@ -92,7 +92,7 @@ public class Scenario {
                         stage.addToArray( die );
                     }else if(tagName.equals("music")){
                         CustomMusic music = new CustomMusic();
-
+                        music.set_music_name( parser.getAttributeValue( null, "title" ) );
                         stage.addToArray( music );
                     }
 

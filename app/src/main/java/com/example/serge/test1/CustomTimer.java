@@ -9,8 +9,9 @@ import java.util.Random;
 public class CustomTimer {
     private static long testtime = 0;
     private static Random rand = null;
-    static int min = 1000;
-    static int max = 2500;
+    private static int min = 1000;
+    private static int max = 2500;
+    private static boolean fast_game = false;
 
     public static long getValue(){
         if(testtime == 0)
@@ -31,12 +32,18 @@ public class CustomTimer {
 
     //Добавление к текущему значению (врекмя) определенное значение
     public static void addTestTime(int t){
-        testtime += t;
+        if(!fast_game)
+            testtime += t;
+        else testtime = testtime + getRand();
     }
 
 
     public static void clearTimer(){
         testtime = 0;
+    }
+
+    public static void set_mode(boolean b){
+        fast_game = b;
     }
 
 }
