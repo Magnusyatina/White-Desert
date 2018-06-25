@@ -109,7 +109,7 @@
         <message text="Отлично, я нашел спички! Будет теперь с помощью чего я смогу разжечь костер"/>
         <add_item item="1"/>
         <questions>
-            <case text="Попробуй разжечь костер!" target="kindling_a_fire_next_to_the_plane"/>
+            <case text="Попробуй разжечь костер!" target="kindling_a_fire_net_to_the_plane"/>
             <case text="Есть идеи, что ты будешь делать дальше?" target="kindling_a_fire_net_to_the_plane"/>
         </questions>
     </stage>
@@ -123,6 +123,26 @@
         <questions>
             <case text="Тебе бы по меньше болтать, а то действительно замерзнешь" target="wonderful jokes_01"/>
             <case text="Почему сразу я? Может что сам расскажешь? Например, всегда ли ты попадаешь в такие передряги?" target="wonderful_jokes_02"/>
+        </questions>>
+    </stage>>
+    <stage id="wonderful_jokes_02">
+        <message text="Ха-ха, вижу ты умеешь острить"/>
+        <message text="Представь себе, каждый день происходит нечто ужасное"/>
+        <questions>
+            <case text="Да?" target="wonderful_jokes_01_01"/>
+            <case text="Вижу, ты тоже, хоть и находишься на волоске от смерти"/>
+        </questions>>
+    </stage>>
+    <stage id="wonderful_jokes_01_01">
+        <message text="Нет"/>
+        <message text="Все, я разжег костер и года не прошло"/>
+        <message text="Теперь смогу согреться и отдохнуть"/>
+        <message text="Думаешь, я смогу выжить в данной ситуации?"/>
+        <message text="Надеюсь, что где-то неподалеку люди"/>
+        <message text="И я смогу их найти"/>
+        <questions>
+            <case text="Определенно!"/>
+            <case text="Главное не отчаиваться!"/>
         </questions>>
     </stage>>
     <stage id="shelter_search">

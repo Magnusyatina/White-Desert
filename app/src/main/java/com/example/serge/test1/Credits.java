@@ -78,6 +78,7 @@ public class Credits extends AppCompatActivity {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             if (AUTO_HIDE) {
                 delayedHide( AUTO_HIDE_DELAY_MILLIS );
+                finish();
             }
             return false;
         }

@@ -4,7 +4,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
     android:background="@drawable/person_answer_background"
-    android:padding="10dp"
+    android:padding="12dp"
     android:textSize="12sp"
     android:layout_gravity="left"
     android:layout_margin="10dp" android:elevation="6dp"

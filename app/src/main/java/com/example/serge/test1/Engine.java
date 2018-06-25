@@ -222,7 +222,7 @@ public class Engine extends EventObserverAdapter {
                         getCurrentEpisode(customButton.getGoTo());
                     }
                 } );
-                if(!Scenario.scenarioList.containsKey( customButton.getGoTo() ))
+                if(customButton.getGoTo()==null||!Scenario.scenarioList.containsKey( customButton.getGoTo() ))
                     customButton.setEnabled( false );
                 questionView.addView(customButton);
             }

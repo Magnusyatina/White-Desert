@@ -1,5 +1,6 @@
 package com.example.serge.test1;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Point;
 import android.media.AudioManager;
 import android.os.Build;
@@ -157,13 +158,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-
+    public void show_credits(){
+        Intent intent = new Intent(this, Credits.class);
+        startActivity( intent );
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch(id){
             case R.id.new_game: Toast.makeText( this, "Новая игра", Toast.LENGTH_SHORT ).show(); start_new_game(); break;
-            case R.id.about: Toast.makeText( this, "Справка", Toast.LENGTH_SHORT ).show(); break;
+            case R.id.about: Toast.makeText( this, "Справка", Toast.LENGTH_SHORT ).show();show_credits(); break;
             default: break;
         }
         return true;

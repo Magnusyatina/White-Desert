@@ -5,7 +5,7 @@
               android:layout_height="wrap_content"
     android:background="@drawable/player_answer_background"
     android:textSize="12sp"
-    android:padding="10dp"
+    android:padding="12dp"
     android:layout_gravity="right"
     android:layout_margin="10dp"
     android:elevation="6dp"
