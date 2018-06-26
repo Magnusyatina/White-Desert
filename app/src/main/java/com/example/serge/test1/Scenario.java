@@ -15,6 +15,7 @@ import com.example.serge.test1.CustomEvents.Questions;
 import com.example.serge.test1.CustomEvents.RandomEvent;
 import com.example.serge.test1.CustomEvents.RemoveItem;
 import com.example.serge.test1.CustomEvents.Stage;
+import com.example.serge.test1.CustomEvents.StageJump;
 import com.example.serge.test1.CustomEvents.TextMessage;
 import com.example.serge.test1.CustomEvents.Waiting;
 
@@ -94,6 +95,10 @@ public class Scenario {
                         CustomMusic music = new CustomMusic();
                         music.set_music_name( parser.getAttributeValue( null, "title" ) );
                         stage.addToArray( music );
+                    }else if(tagName.equals( "stage_jump" )){
+                        StageJump stageJump = new StageJump();
+                        stageJump.setTarget( parser.getAttributeValue( null, "target" ) );
+                        stage.addToArray( stageJump );
                     }
 
                 }

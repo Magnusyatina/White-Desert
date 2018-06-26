@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.serge.test1.CustomEvents.CustomEvents;
 import com.example.serge.test1.CustomEvents.RandomEvent;
 import com.example.serge.test1.CustomEvents.Stage;
+import com.example.serge.test1.CustomEvents.StageJump;
 import com.example.serge.test1.CustomEvents.Waiting;
 import com.example.serge.test1.Person.Person;
 
@@ -85,6 +86,11 @@ public class WWProgress {
                         newEventList.add( re );
                         break;
                     }else continue;
+                }else if(currE instanceof StageJump){
+                    planningScheduleTime( currE );
+                    addToProgress( currE );
+                    newEventList.add(currE);
+                    break;
                 }
                 planningScheduleTime( currE );
                 addToProgress( currE );

@@ -10,6 +10,7 @@ import com.example.serge.test1.CustomEvents.RandomEvent;
 import com.example.serge.test1.CustomEvents.RemoveItem;
 import com.example.serge.test1.CustomEvents.SetGameMode;
 import com.example.serge.test1.CustomEvents.SetMusic;
+import com.example.serge.test1.CustomEvents.StageJump;
 import com.example.serge.test1.CustomEvents.StartGame;
 import com.example.serge.test1.CustomEvents.StartNewGame;
 import com.example.serge.test1.CustomEvents.TextMessage;
@@ -35,6 +36,10 @@ public class EventObserverAdapter implements EventObserver {
 
     }
 
+    @Override
+    public void onEvent(StageJump stageJump) {
+
+    }
 
     @Override
     public void onEvent(SetGameMode gameMode) {

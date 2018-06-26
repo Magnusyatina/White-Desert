@@ -17,6 +17,7 @@ import com.example.serge.test1.CustomEvents.AddItem;
 import com.example.serge.test1.CustomEvents.CustomMusic;
 import com.example.serge.test1.CustomEvents.SetGameMode;
 import com.example.serge.test1.CustomEvents.SetMusic;
+import com.example.serge.test1.CustomEvents.StageJump;
 import com.example.serge.test1.CustomView.CustomButton;
 import com.example.serge.test1.CustomEvents.CustomEvents;
 import com.example.serge.test1.CustomEvents.Die;
@@ -155,6 +156,13 @@ public class Engine extends EventObserverAdapter {
         WWProgress.getProgressList().remove( randomEvent );
     }
 
+    public void onEvent(StageJump stageJump){
+        String stageId = stageJump.getTarget();
+        if(stageId == null)
+            return;
+        getCurrentEpisode( stageId );
+        WWProgress.getProgressList().remove( stageJump );
+    }
     //Вывод ответа пользователя на экран
     public void onEvent(final PlayerAnwser playerAnwser){
         LayoutInflater layoutInflater = Shared.activity.getLayoutInflater();
