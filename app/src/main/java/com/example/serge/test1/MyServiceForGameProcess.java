@@ -18,15 +18,14 @@ public class MyServiceForGameProcess extends Service {
     String gameStage;
 
     private static final int NOTIFY_ID = 101;
-    private static boolean isExit = true;
     private static long schedule_Time = 0;
+    private static Handler cHandler = new Handler(Looper.getMainLooper());
 
 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int stardId){
         if(intent!=null){
-            isExit = true;
             schedule_Time = intent.getLongExtra( "SCHEDULE_TIME", 0 );
             long timer = schedule_Time - System.currentTimeMillis();
             if(timer>0){
@@ -43,11 +42,10 @@ public class MyServiceForGameProcess extends Service {
                         .setContentTitle( "White Desert" )
                         .setDefaults( Notification.DEFAULT_ALL );
                 final NotificationManager notificationManager = (NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
-                new Handler( Looper.getMainLooper()).postDelayed( new Runnable() {
+                cHandler.postDelayed( new Runnable() {
                     @Override
                     public void run() {
-                        if(isExit)
-                            notificationManager.notify( NOTIFY_ID, builder.build() );
+                        notificationManager.notify( NOTIFY_ID, builder.build() );
                         stopSelf();
                     }
                 },timer );
@@ -66,7 +64,7 @@ public class MyServiceForGameProcess extends Service {
     public void onDestroy() {
         Toast.makeText(this, "Служба остановлена",
                 Toast.LENGTH_SHORT).show();
-        isExit = false;
+        cHandler.removeCallbacksAndMessages( null );
         super.onDestroy();
 
     }

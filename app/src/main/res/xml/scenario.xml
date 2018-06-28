@@ -7,8 +7,6 @@
         <questions>
             <case text="Слишком плохая связь, вы обрываетесь!" target="repair_communication1"/>
             <case text="Вас очень плохо слышно!" target="repair_communication1"/>
-            <case text="Разожги костер!" need_item="1"/>
-            <case text="Заблокированный овтет" target="blaskovich"/>
         </questions>
     </stage>
 
@@ -121,7 +119,7 @@
         <message text="Да, для начала нужно разжечь костер"/>
         <message text="Вроде как место для укрытия я нашел"/>
         <message text="Возле него и разожгу костер"/>
-        <message text="Только надо поторопится, а то я почти превратился в ходячую сосульку"/>
+        <message text="Только надо поторопиться, а то я почти превратился в ходячую сосульку"/>
         <message text="Еще чуть-чуть и все"/>
         <questions>
             <case text="Тебе бы по меньше болтать, а то действительно замерзнешь" target="wonderful jokes_01"/>
@@ -137,6 +135,15 @@
     </stage>>
     <stage id="wonderful_jokes_01_01">
         <message text="Нет"/>
+        <stage_jump target="fall_asleep_and_wake_up" />
+    </stage>>
+    <stage id="wonderful_jokes_01_02">
+        <message text="Главное не терять самообладание."/>
+        <message text="А оптимизм еще никому не навредил"/>
+        <stage_jump target="fall_asleep_and_wake_up"/>
+    </stage>>
+
+    <stage id="fall_asleep_and_wake_up">
         <message text="Блин, уже 3 спичку сжег."/>
         <message text="На морозе не так то и просто это делать."/>
         <message text="Так, почти, ну же..."/>
@@ -145,10 +152,6 @@
         <message text="Надеюсь, что где-то неподалеку люди."/>
         <message text="Они увидят свечение от моего костра."/>
         <message text="И смогут найти меня..."/>
-        <stage_jump target="fall_asleep_and_wake_up" />
-    </stage>>
-
-    <stage id="fall_asleep_and_wake_up">
         <message text="Хорошо, когда есть чем согреться."/>
         <message text="Я наверное отдохну немного."/>
         <message text="А то я уже сильно устал."/>
@@ -168,12 +171,21 @@
         <message text="А тревожная, как я уже сказал."/>
         <message text="Мне кажется, что здесь кто-то был."/>
         <message text="И я бы не говорил это."/>
-        <message text="Если бы не пропала часть припасов!"/>
+        <message text="Если бы не пропало несколько пайков."/>
         <message text="Сейчас бы еще проблемы с пропитанием ко всему прочему добавить..."/>
         <questions>
             <case text="Ты в этом уверен? Осматривал округу?" target="bad_news_01_01"/>
             <case text="Может какой-то зверь забрел? Следы?" target="bad_news_01_02"/>
         </questions>
+    </stage>>
+    <stage id="bad_news_01_01">
+        <message text="Да, я осмотрелся."/>
+        <message text="Ни следов, ни других признаков пребывания кого-либо я не обнаружил."/>
+        <message text="Но даже так, это очень настораживает."/>
+        <message text="Может все это мне показалось."/>
+        <message text="Из-за переизбытка волнения."/>
+        <message text="А паек просто затерялся в снегах."/>
+        <stage_jump target="bad_news_good_news"/>
     </stage>>
     <stage id="bad_news_01_02">
         <message text="Если это так, то я должен быть настороже."/>
@@ -182,9 +194,72 @@
         <message text="Надеюсь это не хищники"/>
         <message text="Как думаешь, кто это мог быть?"/>
         <questions>
-            <case text="Медведь?"/>
-            <case text="Волк?"/>
+            <case text="Медведь?" target="you_are_crazy"/>
+            <case text="Волк?" target="you_are_crazy"/>
         </questions>>
+    </stage>>
+    <stage id="you_are_crazy">
+        <message text="Вот."/>
+        <message text="Чую мне будет сложно с тобой."/>
+        <message text="Ты же видишь, что я надеюсь на хорошее."/>
+        <message text="А ты сразу начинаешь подкидывать мне плохие варианты."/>
+        <stage_jump target="bad_news_good_news"/>
+    </stage>>
+    <stage id="bad_news_good_news">
+        <message text="Но ладно."/>
+        <message text="Хватит о тревожном"/>
+        <message text="Теперь хорошая новость."/>
+        <message text="Я нашел компас."/>
+        <message text="Хорошо что он не затерялся в снегах."/>
+        <questions>
+            <case text="Разве ты не можешь ориентироваться по положению солнца?" target="info_about_compas"/>
+            <case text="Может лучше еще подождать, вдруг за тобой уже выслали помощь?" target="stay_in_place"/>
+            <case text="Я думаю, пора уходить с этого места" target="preparation_for_care_01"/>
+        </questions>>
+    </stage>
+    <stage id="info_about_compas">
+        <message text="Конечно же я знаю, где юг, а где север."/>
+        <message text="Просто с такой погодой ничего не получится понять."/>
+        <message text="А компас вернее укажет стороны света."/>
+        <message text="Так что, думаю, пора двигать."/>
+        <questions>
+            <case text="Может лучше еще подождать, вдруг за тобой уже выслали помощь?" target="stay_in_place"/>
+            <case text="Да, решил уже в какую сторону тебе стоит идти?" target="preparation_for_care_01"/>
+        </questions>>
+    </stage>>
+    <stage id="stay_in_place">
+        <message text="Думаешь?"/>
+        <message text="Если так подумать."/>
+        <message text="То в твоих словах есть смысл."/>
+        <message text="Все таки рядом со мной куча обломков самолета."/>
+        <message text="И такое сложно не заметить."/>
+        <message text="Думаю, стоит немного подождать."/>
+        <waiting time="3600000"/>
+        <random_event target="stay_in_place_still_alive" chance="85"/>
+        <message text="Как же..."/>
+        <message text="Холодно..."/>
+        <message text="Кажется, это была плохая идея..."/>
+        <die/>
+    </stage>
+    <stage id="stay_in_place_still_alive">
+        <message text="Нет."/>
+        <message text="Больше ждать нельзя."/>
+        <message text="Может меня и не ищут вовсе."/>
+        <message text="Или ищут, но в другом месте."/>
+        <questions>
+            <case text="Ну, так что ты решил?"/>
+            <case text="В какую сторону пойдешь?"/>
+        </questions>>
+    </stage>
+    <stage id="preparation_for_care_01">
+        <message text="Да, пора собираться."/>
+        <message text="Долго здесь засиживаться нельзя."/>
+        <message text="Вряд ли я дождусь помощи."/>
+        <message text="Если буду сидеть и ждать"/>
+        <questions>
+            <case text="Ну, так что ты решил?"/>
+            <case text="В какую сторону пойдешь?"/>
+        </questions>
     </stage>>
     <stage id="shelter_search">
         <message text="Да, хорошая идея!"/>

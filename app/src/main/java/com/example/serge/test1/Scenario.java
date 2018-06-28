@@ -76,7 +76,7 @@ public class Scenario {
                         waiting.setValue(  parser.getAttributeIntValue(null, "value", 2500) );
                         stage.addToArray( waiting );
                     }else if(tagName.equals("random_event")){
-                        RandomEvent randomEvent = new RandomEvent();
+                        RandomEvent randomEvent = new RandomEvent(parser.getAttributeIntValue( null, "chance", 15 ));
                         randomEvent.setTarget(parser.getAttributeValue(null, "target"));
                         stage.addToArray( randomEvent );
                     }
