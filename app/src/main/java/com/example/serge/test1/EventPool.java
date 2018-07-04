@@ -21,18 +21,20 @@ public class EventPool {
     }
 
     public void notify(Event event){
-        if(eventObserver !=null){
+       /* if(eventObserver !=null){
             event.start( eventObserver );
-        }
+        }*/
+       notify( event, 0 );
     }
 
     public void notify(final Event event, long delay){
-        mHandler.postDelayed( new Runnable() {
-            @Override
-            public void run() {
-                EventPool.this.notify( event );
-            }
-        }, delay );
+        if(eventObserver != null)
+            mHandler.postDelayed( new Runnable() {
+                @Override
+                public void run() {
+                    event.start( eventObserver );
+                }
+            }, delay );
     }
 
     public void stopAll(){

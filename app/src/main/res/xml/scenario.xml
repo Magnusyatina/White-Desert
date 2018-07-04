@@ -164,8 +164,44 @@
             <case text="Давай хорошую" target="good_news_01"/>
             <case text="Плохую" target="bad_news_01"/>
         </questions>>
-
     </stage>>
+    <stage id="good_news_01">
+        <message text="Ну, я нашел компас!"/>
+        <message text="Хорошо, что его не засыпало снегом."/>
+        <message text="И был на самом видном месте."/>
+        <message text="Да я его и затоптать мог..."/>
+        <message text="Хорошо, что этого не произошло."/>
+        <questions>
+            <case text="А ты не можешь ориентироваться по местности?" target="good_news_01_01"/>
+            <case text="А какая плохая новость?" target="good_news_01_02"/>
+        </questions>>
+    </stage>
+    <stage id="good_news_01_01">
+        <message text="Могу."/>
+        <message text="По положению солнца."/>
+        <message text="Только тучи слишком густые."/>
+        <message text="А сейчас где-то полдень."/>
+        <message text="Затруднительно будет определить стороны света."/>
+        <message text="А теперь тревожная новость."/>
+        <stage_jump target="good_news_bad_news"/>
+    </stage>>
+    <stage id="good_news_01_02">
+        <message text="Это не плохая."/>
+        <message text="Скорее тревожная"/>
+        <stage_jump target="good_news_bad_news"/>
+    </stage>>
+
+    <stage id="good_news_bad_news">
+        <message text="Мне кажется, что здесь кто-то был."/>
+        <message text="И я бы не говорил это."/>
+        <message text="Если бы не пропало несколько пайков."/>
+        <message text="Сейчас бы еще проблемы с пропитанием ко всему прочему добавить..."/>
+        <questions>
+            <case text="Ты в этом уверен? Осматривал округу?" target="good_news_bad_news_01"/>
+            <case text="Может какой-то зверь забрел? Следы?" target="good_news_bad_news_02"/>
+        </questions>
+    </stage>>
+
     <stage id="bad_news_01">
         <message text="Ну, это не плохая..."/>
         <message text="А тревожная, как я уже сказал."/>
@@ -247,8 +283,8 @@
         <message text="Может меня и не ищут вовсе."/>
         <message text="Или ищут, но в другом месте."/>
         <questions>
-            <case text="Ну, так что ты решил?"/>
-            <case text="В какую сторону пойдешь?"/>
+            <case text="Ну, так что ты решил?" target="preparation_for_care_01"/>
+            <case text="В какую сторону пойдешь?" target="preparation_for_care_01"/>
         </questions>>
     </stage>
     <stage id="preparation_for_care_01">
@@ -256,10 +292,54 @@
         <message text="Долго здесь засиживаться нельзя."/>
         <message text="Вряд ли я дождусь помощи."/>
         <message text="Если буду сидеть и ждать"/>
+        <message text="И так, у меня есть два варианта."/>
+        <message text="Либо идти на север."/>
+        <message text="Где находится моя станция."/>
+        <message text="Либо на юг."/>
+        <message text="В сторону городского поселения."/>
         <questions>
-            <case text="Ну, так что ты решил?"/>
-            <case text="В какую сторону пойдешь?"/>
+            <case text="Север."  target="north_choice"/>
+            <case text="На юг." target="south choice"/>
+            <case text="А сам что думаешь по этому поводу?" target="info_about_the_choice"/>
         </questions>
+    </stage>>
+    <stage id="info_about_the_choice">
+        <message text="Моя чуйка подсказывает идти мне в сторону моей базы."/>
+        <message text="Но мне не нравятся сгущающиеся тучи в небе в той стороне."/>
+        <message text="Может я попаду под сильный буран."/>
+        <message text="И, тогда, мои шансы выжить сведутся на нет!"/>
+        <message text="Но до городского поселения достаточно далеко."/>
+        <message text="И я могу просто слечь из-за усталости, изнеможения или голода."/>
+        <message text="Если город окажется слишком далеко."/>
+        <questions>
+            <case text="Давай, все же, на север." target="north_choice"/>
+            <case text="На юг!" target="south choice"/>
+        </questions>>
+    </stage>>
+    <stage id="north_choice">
+        <message text="Хорошо."/>
+        <message text="Все припасы собрал."/>
+        <message text="Ничего не забыл."/>
+        <message text="Тогда в путь!"/>
+        <waiting time="1200000"/>
+        <message text="Становится все холоднее и холоднее."/>
+        <message text="Тучи все сгущаются."/>
+        <message text="И на горизонте ничего не видно."/>
+        <message text="А так же у меня дурное предчуствие."/>
+        <message text="Будто меня кто-то преследует."/>
+        <message text="Хоть я никого и не вижу."/>
+        <message text="Пройду еще немного и отпишусь."/>
+        <waiting time="720000"/>
+        <message text="Уже не уверен, что иду в правильном направлении."/>
+        <message text="И уже стемнело"/>
+        <message text="Так быстро? Странно это."/>
+        <message text="Я могу продолжать идти."/>
+        <message text="Или отдохнуть здесь какое-то время"/>
+        <message text="Что думаешь?"/>
+        <questions>
+            <case text="Отдохни" target="north_choice_01"/>
+            <case text="Продолжай идти" target="north_choice_bad_choice"/>
+        </questions>>
     </stage>>
     <stage id="shelter_search">
         <message text="Да, хорошая идея!"/>

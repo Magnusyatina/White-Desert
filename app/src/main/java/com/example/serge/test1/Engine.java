@@ -211,8 +211,9 @@ public class Engine extends EventObserverAdapter {
         for(Question q : questionArray){
             int itemId = q.getNeedItem();
             if(itemId == -1 || WWProgress.checkItem( itemId )){
-
-                final CustomButton customButton = new CustomButton(Shared.context, q.getTarget());
+                LayoutInflater layoutInflater = Shared.activity.getLayoutInflater();
+                final CustomButton customButton = (CustomButton) layoutInflater.inflate( R.layout.custombutton, questionView, false );
+                customButton.setGoTo( q.getTarget() );
                 customButton.setLayoutParams( Settings.questionViewParams );
                 customButton.setText( q.getText() );
                 customButton.setBackgroundResource( R.drawable.custombutton );
