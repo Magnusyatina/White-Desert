@@ -3,7 +3,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <item android:title="@string/new_game" android:id="@+id/new_game"></item>>
+        <item android:title="@string/new_game" android:id="@+id/new_game" ></item>>
 
         <item       android:id="@+id/switch_music"
                     android:title="@string/music_condition"
