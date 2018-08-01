@@ -30,7 +30,7 @@ public class CustomTimer {
         return rand.nextInt( dif )+min;
     }
 
-    //Добавление к текущему значению (врекмя) определенное значение
+    //Добавление к текущему значению (время) определенное значение
     public static void addTestTime(int t){
         if(!fast_game)
             testtime += t;

@@ -42,6 +42,6 @@
 
     <string name="title_activity_credits">Credits</string>
     <string name="dummy_button">Закрыть</string>
-    <string name="dummy_content">Над игрой работали:\nРазработчик и сценарист - Magnusyatina\nКомпозитор - Hoducoma\nМузыка:\nDark Ambient saundtrack by Hoducoma</string>
+    <string name="dummy_content">Над игрой работали:\nРазработчик и сценарист - Magnusyatina\nКомпозитор - Hoducoma\nМузыка:\nDark Ambient soundtrack by Hoducoma</string>
 
 </resources>

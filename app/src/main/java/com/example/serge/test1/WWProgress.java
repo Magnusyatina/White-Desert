@@ -78,6 +78,7 @@ public class WWProgress {
             for(CustomEvents e : EventList){
                 CustomEvents currE = (CustomEvents) e.clone();
                 currE.setStage( stage_name );
+
                 if(currE instanceof RandomEvent){
                     RandomEvent re = (RandomEvent) currE;
                     if(!re.check()){
