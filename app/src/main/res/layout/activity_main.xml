@@ -34,7 +34,6 @@
             </ScrollView>
 
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
@@ -43,7 +42,6 @@
                 android:background="@drawable/panel"
                 android:layout_margin="2dp"
                 android:padding="5dp"
-
                 >
 
 
@@ -66,51 +64,7 @@
 
                 </ScrollView>
 
-                <ImageButton
-                    android:id="@+id/button2"
-                    android:background="@null"
-                    android:src="@drawable/bag"
-                    android:onClick="switchBag"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="5dp"
-                    />
-
-
             </LinearLayout>
-        </LinearLayout>>
-
-        <LinearLayout
-            android:id="@+id/inventory"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:orientation="vertical"
-            android:visibility="invisible"
-            android:weightSum="4"
-            style="@style/InventoryTheme"
-
-            >
-
-            <TextView
-                android:id="@+id/TitleInventory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Inventory"
-                android:layout_gravity="left"
-                android:layout_marginLeft="15dp"/>
-            <View android:layout_width="match_parent"
-                android:layout_height="1dp"
-                  android:background="#c2e0f1"
-                ></View>>
-            <LinearLayout
-                android:id="@+id/ContainsItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                ></LinearLayout>>
         </LinearLayout>>
     </FrameLayout>
     <android.support.design.widget.NavigationView

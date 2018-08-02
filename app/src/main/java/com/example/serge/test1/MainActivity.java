@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.media.AudioManager;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
@@ -124,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void start_new_game(){
-        AlertDialog.Builder ad = new AlertDialog.Builder( this );
+        final AlertDialog.Builder ad = new AlertDialog.Builder( this );
 
         ad.setMessage( R.string.question_about_the_new_game )
                 .setCancelable( false )

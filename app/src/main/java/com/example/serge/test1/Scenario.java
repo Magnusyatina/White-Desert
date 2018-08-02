@@ -16,6 +16,8 @@ import com.example.serge.test1.CustomEvents.RandomEvent;
 import com.example.serge.test1.CustomEvents.RemoveItem;
 import com.example.serge.test1.CustomEvents.Stage;
 import com.example.serge.test1.CustomEvents.StageJump;
+import com.example.serge.test1.CustomEvents.TacticalChoice;
+import com.example.serge.test1.CustomEvents.TacticalEvent;
 import com.example.serge.test1.CustomEvents.TextMessage;
 import com.example.serge.test1.CustomEvents.Waiting;
 
@@ -43,6 +45,7 @@ public class Scenario {
         String tagName = null, stageName = null;
         Stage stage = null;
         Questions questions = null;
+        TacticalEvent tacticalEvent = null;
         parser.next();
         int eventType = parser.getEventType();
         while(eventType != XmlPullParser.END_DOCUMENT){
@@ -99,6 +102,17 @@ public class Scenario {
                         StageJump stageJump = new StageJump();
                         stageJump.setTarget( parser.getAttributeValue( null, "target" ) );
                         stage.addToArray( stageJump );
+                    }else if(tagName.equals( "tactics" )){
+                        tacticalEvent = new TacticalEvent();
+                    }else if(tagName.equals( "tactical_choice" )){
+                        if(tacticalEvent!=null){
+                            TacticalChoice tacticalChoice = new TacticalChoice();
+                            tacticalChoice.setText( parser.getAttributeValue( null, "text" ) )
+                                    .setTarget( parser.getAttributeValue( null, "target" ))
+                                    .setChance( parser.getAttributeIntValue( null, "chance", 0 ) );
+                            tacticalEvent.add_choice( tacticalChoice );
+                        }
+
                     }
 
                 }
@@ -114,6 +128,11 @@ public class Scenario {
                 }else if(parser.getName().equals( "questions" )){
                     if(questions!=null&&questions.getList().size()!=0)
                         stage.addToArray( questions );
+                }else if(parser.getName().equals( "tactics" )){
+                    if(tacticalEvent!=null){
+                        stage.addToArray( tacticalEvent );
+                        tacticalEvent = null;
+                    }
                 }
             }
             eventType = parser.next();

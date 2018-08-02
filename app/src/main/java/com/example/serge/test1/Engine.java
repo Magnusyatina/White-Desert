@@ -18,6 +18,7 @@ import com.example.serge.test1.CustomEvents.CustomMusic;
 import com.example.serge.test1.CustomEvents.SetGameMode;
 import com.example.serge.test1.CustomEvents.SetMusic;
 import com.example.serge.test1.CustomEvents.StageJump;
+import com.example.serge.test1.CustomEvents.TacticalEvent;
 import com.example.serge.test1.CustomView.CustomButton;
 import com.example.serge.test1.CustomEvents.CustomEvents;
 import com.example.serge.test1.CustomEvents.Die;
@@ -91,6 +92,13 @@ public class Engine extends EventObserverAdapter {
             else Shared.eventPool.notify(e);
             this.scheduletime = e.getScheduledtime();
         }
+    }
+
+
+    @Override
+    public void onEvent(TacticalEvent tacticalEvent) {
+        super.onEvent( tacticalEvent );
+        Toast.makeText( Shared.context, "Сработало тактическое событие", Toast.LENGTH_SHORT ).show();
     }
 
     @Override

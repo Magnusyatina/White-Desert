@@ -4,6 +4,11 @@
         <message text="Алл.. меня кто..удь слы..т"/>
         <message text="К..будь, отве..е"/>
         <message text="Мн... нуж..а помощ.."/>
+        <tactics>
+            <tactical_choice target="" text="" chance="1"/>
+            <tactical_choice target="" text="" chance="1"/>
+            <tactical_choice target="" text="" chance="1"/>
+        </tactics>
         <questions>
             <case text="Слишком плохая связь, вы обрываетесь!" target="repair_communication1"/>
             <case text="Вас очень плохо слышно!" target="repair_communication1"/>
