@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="55.75dp"
+    android:height="24.5dp"
+    android:viewportWidth="34.75"
+    android:viewportHeight="14.5">
+
+    <path
+        android:fillColor="#38c7e8"
+        android:pathData="M 7.25 0 L 27.5 0 Q 34.75 0 34.75 7.25 L 34.75 7.25 Q 34.75 14.5 27.5 14.5 L 7.25 14.5 Q 0 14.5 0 7.25 L 0 7.25 Q 0 0 7.25 0 Z" />
+    <group android:name="blink_right_1">
+        <path
+        android:fillColor="#fff"
+        android:pathData="M 8.29 5.33 C 9.35038671968 5.33 10.21 6.18961328032 10.21 7.25 C 10.21 8.31038671968 9.35038671968 9.17 8.29 9.17 C 7.22961328032 9.17 6.37 8.31038671968 6.37 7.25 C 6.37 6.18961328032 7.22961328032 5.33 8.29 5.33 Z" />
+    </group>
+    <group android:name="blink_right_2">
+    <path
+        android:fillColor="#fff"
+        android:pathData="M 14.62 5.33 C 15.6803867197 5.33 16.54 6.18961328032 16.54 7.25 C 16.54 8.31038671968 15.6803867197 9.17 14.62 9.17 C 13.5596132803 9.17 12.7 8.31038671968 12.7 7.25 C 12.7 6.18961328032 13.5596132803 5.33 14.62 5.33 Z" />
+    </group>
+    <group android:name="blink_right_3">
+        <path
+            android:fillColor="#fff"
+            android:pathData="M 20.96 5.33 C 22.0203867197 5.33 22.88 6.18961328032 22.88 7.25 C 22.88 8.31038671968 22.0203867197 9.17 20.96 9.17 C 19.8996132803 9.17 19.04 8.31038671968 19.04 7.25 C 19.04 6.18961328032 19.8996132803 5.33 20.96 5.33 Z" />
+    </group></vector>

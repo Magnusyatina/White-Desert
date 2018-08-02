@@ -9,7 +9,7 @@
                      android:topRightRadius="7dip"
                      />
             <solid android:color="#c81e1d1d"/>
-            <stroke android:color="#b9ddff"
+            <stroke android:color="#38c7e8"
                     android:width="1dp"/>
         </shape>>
     </item>

@@ -2,12 +2,17 @@ package com.example.serge.test1;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -36,12 +41,14 @@ import com.example.serge.test1.CustomEvents.Waiting;
 import com.example.serge.test1.CustomView.CustomButtonPlayerAnswer;
 import com.example.serge.test1.CustomView.CustomPersonAnswer;
 import com.example.serge.test1.CustomView.CustomWaitingView;
+import com.example.serge.test1.CustomView.TacticalDialogFragment;
 
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.zip.Inflater;
 
 /**
  * Created by sergey37192 on 04.04.2018.
@@ -99,6 +106,21 @@ public class Engine extends EventObserverAdapter {
     public void onEvent(TacticalEvent tacticalEvent) {
         super.onEvent( tacticalEvent );
         Toast.makeText( Shared.context, "Сработало тактическое событие", Toast.LENGTH_SHORT ).show();
+        final TacticalDialogFragment tacticalDialogFragment = new TacticalDialogFragment();
+        tacticalDialogFragment.show(Shared.activity.getFragmentManager(), "TacticalDialogFragment");
+        new Handler( Looper.getMainLooper()).postDelayed( new Runnable() {
+            @Override
+            public void run() {
+                tacticalDialogFragment.changeText();
+            }
+        }, 5000 );
+        LayoutInflater inflater = Shared.activity.getLayoutInflater();
+        ImageView imageView = (ImageView) inflater.inflate( R.layout.customimageview, mainLayout, false );
+        mainLayout.addView( imageView );
+        Drawable drawable = imageView.getDrawable();
+        if(drawable instanceof Animatable){
+            ((Animatable) drawable).start();
+        }
     }
 
     @Override

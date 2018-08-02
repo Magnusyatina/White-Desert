@@ -2,6 +2,7 @@ package com.example.serge.test1;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.drawable.Animatable;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Handler;
@@ -73,11 +74,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Shared.eventObserver.start();
         Shared.eventPool.notify( new StartGame() );
 
+
     }
 
 
 
-    public void switchBag(View view){
+   /* public void switchBag(View view){
 
         LinearLayout container = (LinearLayout) findViewById( R.id.ContainsItem );
         if(inventory == null)
@@ -124,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         inventory.setLayoutParams( params );
 
     }
-
+*/
     public void start_new_game(){
         final AlertDialog.Builder ad = new AlertDialog.Builder( this );
 
