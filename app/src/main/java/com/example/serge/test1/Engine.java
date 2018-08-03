@@ -48,7 +48,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
-import java.util.zip.Inflater;
 
 /**
  * Created by sergey37192 on 04.04.2018.
@@ -107,20 +106,21 @@ public class Engine extends EventObserverAdapter {
         super.onEvent( tacticalEvent );
         Toast.makeText( Shared.context, "Сработало тактическое событие", Toast.LENGTH_SHORT ).show();
         final TacticalDialogFragment tacticalDialogFragment = new TacticalDialogFragment();
-        tacticalDialogFragment.show(Shared.activity.getFragmentManager(), "TacticalDialogFragment");
+       // tacticalDialogFragment.show(Shared.activity.getFragmentManager(), "TacticalDialogFragment");
         new Handler( Looper.getMainLooper()).postDelayed( new Runnable() {
             @Override
             public void run() {
-                tacticalDialogFragment.changeText();
+                //tacticalDialogFragment.changeText();
             }
         }, 5000 );
-        LayoutInflater inflater = Shared.activity.getLayoutInflater();
+       /* LayoutInflater inflater = Shared.activity.getLayoutInflater();
         ImageView imageView = (ImageView) inflater.inflate( R.layout.customimageview, mainLayout, false );
         mainLayout.addView( imageView );
         Drawable drawable = imageView.getDrawable();
         if(drawable instanceof Animatable){
             ((Animatable) drawable).start();
-        }
+        }*/
+
     }
 
     @Override
@@ -238,6 +238,15 @@ public class Engine extends EventObserverAdapter {
     //Вывод вопросов на экран
     public void onEvent(final Questions questions){
         ArrayList<Question> questionArray = questions.getList();
+        //animation open
+        Animation anim = AnimationUtils.loadAnimation( Shared.context, R.anim.animscalemaximize );
+        Shared.activity.findViewById( R.id.test).startAnimation( anim );
+        anim.setAnimationListener( new AnimationListenerAdapter(){
+            @Override
+            public void onAnimationStart(Animation animation) {
+                Shared.activity.findViewById( R.id.test).setVisibility( View.VISIBLE );
+            }
+        } );        //
         for(Question q : questionArray){
             int itemId = q.getNeedItem();
             if(itemId == -1 || WWProgress.checkItem( itemId )){
@@ -257,6 +266,16 @@ public class Engine extends EventObserverAdapter {
                         WWProgress.getProgressList().add( playerAnwser );
                         Shared.eventPool.notify( playerAnwser );
                         questionView.removeAllViews();
+                        //animation close
+                        Animation anim = AnimationUtils.loadAnimation( Shared.context, R.anim.animscaleminimize );
+                        Shared.activity.findViewById( R.id.test).startAnimation( anim );
+                        anim.setAnimationListener( new AnimationListenerAdapter(){
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                Shared.activity.findViewById( R.id.test).setVisibility( View.INVISIBLE );
+                            }
+                        } );
+                        //
                         scrollDown();
                         getCurrentEpisode(customButton.getGoTo());
                     }

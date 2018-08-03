@@ -16,6 +16,7 @@ public class EventPool {
     private Handler mHandler = new Handler( Looper.getMainLooper());
 
 
+
     public void onBind(EventObserver eventObserver){
         this.eventObserver = eventObserver;
     }
@@ -25,6 +26,7 @@ public class EventPool {
             event.start( eventObserver );
         }*/
        notify( event, 0 );
+
     }
 
     public void notify(final Event event, long delay){
