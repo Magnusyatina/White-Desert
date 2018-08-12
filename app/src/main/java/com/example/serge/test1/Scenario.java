@@ -16,7 +16,7 @@ import com.example.serge.test1.CustomEvents.RandomEvent;
 import com.example.serge.test1.CustomEvents.RemoveItem;
 import com.example.serge.test1.CustomEvents.Stage;
 import com.example.serge.test1.CustomEvents.StageJump;
-import com.example.serge.test1.CustomEvents.TacticalChoice;
+import com.example.serge.test1.CustomEvents.TacticalChildNode;
 import com.example.serge.test1.CustomEvents.TacticalEvent;
 import com.example.serge.test1.CustomEvents.TextMessage;
 import com.example.serge.test1.CustomEvents.Waiting;
@@ -104,13 +104,13 @@ public class Scenario {
                         stage.addToArray( stageJump );
                     }else if(tagName.equals( "tactics" )){
                         tacticalEvent = new TacticalEvent();
+                        tacticalEvent.addLink( parser.getAttributeValue( null, "link" ) );
                     }else if(tagName.equals( "tactical_choice" )){
                         if(tacticalEvent!=null){
-                            TacticalChoice tacticalChoice = new TacticalChoice();
+                            TacticalChildNode tacticalChoice = new TacticalChildNode();
                             tacticalChoice.setText( parser.getAttributeValue( null, "text" ) )
-                                    .setTarget( parser.getAttributeValue( null, "target" ))
-                                    .setChance( parser.getAttributeIntValue( null, "chance", 0 ) );
-                            tacticalEvent.add_choice( tacticalChoice );
+                                    .setId( parser.getAttributeValue( null, "id" ) );
+                            tacticalEvent.add( tacticalChoice );
                         }
 
                     }

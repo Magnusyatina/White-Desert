@@ -106,13 +106,9 @@ public class Engine extends EventObserverAdapter {
         super.onEvent( tacticalEvent );
         Toast.makeText( Shared.context, "Сработало тактическое событие", Toast.LENGTH_SHORT ).show();
         final TacticalDialogFragment tacticalDialogFragment = new TacticalDialogFragment();
-       // tacticalDialogFragment.show(Shared.activity.getFragmentManager(), "TacticalDialogFragment");
-        new Handler( Looper.getMainLooper()).postDelayed( new Runnable() {
-            @Override
-            public void run() {
-                //tacticalDialogFragment.changeText();
-            }
-        }, 5000 );
+        tacticalDialogFragment.setMainNode( tacticalEvent );
+        tacticalDialogFragment.show(Shared.activity.getFragmentManager(), "TacticalDialogFragment");
+
        /* LayoutInflater inflater = Shared.activity.getLayoutInflater();
         ImageView imageView = (ImageView) inflater.inflate( R.layout.customimageview, mainLayout, false );
         mainLayout.addView( imageView );
@@ -240,13 +236,14 @@ public class Engine extends EventObserverAdapter {
         ArrayList<Question> questionArray = questions.getList();
         //animation open
         Animation anim = AnimationUtils.loadAnimation( Shared.context, R.anim.animscalemaximize );
-        Shared.activity.findViewById( R.id.test).startAnimation( anim );
         anim.setAnimationListener( new AnimationListenerAdapter(){
             @Override
             public void onAnimationStart(Animation animation) {
                 Shared.activity.findViewById( R.id.test).setVisibility( View.VISIBLE );
             }
-        } );        //
+        } );
+        Shared.activity.findViewById( R.id.test).startAnimation( anim );
+        //
         for(Question q : questionArray){
             int itemId = q.getNeedItem();
             if(itemId == -1 || WWProgress.checkItem( itemId )){
@@ -263,18 +260,21 @@ public class Engine extends EventObserverAdapter {
                         PlayerAnwser playerAnwser = new PlayerAnwser();
                         playerAnwser.setStage(questions.getTarget());
                         playerAnwser.setText(  customButton.getText().toString() );
+                        questionView.removeAllViews();
+                        WWProgress.getProgressList().remove( questions );
                         WWProgress.getProgressList().add( playerAnwser );
                         Shared.eventPool.notify( playerAnwser );
-                        questionView.removeAllViews();
+
                         //animation close
                         Animation anim = AnimationUtils.loadAnimation( Shared.context, R.anim.animscaleminimize );
-                        Shared.activity.findViewById( R.id.test).startAnimation( anim );
                         anim.setAnimationListener( new AnimationListenerAdapter(){
                             @Override
                             public void onAnimationEnd(Animation animation) {
                                 Shared.activity.findViewById( R.id.test).setVisibility( View.INVISIBLE );
                             }
                         } );
+                        Shared.activity.findViewById( R.id.test).startAnimation( anim );
+
                         //
                         scrollDown();
                         getCurrentEpisode(customButton.getGoTo());
