@@ -8,13 +8,17 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.serge.test1.CustomEvents.TacticalChildNode;
 import com.example.serge.test1.CustomEvents.TacticalEvent;
 import com.example.serge.test1.R;
+import com.example.serge.test1.Shared;
 
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.zip.Inflater;
 
 public class TacticalDialogFragment extends DialogFragment {
@@ -50,9 +54,11 @@ public class TacticalDialogFragment extends DialogFragment {
         TacticalChildNode chNode = mainNode.getCurrNode();
         if(chNode == null)
             return;
+
         String text = chNode.getText();
         if (text == null)
             return;
+
         char[] ch = text.toCharArray();
         for(int i = 0; i<ch.length; i++){
             final char symbol = ch[i];
@@ -61,8 +67,20 @@ public class TacticalDialogFragment extends DialogFragment {
                 public void run() {
                     textView.append( Character.toString(symbol) );
                 }
-            }, i*100 );
+            }, i*40 );
         }
+
+        TreeMap<String, String> map = chNode.getChoices();
+        if(map == null)
+            return;
+
+        for(Map.Entry<String, String> iterator : map.entrySet()){
+            String choice_text = iterator.getKey();
+            Button button = (Button) LayoutInflater.from( Shared.context ).inflate( R.layout.choice_button,choices_container, false );
+            button.setText( choice_text );
+            choices_container.addView( button );
+        }
+
     }
 
 }

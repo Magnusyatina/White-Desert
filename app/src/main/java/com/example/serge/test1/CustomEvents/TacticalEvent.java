@@ -3,26 +3,30 @@ package com.example.serge.test1.CustomEvents;
 import com.example.serge.test1.EventObserver;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class TacticalEvent extends CustomEvents {
 
-    private ArrayList<TacticalChildNode> tactical_choices = null;
+    private TreeMap<String, TacticalChildNode> tactical_choices = null;
 
     private TacticalChildNode currNode = null;
 
     private String link = null;
 
     public TacticalEvent (){
-        tactical_choices = new ArrayList<>( );
+        tactical_choices = new TreeMap<>(  );
     }
 
     public void add(TacticalChildNode choice){
         if(link == null)
             return;
-        tactical_choices.add( choice );
+
         String choice_id = choice.getId();
         if(choice_id == null)
             return;
+
+        tactical_choices.put( choice_id, choice );
+
         if(choice_id.equals( link ))
             currNode = choice;
     }

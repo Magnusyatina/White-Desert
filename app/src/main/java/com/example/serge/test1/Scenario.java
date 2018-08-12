@@ -46,6 +46,7 @@ public class Scenario {
         Stage stage = null;
         Questions questions = null;
         TacticalEvent tacticalEvent = null;
+        TacticalChildNode tchildNode = null;
         parser.next();
         int eventType = parser.getEventType();
         while(eventType != XmlPullParser.END_DOCUMENT){
@@ -105,14 +106,16 @@ public class Scenario {
                     }else if(tagName.equals( "tactics" )){
                         tacticalEvent = new TacticalEvent();
                         tacticalEvent.addLink( parser.getAttributeValue( null, "link" ) );
-                    }else if(tagName.equals( "tactical_choice" )){
-                        if(tacticalEvent!=null){
-                            TacticalChildNode tacticalChoice = new TacticalChildNode();
-                            tacticalChoice.setText( parser.getAttributeValue( null, "text" ) )
-                                    .setId( parser.getAttributeValue( null, "id" ) );
-                            tacticalEvent.add( tacticalChoice );
-                        }
+                        stage.addToArray( tacticalEvent );
+                    }else if(tagName.equals( "tactical_stage" ) && tacticalEvent != null){
+                        tchildNode = new TacticalChildNode();
+                        tchildNode.setText( parser.getAttributeValue( null, "text" ) )
+                                .setId( parser.getAttributeValue( null, "id" ) )
+                                .setTarget( parser.getAttributeValue( null, "target" ) );
+                        tacticalEvent.add(tchildNode);
 
+                    }else if(tagName.equals( "tchoice" ) && tchildNode != null){
+                        tchildNode.addChoice( parser.getAttributeValue( null, "text" ), parser.getAttributeValue( null, "target_id" ) );
                     }
 
                 }

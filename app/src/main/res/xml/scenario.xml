@@ -5,9 +5,14 @@
         <message text="К..будь, отве..е"/>
         <message text="Мн... нуж..а помощ.."/>
         <tactics link="start_tactics">
-            <tactical_choice id="start_tactics"  text="Я не знаю, что мне делать, что же мне делать, уаааа" />
-            <tactical_choice  text="" />
-            <tactical_choice text="" />
+            <tactical_stage id="start_tactics"  text="Я не знаю, что мне делать, что же мне делать, уаааа" >
+                <tchoice text="Попробуй не привлекать к себе внимание" target_id="next_stage"/>
+                <tchoice text="Воспользуйся факелом" target_id="next_stage"/>
+            </tactical_stage>
+            <tactical_stage  id="next_stage" text="Да, я выжил, слава богу" >
+                <tchoice text="Воспользуйся факелом" target_id=""/>
+            </tactical_stage>>
+            <tactical_stage text="" />
         </tactics>
         <questions>
             <case text="Слишком плохая связь, вы обрываетесь!" target="repair_communication1"/>
