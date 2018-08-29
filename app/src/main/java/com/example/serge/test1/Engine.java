@@ -2,17 +2,12 @@ package com.example.serge.test1;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -106,6 +101,7 @@ public class Engine extends EventObserverAdapter {
         super.onEvent( tacticalEvent );
         Toast.makeText( Shared.context, "Сработало тактическое событие", Toast.LENGTH_SHORT ).show();
         final TacticalDialogFragment tacticalDialogFragment = new TacticalDialogFragment();
+
         tacticalDialogFragment.setMainNode( tacticalEvent );
         tacticalDialogFragment.show(Shared.activity.getFragmentManager(), "TacticalDialogFragment");
 
@@ -177,13 +173,13 @@ public class Engine extends EventObserverAdapter {
 
     @Override
     public void onEvent(RandomEvent randomEvent) {
-        String stageId = randomEvent.getTarget();
+        String stageId = randomEvent.getStage();
         getCurrentEpisode( stageId );
         WWProgress.getProgressList().remove( randomEvent );
     }
 
     public void onEvent(StageJump stageJump){
-        String stageId = stageJump.getTarget();
+        String stageId = stageJump.getStage();
         if(stageId == null)
             return;
         getCurrentEpisode( stageId );
@@ -210,7 +206,7 @@ public class Engine extends EventObserverAdapter {
                                 int count = mainLayout.getChildCount() - start;
                                 mainLayout.removeViews( start, count );
                                 questionView.removeAllViews();
-                                CustomEvents qe = WWProgress.getLastEvent( Questions.class );
+                                CustomEvents qe = WWProgress.getEventById(playerAnwser.getStage(), Questions.class );
                                 if(qe!=null){
                                     qe.setAdded( false );
                                     Shared.eventPool.notify( qe );
@@ -258,7 +254,7 @@ public class Engine extends EventObserverAdapter {
                     public void onClick(View v) {
                         questions.setAdded(true);
                         PlayerAnwser playerAnwser = new PlayerAnwser();
-                        playerAnwser.setStage(questions.getTarget());
+                        playerAnwser.setStage(questions.getStage());
                         playerAnwser.setText(  customButton.getText().toString() );
                         questionView.removeAllViews();
                         WWProgress.getProgressList().remove( questions );

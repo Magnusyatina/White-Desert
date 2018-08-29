@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
         <LinearLayout android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:orientation="vertical" android:background="@drawable/cold_1mdpi"
+            android:orientation="vertical" android:background="@drawable/background"
             android:animateLayoutChanges="true">
             <LinearLayout
                 android:layout_width="match_parent"

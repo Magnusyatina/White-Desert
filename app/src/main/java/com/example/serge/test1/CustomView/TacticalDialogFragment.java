@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.zip.Inflater;
 
-public class TacticalDialogFragment extends DialogFragment {
+public class TacticalDialogFragment extends DialogFragment implements View.OnClickListener {
     TextView textView = null;
     LinearLayout choices_container = null;
     TacticalEvent mainNode = null;
@@ -39,12 +39,13 @@ public class TacticalDialogFragment extends DialogFragment {
         textView = (TextView) view.findViewById( R.id.testdialogview );
         choices_container = (LinearLayout) view.findViewById( R.id.choices_container );
         builder.setView( view );
-        textView.post( new Runnable() {
+        view.post( new Runnable() {
             @Override
             public void run() {
                 changeText();
             }
         } );
+
 
         return builder.create();
 
@@ -77,10 +78,15 @@ public class TacticalDialogFragment extends DialogFragment {
         for(Map.Entry<String, String> iterator : map.entrySet()){
             String choice_text = iterator.getKey();
             Button button = (Button) LayoutInflater.from( Shared.context ).inflate( R.layout.choice_button,choices_container, false );
+            button.setOnClickListener( this );
             button.setText( choice_text );
             choices_container.addView( button );
         }
 
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

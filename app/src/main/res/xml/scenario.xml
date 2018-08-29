@@ -8,6 +8,7 @@
             <tactical_stage id="start_tactics"  text="Я не знаю, что мне делать, что же мне делать, уаааа" >
                 <tchoice text="Попробуй не привлекать к себе внимание" target_id="next_stage"/>
                 <tchoice text="Воспользуйся факелом" target_id="next_stage"/>
+                <tchoice text="Отпугни их палкой!" target_id="next_stage"/>
             </tactical_stage>
             <tactical_stage  id="next_stage" text="Да, я выжил, слава богу" >
                 <tchoice text="Воспользуйся факелом" target_id=""/>

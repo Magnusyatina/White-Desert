@@ -27,7 +27,7 @@ public class RandomEvent extends CustomEvents {
         this.target = target;
     }
 
-    public String getTarget(){
+    public String getStage(){
         return target;
     }
 

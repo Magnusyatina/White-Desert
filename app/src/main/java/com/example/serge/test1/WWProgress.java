@@ -106,6 +106,8 @@ public class WWProgress {
 
     }
 
+
+
     public static void addToProgress(CustomEvents customEvent){
         getProgressList().add( customEvent );
     }
@@ -159,6 +161,26 @@ public class WWProgress {
         }
 
 
+    }
+
+    public static CustomEvents getEventById(String id, Class<?> specialClass){
+        Stage stage = (Stage) Scenario.scenarioList.get( id );
+        if(stage == null || id == null)
+            return null;
+
+        ArrayList<CustomEvents> events = stage.getArray();
+        try{
+            for(CustomEvents event : events){
+                if(event.getClass() == specialClass){
+                    CustomEvents clone = (CustomEvents) event.clone();
+                    clone.setStage( id );
+                    return clone;
+                }
+            }
+        }catch (CloneNotSupportedException ex){
+            //TODO
+        }
+        return null;
     }
 
     public static CustomEvents getLastEvent(Class<?> specialClass){
