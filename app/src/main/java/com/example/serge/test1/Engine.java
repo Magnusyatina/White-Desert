@@ -1,5 +1,8 @@
 package com.example.serge.test1;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -8,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -51,10 +55,12 @@ import java.util.NoSuchElementException;
 public class Engine extends EventObserverAdapter {
 
     private long scheduletime = 0;
+    LinearLayout mainFrame;
+
     LinearLayout mainLayout;
     LinearLayout questionView;
     ScrollView mainScrollView;
-    LinearLayout inventory;
+
 
     public void onCreate(){
         super.onCreate();
@@ -63,9 +69,9 @@ public class Engine extends EventObserverAdapter {
             WWProgress.loadProgress( Shared.context );
             Music.createMediaPlayer(Shared.properties.getProperty( "music_title" ));
             Music.play();
+            mainFrame = (LinearLayout) Shared.activity.findViewById( R.id.MainFrame );
             mainLayout = (LinearLayout) Shared.activity.findViewById( R.id.textArea );
             mainScrollView = (ScrollView) Shared.activity.findViewById( R.id.mainScrollView );
-            questionView = (LinearLayout) Shared.activity.findViewById( R.id.questionsLayout );
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {
@@ -229,16 +235,21 @@ public class Engine extends EventObserverAdapter {
 
     //Вывод вопросов на экран
     public void onEvent(final Questions questions){
+        final LinearLayout subLayout = (LinearLayout) LayoutInflater.from(Shared.context).inflate( R.layout.question_layout, mainFrame, false );
+        questionView = (LinearLayout) subLayout.findViewById( R.id.questionsLayout );
+
         ArrayList<Question> questionArray = questions.getList();
         //animation open
+        mainFrame.addView( subLayout );
         Animation anim = AnimationUtils.loadAnimation( Shared.context, R.anim.animscalemaximize );
         anim.setAnimationListener( new AnimationListenerAdapter(){
             @Override
             public void onAnimationStart(Animation animation) {
-                Shared.activity.findViewById( R.id.test).setVisibility( View.VISIBLE );
+                subLayout.setVisibility( View.VISIBLE );
             }
         } );
-        Shared.activity.findViewById( R.id.test).startAnimation( anim );
+        subLayout.startAnimation( anim );
+        
         //
         for(Question q : questionArray){
             int itemId = q.getNeedItem();
@@ -263,13 +274,15 @@ public class Engine extends EventObserverAdapter {
 
                         //animation close
                         Animation anim = AnimationUtils.loadAnimation( Shared.context, R.anim.animscaleminimize );
+                        anim.setFillAfter( false );
                         anim.setAnimationListener( new AnimationListenerAdapter(){
                             @Override
                             public void onAnimationEnd(Animation animation) {
-                                Shared.activity.findViewById( R.id.test).setVisibility( View.INVISIBLE );
+                                mainFrame.removeView( subLayout );
+
                             }
                         } );
-                        Shared.activity.findViewById( R.id.test).startAnimation( anim );
+                        subLayout.startAnimation( anim );
 
                         //
                         scrollDown();
