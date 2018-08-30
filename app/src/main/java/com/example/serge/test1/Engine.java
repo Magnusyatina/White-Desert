@@ -246,10 +246,11 @@ public class Engine extends EventObserverAdapter {
             @Override
             public void onAnimationStart(Animation animation) {
                 subLayout.setVisibility( View.VISIBLE );
+                scrollDown();
             }
         } );
         subLayout.startAnimation( anim );
-        
+
         //
         for(Question q : questionArray){
             int itemId = q.getNeedItem();
