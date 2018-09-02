@@ -17,6 +17,7 @@ import com.example.serge.test1.CustomEvents.TacticalEvent;
 import com.example.serge.test1.R;
 import com.example.serge.test1.Shared;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.zip.Inflater;
@@ -25,6 +26,7 @@ public class TacticalDialogFragment extends DialogFragment implements View.OnCli
     TextView textView = null;
     LinearLayout choices_container = null;
     TacticalEvent mainNode = null;
+    HashMap<Button, String> map = new HashMap<>(  );
 
     public void setMainNode(TacticalEvent mainNode){
         this.mainNode = mainNode;
@@ -71,22 +73,28 @@ public class TacticalDialogFragment extends DialogFragment implements View.OnCli
             }, i*40 );
         }
 
-        TreeMap<String, String> map = chNode.getChoices();
+        createButton( chNode );
+    }
+
+    private void createButton(TacticalChildNode childNode){
+        TreeMap<String, String> idval = childNode.getChoices();
         if(map == null)
             return;
 
-        for(Map.Entry<String, String> iterator : map.entrySet()){
+        for(Map.Entry<String, String> iterator : idval.entrySet()){
             String choice_text = iterator.getKey();
             Button button = (Button) LayoutInflater.from( Shared.context ).inflate( R.layout.choice_button,choices_container, false );
             button.setOnClickListener( this );
             button.setText( choice_text );
+            map.put( button, iterator.getValue() );
             choices_container.addView( button );
         }
-
     }
 
     @Override
     public void onClick(View v) {
-
+        
+        map.clear();
+        choices_container.removeAllViews();
     }
 }

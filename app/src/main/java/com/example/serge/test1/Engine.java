@@ -133,9 +133,16 @@ public class Engine extends EventObserverAdapter {
     public void onEvent(StartNewGame startNewGame) {
         WWProgress.dump_of_progress();
         mainLayout.removeAllViews();
-        questionView.removeAllViews();
+        clearSubElements();
         getCurrentEpisode( null );
     }
+
+    public void clearSubElements(){
+        View v = mainFrame.findViewById( R.id.SubLayout );
+        if(v != null)
+            mainFrame.removeView( v );
+    }
+
     //Добавление предмета в инвентарь
     public void onEvent(final AddItem addItem){
         final int itemId;
@@ -163,6 +170,7 @@ public class Engine extends EventObserverAdapter {
         textMessage.setAdded( true );
         scrollDown();
     }
+
 
     @Override
     public void onEvent(CustomMusic music) {
@@ -211,7 +219,7 @@ public class Engine extends EventObserverAdapter {
                                 int start = mainLayout.indexOfChild( customButtonAnswer );
                                 int count = mainLayout.getChildCount() - start;
                                 mainLayout.removeViews( start, count );
-                                questionView.removeAllViews();
+                                clearSubElements();
                                 CustomEvents qe = WWProgress.getEventById(playerAnwser.getStage(), Questions.class );
                                 if(qe!=null){
                                     qe.setAdded( false );
@@ -268,7 +276,7 @@ public class Engine extends EventObserverAdapter {
                         PlayerAnwser playerAnwser = new PlayerAnwser();
                         playerAnwser.setStage(questions.getStage());
                         playerAnwser.setText(  customButton.getText().toString() );
-                        questionView.removeAllViews();
+
                         WWProgress.getProgressList().remove( questions );
                         WWProgress.getProgressList().add( playerAnwser );
                         Shared.eventPool.notify( playerAnwser );
@@ -356,13 +364,13 @@ public class Engine extends EventObserverAdapter {
     }
 
     public void scrollDown(){
-        mainScrollView.post( new Runnable() {
+
+        Shared.eventPool.getmHandler().post(new Runnable() {
             @Override
             public void run() {
                 mainScrollView.fullScroll( ScrollView.FOCUS_DOWN );
             }
-        } );
+        }  );
     }
-
 
 }

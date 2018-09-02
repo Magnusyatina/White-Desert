@@ -21,6 +21,10 @@ public class EventPool {
         this.eventObserver = eventObserver;
     }
 
+    public Handler getmHandler(){
+        return mHandler;
+    }
+
     public void notify(Event event){
        /* if(eventObserver !=null){
             event.start( eventObserver );
