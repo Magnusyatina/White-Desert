@@ -23,8 +23,11 @@ import java.util.TreeMap;
 import java.util.zip.Inflater;
 
 public class TacticalDialogFragment extends DialogFragment implements View.OnClickListener {
+    //Ссылки на view элементы
     TextView textView = null;
     LinearLayout choices_container = null;
+
+    //Ссылки на объекты
     TacticalEvent mainNode = null;
     HashMap<Button, String> map = new HashMap<>(  );
 
@@ -91,10 +94,17 @@ public class TacticalDialogFragment extends DialogFragment implements View.OnCli
         }
     }
 
+    private void clearAll(){
+        map.clear();
+        textView.setText("");
+        choices_container.removeAllViews();
+    }
+
     @Override
     public void onClick(View v) {
-        
-        map.clear();
-        choices_container.removeAllViews();
+        String id = map.get(v);
+        mainNode.setCurrNode(id);
+        clearAll();
+        changeText();
     }
 }

@@ -7,32 +7,38 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/MainFrame"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:animateLayoutChanges="true"
-        android:background="@drawable/background">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-                <ScrollView
-                    android:id="@+id/mainScrollView"
+        android:layout_width="match_parent"
+        android:background="">
+        <LinearLayout
+            android:id="@+id/MainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/background">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    >
-                    <LinearLayout
-                        android:id="@+id/textArea"
+                    android:layout_weight="1">
+                    <ScrollView
+                        android:id="@+id/mainScrollView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:animateLayoutChanges="true"
-                        />
-                </ScrollView>
-            </LinearLayout>>
-    </LinearLayout>
+                        android:layout_height="match_parent"
+                        >
+                        <LinearLayout
+                            android:id="@+id/textArea"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:animateLayoutChanges="true"
+                            />
+                    </ScrollView>
+                </LinearLayout>>
+        </LinearLayout>
+    </FrameLayout>>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         app:itemTextColor="#3d3d3d"

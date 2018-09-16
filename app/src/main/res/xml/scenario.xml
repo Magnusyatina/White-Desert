@@ -4,6 +4,8 @@
         <message text="Алл.. меня кто..удь слы..т"/>
         <message text="К..будь, отве..е"/>
         <message text="Мн... нуж..а помощ.."/>
+        <message text="Да что ж... с этим устро... не так!"/>
+        <message text="Рабо...й!"/>
         <tactics link="start_tactics">
             <tactical_stage id="start_tactics"  text="Я не знаю, что мне делать, что же мне делать, уаааа" >
                 <tchoice text="Попробуй не привлекать к себе внимание" target_id="next_stage"/>
@@ -29,8 +31,8 @@
 
     <stage id="repair_communication1">
         <message text="Се...унду"/>
-        <waiting value="5000"/>
-        <message text="Так лучше?"/>
+        <message text="Кажется исправил..."/>
+        <message text="Лучше же?"/>
         <music title="main_theme_2"/>
         <questions>
             <case text="Да, лучше, что у вас случилось?" target="djozef_info1"/>

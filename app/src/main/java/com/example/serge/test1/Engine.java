@@ -1,8 +1,5 @@
 package com.example.serge.test1;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
-import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -11,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -69,7 +65,7 @@ public class Engine extends EventObserverAdapter {
             WWProgress.loadProgress( Shared.context );
             Music.createMediaPlayer(Shared.properties.getProperty( "music_title" ));
             Music.play();
-            mainFrame = (LinearLayout) Shared.activity.findViewById( R.id.MainFrame );
+            mainFrame = (LinearLayout) Shared.activity.findViewById( R.id.MainLayout);
             mainLayout = (LinearLayout) Shared.activity.findViewById( R.id.textArea );
             mainScrollView = (ScrollView) Shared.activity.findViewById( R.id.mainScrollView );
         } catch (IOException e) {

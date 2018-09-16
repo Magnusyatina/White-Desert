@@ -39,6 +39,11 @@ public class TacticalEvent extends CustomEvents {
         return currNode;
     }
 
+    public void setCurrNode(String id){
+        TacticalChildNode tCN = tactical_choices.get(id);
+        currNode = tCN;
+    }
+
     @Override
     public void start(EventObserver eventObserver) {
         eventObserver.onEvent( this );

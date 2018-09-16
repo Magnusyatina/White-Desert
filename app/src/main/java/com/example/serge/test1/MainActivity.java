@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Shared.eventObserver = new Engine();
         Shared.context = this;
         Shared.activity = this;
-        
+
 
 
         navView = (NavigationView) findViewById(R.id.nav_view);
