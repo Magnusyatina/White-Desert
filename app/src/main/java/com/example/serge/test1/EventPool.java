@@ -21,7 +21,7 @@ public class EventPool {
         this.eventObserver = eventObserver;
     }
 
-    public Handler getmHandler(){
+    public Handler getHandler(){
         return mHandler;
     }
 

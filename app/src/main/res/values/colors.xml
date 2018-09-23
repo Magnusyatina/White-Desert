@@ -5,5 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorSplashScreen">#269b91</color>
 
+    <color name="colorFragmentBg">#7a3670b7</color>
+
     <color name="black_overlay">#66000000</color>>
 </resources>

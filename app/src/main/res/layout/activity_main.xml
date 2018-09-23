@@ -11,7 +11,7 @@
         android:id="@+id/MainFrame"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:background="">
+        >
         <LinearLayout
             android:id="@+id/MainLayout"
             android:layout_width="match_parent"
@@ -38,6 +38,11 @@
                     </ScrollView>
                 </LinearLayout>>
         </LinearLayout>
+        <FrameLayout
+            android:id="@+id/FragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            ></FrameLayout>>
     </FrameLayout>>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

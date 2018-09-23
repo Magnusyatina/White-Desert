@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.zip.Inflater;
 
-public class TacticalDialogFragment extends DialogFragment implements View.OnClickListener {
+public class TacticalDialogFragment extends android.support.v4.app.DialogFragment implements View.OnClickListener {
     //Ссылки на view элементы
     TextView textView = null;
     LinearLayout choices_container = null;
@@ -44,16 +44,13 @@ public class TacticalDialogFragment extends DialogFragment implements View.OnCli
         textView = (TextView) view.findViewById( R.id.testdialogview );
         choices_container = (LinearLayout) view.findViewById( R.id.choices_container );
         builder.setView( view );
-        view.post( new Runnable() {
-            @Override
-            public void run() {
-                changeText();
-            }
-        } );
-
-
         return builder.create();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        changeText();
     }
 
     public void changeText(){

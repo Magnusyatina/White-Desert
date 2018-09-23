@@ -1,13 +1,19 @@
 package com.example.serge.test1;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -37,6 +43,7 @@ import com.example.serge.test1.CustomView.CustomButtonPlayerAnswer;
 import com.example.serge.test1.CustomView.CustomPersonAnswer;
 import com.example.serge.test1.CustomView.CustomWaitingView;
 import com.example.serge.test1.CustomView.TacticalDialogFragment;
+import com.example.serge.test1.CustomView.TacticalFragment;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -102,11 +109,17 @@ public class Engine extends EventObserverAdapter {
     public void onEvent(TacticalEvent tacticalEvent) {
         super.onEvent( tacticalEvent );
         Toast.makeText( Shared.context, "Сработало тактическое событие", Toast.LENGTH_SHORT ).show();
-        final TacticalDialogFragment tacticalDialogFragment = new TacticalDialogFragment();
 
-        tacticalDialogFragment.setMainNode( tacticalEvent );
-        tacticalDialogFragment.show(Shared.activity.getFragmentManager(), "TacticalDialogFragment");
+        //TacticalDialogFragment tdf = new TacticalDialogFragment();
+        //tdf.setMainNode(tacticalEvent);
+        //tdf.show(((AppCompatActivity)Shared.activity).getSupportFragmentManager(), "TacticalDialogFragment");
+        TacticalFragment tacticalFragment = new TacticalFragment();
+        tacticalFragment.setNode(tacticalEvent);
+        FragmentManager fm = ((AppCompatActivity) Shared.activity).getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
 
+        ft.replace(R.id.FragmentContainer, tacticalFragment);
+        ft.commit();
        /* LayoutInflater inflater = Shared.activity.getLayoutInflater();
         ImageView imageView = (ImageView) inflater.inflate( R.layout.customimageview, mainLayout, false );
         mainLayout.addView( imageView );
@@ -128,12 +141,14 @@ public class Engine extends EventObserverAdapter {
     @Override
     public void onEvent(StartNewGame startNewGame) {
         WWProgress.dump_of_progress();
-        mainLayout.removeAllViews();
         clearSubElements();
         getCurrentEpisode( null );
     }
 
     public void clearSubElements(){
+        mainLayout.removeAllViews();
+        ((FrameLayout)Shared.activity.findViewById(R.id.FragmentContainer)).removeAllViews();
+
         View v = mainFrame.findViewById( R.id.SubLayout );
         if(v != null)
             mainFrame.removeView( v );
@@ -160,9 +175,20 @@ public class Engine extends EventObserverAdapter {
     //Вывод сообщения от персонажа на экран
     public void onEvent(TextMessage textMessage){
         LayoutInflater layoutInflater = Shared.activity.getLayoutInflater();
-        CustomPersonAnswer customPersonAnswer = (CustomPersonAnswer) layoutInflater.inflate( R.layout.custompersonanswer, mainLayout, false );
-        customPersonAnswer.setText( textMessage.getText() );
+        final CustomPersonAnswer customPersonAnswer = (CustomPersonAnswer) layoutInflater.inflate( R.layout.custompersonanswer, mainLayout, false );
+       // customPersonAnswer.setText( textMessage.getText() );
+        char[] arraych = textMessage.getText().toCharArray();
+
         mainLayout.addView( customPersonAnswer );
+        for(int i = 0 ; i<arraych.length; i++){
+            final char symbol = arraych[i];
+            customPersonAnswer.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    customPersonAnswer.append(Character.toString(symbol));
+                }
+            }, i*50);
+        }
         textMessage.setAdded( true );
         scrollDown();
     }
@@ -361,7 +387,7 @@ public class Engine extends EventObserverAdapter {
 
     public void scrollDown(){
 
-        Shared.eventPool.getmHandler().post(new Runnable() {
+        Shared.eventPool.getHandler().post(new Runnable() {
             @Override
             public void run() {
                 mainScrollView.fullScroll( ScrollView.FOCUS_DOWN );

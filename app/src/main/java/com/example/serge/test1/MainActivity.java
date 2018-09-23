@@ -1,4 +1,5 @@
 package com.example.serge.test1;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
@@ -23,6 +24,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+
 
 
 import com.example.serge.test1.CustomEvents.SetGameMode;
