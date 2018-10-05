@@ -1,6 +1,7 @@
 package com.example.serge.test1;
 
 import com.example.serge.test1.CustomEvents.AddItem;
+import com.example.serge.test1.CustomEvents.Event;
 import com.example.serge.test1.CustomEvents.CustomMusic;
 import com.example.serge.test1.CustomEvents.Die;
 import com.example.serge.test1.CustomEvents.ImportantMessage;
@@ -22,6 +23,8 @@ import com.example.serge.test1.CustomEvents.Waiting;
  */
 
 public interface EventObserver {
+    public void onEvent(Event customEvents);
+
     public void onEvent(AddItem addItem);
 
     public void onEvent(Die die);

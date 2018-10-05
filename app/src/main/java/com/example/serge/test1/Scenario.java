@@ -6,7 +6,7 @@ import android.content.res.XmlResourceParser;
 import android.util.Log;
 
 import com.example.serge.test1.CustomEvents.AddItem;
-import com.example.serge.test1.CustomEvents.CustomEvents;
+import com.example.serge.test1.CustomEvents.Event;
 import com.example.serge.test1.CustomEvents.CustomMusic;
 import com.example.serge.test1.CustomEvents.Die;
 import com.example.serge.test1.CustomEvents.ImportantMessage;
@@ -34,7 +34,7 @@ import java.util.TreeMap;
 
 public class Scenario {
     //Коллекция сценария
-    public static TreeMap<String, ArrayList<CustomEvents>> scenario = new TreeMap<>();
+    public static TreeMap<String, ArrayList<Event>> scenario = new TreeMap<>();
     public static TreeMap<String, Stage> scenarioList = new TreeMap<>();
     static String TAG = "MyLogScenario";
 

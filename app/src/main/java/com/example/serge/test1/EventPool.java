@@ -3,8 +3,7 @@ package com.example.serge.test1;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.example.serge.test1.CustomEvents.CustomEvents;
-import com.example.serge.test1.CustomEvents.Event;
+import com.example.serge.test1.CustomEvents.IEvent;
 
 /**
  * Created by sergey37192 on 01.04.2018.
@@ -25,7 +24,7 @@ public class EventPool {
         return mHandler;
     }
 
-    public void notify(Event event){
+    public void notify(IEvent event){
        /* if(eventObserver !=null){
             event.start( eventObserver );
         }*/
@@ -33,7 +32,7 @@ public class EventPool {
 
     }
 
-    public void notify(final Event event, long delay){
+    public void notify(final IEvent event, long delay){
         if(eventObserver != null)
             mHandler.postDelayed( new Runnable() {
                 @Override

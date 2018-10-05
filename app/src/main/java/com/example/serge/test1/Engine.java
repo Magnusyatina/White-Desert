@@ -1,6 +1,5 @@
 package com.example.serge.test1;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -26,7 +25,7 @@ import com.example.serge.test1.CustomEvents.SetMusic;
 import com.example.serge.test1.CustomEvents.StageJump;
 import com.example.serge.test1.CustomEvents.TacticalEvent;
 import com.example.serge.test1.CustomView.CustomButton;
-import com.example.serge.test1.CustomEvents.CustomEvents;
+import com.example.serge.test1.CustomEvents.Event;
 import com.example.serge.test1.CustomEvents.Die;
 
 import com.example.serge.test1.CustomEvents.ImportantMessage;
@@ -42,7 +41,6 @@ import com.example.serge.test1.CustomEvents.Waiting;
 import com.example.serge.test1.CustomView.CustomButtonPlayerAnswer;
 import com.example.serge.test1.CustomView.CustomPersonAnswer;
 import com.example.serge.test1.CustomView.CustomWaitingView;
-import com.example.serge.test1.CustomView.TacticalDialogFragment;
 import com.example.serge.test1.CustomView.TacticalFragment;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -87,15 +85,15 @@ public class Engine extends EventObserverAdapter {
         if(stageId == null)
             stageId = "start";
         try{
-        ArrayList<CustomEvents> arrayList = WWProgress.addToProgress( stageId );
+        ArrayList<Event> arrayList = WWProgress.addToProgress( stageId );
         gameContinue( arrayList );}
         catch (NoSuchElementException ex){
             Shared.activity.finish();
         }
     }
 
-    public void gameContinue(ArrayList<CustomEvents> events){
-        for(CustomEvents e : events){
+    public void gameContinue(ArrayList<Event> events){
+        for(Event e : events){
             long time = e.getTimer();
             if(time>0)
                 Shared.eventPool.notify( e, time );
@@ -113,13 +111,13 @@ public class Engine extends EventObserverAdapter {
         //TacticalDialogFragment tdf = new TacticalDialogFragment();
         //tdf.setMainNode(tacticalEvent);
         //tdf.show(((AppCompatActivity)Shared.activity).getSupportFragmentManager(), "TacticalDialogFragment");
-        TacticalFragment tacticalFragment = new TacticalFragment();
+       /* TacticalFragment tacticalFragment = new TacticalFragment();
         tacticalFragment.setNode(tacticalEvent);
         FragmentManager fm = ((AppCompatActivity) Shared.activity).getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
 
         ft.replace(R.id.FragmentContainer, tacticalFragment);
-        ft.commit();
+        ft.commit();*/
        /* LayoutInflater inflater = Shared.activity.getLayoutInflater();
         ImageView imageView = (ImageView) inflater.inflate( R.layout.customimageview, mainLayout, false );
         mainLayout.addView( imageView );
@@ -132,7 +130,7 @@ public class Engine extends EventObserverAdapter {
 
     @Override
     public void onEvent(StartGame startGame) {
-        ArrayList<CustomEvents> arrayList = null;
+        ArrayList<Event> arrayList = null;
         if((arrayList =  WWProgress.getProgressList()).size()>0)
             gameContinue( arrayList );
         else getCurrentEpisode(null);
@@ -141,12 +139,12 @@ public class Engine extends EventObserverAdapter {
     @Override
     public void onEvent(StartNewGame startNewGame) {
         WWProgress.dump_of_progress();
+        mainLayout.removeAllViews();
         clearSubElements();
         getCurrentEpisode( null );
     }
 
     public void clearSubElements(){
-        mainLayout.removeAllViews();
         ((FrameLayout)Shared.activity.findViewById(R.id.FragmentContainer)).removeAllViews();
 
         View v = mainFrame.findViewById( R.id.SubLayout );
@@ -176,19 +174,8 @@ public class Engine extends EventObserverAdapter {
     public void onEvent(TextMessage textMessage){
         LayoutInflater layoutInflater = Shared.activity.getLayoutInflater();
         final CustomPersonAnswer customPersonAnswer = (CustomPersonAnswer) layoutInflater.inflate( R.layout.custompersonanswer, mainLayout, false );
-       // customPersonAnswer.setText( textMessage.getText() );
-        char[] arraych = textMessage.getText().toCharArray();
-
+        customPersonAnswer.setText( textMessage.getText() );
         mainLayout.addView( customPersonAnswer );
-        for(int i = 0 ; i<arraych.length; i++){
-            final char symbol = arraych[i];
-            customPersonAnswer.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    customPersonAnswer.append(Character.toString(symbol));
-                }
-            }, i*50);
-        }
         textMessage.setAdded( true );
         scrollDown();
     }
@@ -242,7 +229,7 @@ public class Engine extends EventObserverAdapter {
                                 int count = mainLayout.getChildCount() - start;
                                 mainLayout.removeViews( start, count );
                                 clearSubElements();
-                                CustomEvents qe = WWProgress.getEventById(playerAnwser.getStage(), Questions.class );
+                                Event qe = WWProgress.getEventById(playerAnwser.getStage(), Questions.class );
                                 if(qe!=null){
                                     qe.setAdded( false );
                                     Shared.eventPool.notify( qe );

@@ -2,7 +2,7 @@ package com.example.serge.test1.CustomEvents;
 
 import com.example.serge.test1.EventObserver;
 
-public class SetGameMode extends CustomEvents {
+public class SetGameMode extends Event {
 
     private boolean fast_game = false;
 

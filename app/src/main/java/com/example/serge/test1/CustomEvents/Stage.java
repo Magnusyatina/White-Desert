@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 
 public class Stage implements Serializable, Cloneable {
-    private ArrayList<CustomEvents> array = new ArrayList<>( );
+    private ArrayList<Event> array = new ArrayList<>( );
     private String stage_name = null;
     private boolean reentrant  = false;
 
@@ -16,11 +16,11 @@ public class Stage implements Serializable, Cloneable {
         this.stage_name = stage_name;
     }
 
-    public void setArray(ArrayList<CustomEvents> array){
+    public void setArray(ArrayList<Event> array){
         this.array = array;
     }
 
-    public void addToArray(CustomEvents e){
+    public void addToArray(Event e){
         array.add( e );
     }
 
@@ -28,7 +28,7 @@ public class Stage implements Serializable, Cloneable {
         return super.clone();
     }
 
-    public ArrayList<CustomEvents> getArray(){
+    public ArrayList<Event> getArray(){
         return  array;
     }
 

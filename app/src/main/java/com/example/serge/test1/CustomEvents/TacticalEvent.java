@@ -2,10 +2,9 @@ package com.example.serge.test1.CustomEvents;
 
 import com.example.serge.test1.EventObserver;
 
-import java.util.ArrayList;
 import java.util.TreeMap;
 
-public class TacticalEvent extends CustomEvents {
+public class TacticalEvent extends Event {
 
     private TreeMap<String, TacticalChildNode> tactical_choices = null;
 

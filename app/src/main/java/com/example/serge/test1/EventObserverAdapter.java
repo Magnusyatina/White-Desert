@@ -1,6 +1,7 @@
 package com.example.serge.test1;
 
 import com.example.serge.test1.CustomEvents.AddItem;
+import com.example.serge.test1.CustomEvents.Event;
 import com.example.serge.test1.CustomEvents.CustomMusic;
 import com.example.serge.test1.CustomEvents.Die;
 import com.example.serge.test1.CustomEvents.ImportantMessage;
@@ -22,6 +23,11 @@ import com.example.serge.test1.CustomEvents.Waiting;
  */
 
 public class EventObserverAdapter implements EventObserver {
+    @Override
+    public void onEvent(Event customEvents) {
+
+    }
+
     @Override
     public void onEvent(AddItem addItem) {
 

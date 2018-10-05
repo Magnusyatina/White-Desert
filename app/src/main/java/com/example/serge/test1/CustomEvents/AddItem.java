@@ -6,7 +6,7 @@ import com.example.serge.test1.EventObserver;
  * Created by sergey37192 on 13.03.2018.
  */
 
-public class AddItem extends CustomEvents {
+public class AddItem extends Event {
     int itemId;
 
     public void setItem(int i){

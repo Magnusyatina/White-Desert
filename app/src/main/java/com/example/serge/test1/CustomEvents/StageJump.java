@@ -2,7 +2,7 @@ package com.example.serge.test1.CustomEvents;
 
 import com.example.serge.test1.EventObserver;
 
-public class StageJump extends CustomEvents{
+public class StageJump extends Event {
 
     private String target = null;
 

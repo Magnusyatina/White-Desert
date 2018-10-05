@@ -6,7 +6,7 @@ import com.example.serge.test1.EventObserver;
  * Created by sergey37192 on 13.03.2018.
  */
 
-public class RemoveItem extends CustomEvents{
+public class RemoveItem extends Event {
     Integer item;
 
     public void start(EventObserver eventObserver){

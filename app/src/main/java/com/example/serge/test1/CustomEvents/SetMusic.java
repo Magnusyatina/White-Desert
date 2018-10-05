@@ -2,7 +2,7 @@ package com.example.serge.test1.CustomEvents;
 
 import com.example.serge.test1.EventObserver;
 
-public class SetMusic extends CustomEvents {
+public class SetMusic extends Event {
 
     private boolean enable = true;
 

@@ -6,7 +6,7 @@ import com.example.serge.test1.EventObserver;
  * Created by sergey37192 on 13.02.2018.
  */
 
-public class Waiting extends  CustomEvents {
+public class Waiting extends Event {
 
     private int value;
 

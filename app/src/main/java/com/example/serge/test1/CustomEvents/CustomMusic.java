@@ -2,7 +2,7 @@ package com.example.serge.test1.CustomEvents;
 
 import com.example.serge.test1.EventObserver;
 
-public class CustomMusic extends CustomEvents {
+public class CustomMusic extends Event {
 
     private String music_name = null;
 

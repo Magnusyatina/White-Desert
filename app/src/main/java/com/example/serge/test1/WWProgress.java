@@ -2,7 +2,7 @@ package com.example.serge.test1;
 
 import android.content.Context;
 
-import com.example.serge.test1.CustomEvents.CustomEvents;
+import com.example.serge.test1.CustomEvents.Event;
 import com.example.serge.test1.CustomEvents.RandomEvent;
 import com.example.serge.test1.CustomEvents.Stage;
 import com.example.serge.test1.CustomEvents.StageJump;
@@ -64,19 +64,19 @@ public class WWProgress {
 
 
 
-    public static ArrayList<CustomEvents> addToProgress(String stage_name) throws NoSuchElementException{
+    public static ArrayList<Event> addToProgress(String stage_name) throws NoSuchElementException{
 
         Stage stage = (Stage) Scenario.scenarioList.get( stage_name );
 
         if(stage == null)
             throw new NoSuchElementException();
 
-        ArrayList<CustomEvents> newEventList = null;
+        ArrayList<Event> newEventList = null;
         try {
-            ArrayList<CustomEvents> EventList = stage.getArray();
+            ArrayList<Event> EventList = stage.getArray();
             newEventList = new ArrayList<>( );
-            for(CustomEvents e : EventList){
-                CustomEvents currE = (CustomEvents) e.clone();
+            for(Event e : EventList){
+                Event currE = (Event) e.clone();
                 currE.setStage( stage_name );
 
                 if(currE instanceof RandomEvent){
@@ -108,11 +108,11 @@ public class WWProgress {
 
 
 
-    public static void addToProgress(CustomEvents customEvent){
+    public static void addToProgress(Event customEvent){
         getProgressList().add( customEvent );
     }
 
-    public static void planningScheduleTime(CustomEvents item){
+    public static void planningScheduleTime(Event item){
         item.setScheduledtime( CustomTimer.getValue() );
         if(item.getClass() == Waiting.class){
             Waiting waiting = (Waiting) item;
@@ -120,7 +120,7 @@ public class WWProgress {
         }
     }
 
-    public static ArrayList<CustomEvents> getProgressList(){
+    public static ArrayList<Event> getProgressList(){
         return progress.getProgressList();
     }
 
@@ -144,11 +144,11 @@ public class WWProgress {
         return getPerson().checkItem( itemId );
     }
 
-    public static void backInTime(CustomEvents customEvents){
-        ArrayList<CustomEvents> arrayList = WWProgress.getProgressList();
+    public static void backInTime(Event customEvents){
+        ArrayList<Event> arrayList = WWProgress.getProgressList();
         int end = arrayList.size();
         int start = 0;
-        for(CustomEvents customEvents1 : arrayList){
+        for(Event customEvents1 : arrayList){
 
             if(customEvents == customEvents1)
                 break;
@@ -163,16 +163,16 @@ public class WWProgress {
 
     }
 
-    public static CustomEvents getEventById(String id, Class<?> specialClass){
+    public static Event getEventById(String id, Class<?> specialClass){
         Stage stage = (Stage) Scenario.scenarioList.get( id );
         if(stage == null || id == null)
             return null;
 
-        ArrayList<CustomEvents> events = stage.getArray();
+        ArrayList<Event> events = stage.getArray();
         try{
-            for(CustomEvents event : events){
+            for(Event event : events){
                 if(event.getClass() == specialClass){
-                    CustomEvents clone = (CustomEvents) event.clone();
+                    Event clone = (Event) event.clone();
                     clone.setStage( id );
                     return clone;
                 }
@@ -183,10 +183,10 @@ public class WWProgress {
         return null;
     }
 
-    public static CustomEvents getLastEvent(Class<?> specialClass){
-        ArrayList<CustomEvents> arrayList = getProgressList();
-        CustomEvents customEvents = null;
-        for(CustomEvents customEvents1 : arrayList){
+    public static Event getLastEvent(Class<?> specialClass){
+        ArrayList<Event> arrayList = getProgressList();
+        Event customEvents = null;
+        for(Event customEvents1 : arrayList){
             if(customEvents1.getClass() == specialClass)
                 customEvents = customEvents1;
         }

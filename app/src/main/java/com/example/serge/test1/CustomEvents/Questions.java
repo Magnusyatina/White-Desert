@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by sergey37192 on 18.02.2018.
  */
 
-public class Questions extends CustomEvents {
+public class Questions extends Event {
     private ArrayList<Question> list;
 
     public void put(Question q){

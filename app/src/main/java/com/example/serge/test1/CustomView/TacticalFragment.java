@@ -19,6 +19,8 @@ public class TacticalFragment extends android.support.v4.app.Fragment {
     TextView textView = null;
     LinearLayout choices_container = null;
 
+    ViewGroup container = null;
+
     TacticalEvent mainNode = null;
     Handler handler = null;
 
@@ -33,13 +35,20 @@ public class TacticalFragment extends android.support.v4.app.Fragment {
         View view = inflater.inflate( R.layout.testing_dialog_fragment, container, false );
         textView = (TextView) view.findViewById( R.id.testdialogview );
         choices_container = (LinearLayout) view.findViewById( R.id.choices_container );
+        this.container = container;
+        container.setVisibility(View.VISIBLE);
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        changeText();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        changeText();
     }
 
     @SuppressLint("ResourceAsColor")
@@ -71,9 +80,14 @@ public class TacticalFragment extends android.support.v4.app.Fragment {
                 public void run() {
                     textView.append( Character.toString(symbol) );
                 }
-            }, i*40 );
+            }, i*25 );
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        container.setVisibility(View.INVISIBLE);
 
+    }
 }

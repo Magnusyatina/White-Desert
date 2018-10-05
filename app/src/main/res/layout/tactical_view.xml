@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.serge.test1.CustomView.TacticalView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="#935197d9">
+        <TextView android:id="@+id/testdialogview"
+            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:text="Hello World"/>
+        <LinearLayout
+            android:id="@+id/choices_container"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
+        </LinearLayout>>
+
+</com.example.serge.test1.CustomView.TacticalView>
