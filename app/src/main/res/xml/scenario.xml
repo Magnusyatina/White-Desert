@@ -120,11 +120,11 @@
         <waiting value="120000"/>
         <message text="Одни обломки, все разбросано в разные стороны..."/>
         <message text="Успел рассмотреть двигатель."/>
-        <message text="Его разворотило так, что я даже не знаю, что и сказать..."/>
+        <message text="Его очень сильно разворотило, восстановить уже не получится."/>
         <message text="Но я нашел спички! Будет теперь с помощью чего разжечь костер"/>
         <add_item item="1"/>
         <questions>
-            <case text="Попробуй разжечь костер!" target="kindling_a_fire_net_to_the_plane"/>
+            <case text="Сейчас самое главное не замерзнуть!" target="kindling_a_fire_net_to_the_plane"/>
             <case text="Есть идеи, что ты будешь делать дальше?" target="kindling_a_fire_net_to_the_plane"/>
         </questions>
     </stage>

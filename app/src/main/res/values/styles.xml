@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
 
@@ -26,7 +26,11 @@
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
-    >
+
+    <style name="CustomAnimButton" parent="@style/Widget.AppCompat.Button">
+        <item name="android:background">@drawable/buttonselector</item>
+        <item name="android:stateListAnimator" tools:targetApi="lollipop">@animator/button_animator</item>
+    </style>
 
 
 </resources>

@@ -9,6 +9,7 @@ import com.example.serge.test1.CustomEvents.AddItem;
 import com.example.serge.test1.CustomEvents.Event;
 import com.example.serge.test1.CustomEvents.CustomMusic;
 import com.example.serge.test1.CustomEvents.Die;
+import com.example.serge.test1.CustomEvents.IEvent;
 import com.example.serge.test1.CustomEvents.ImportantMessage;
 import com.example.serge.test1.CustomEvents.Question;
 import com.example.serge.test1.CustomEvents.Questions;
@@ -26,6 +27,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Properties;
 import java.util.TreeMap;
 
 /**
@@ -140,5 +143,43 @@ public class Scenario {
             }
             eventType = parser.next();
         }
+    }
+
+    public static LinkedList<IEvent> events = new LinkedList<>();
+
+    public static void create(Context context) throws XmlPullParserException, IOException {
+        Resources res = context.getResources();
+        XmlPullParser xpp = res.getXml(R.xml.scenario);
+
+        xpp.next();
+        int eventType = xpp.getEventType();
+        while(eventType != XmlPullParser.END_DOCUMENT){
+            if(eventType == XmlPullParser.START_TAG){
+                try {
+                    IEvent event = (IEvent) Class.forName(xpp.getName()).newInstance();
+                    if(!events.isEmpty())
+                        events.getLast().add(event);
+                    events.add(event);
+                    int len = xpp.getAttributeCount();
+                    Properties pr = new Properties();
+                    for(int i = 0; i<len; i++){
+                        pr.put(xpp.getAttributeName(i),xpp.getAttributeValue(i));
+                    }
+                    event.serProperties(pr);
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(eventType == XmlPullParser.END_TAG){
+                IEvent event = events.removeLast();
+                if(event instanceof Stage){}
+
+            }
+        }
+
     }
 }
