@@ -9,8 +9,6 @@ import com.example.serge.test1.EventObserver;
 public class TextMessage extends Messages {
 
     public void start(EventObserver eventObserver){
-        long time = getTimer();
         eventObserver.onEvent( this );
-
     }
 }

@@ -19,9 +19,7 @@ public class Waiting extends Event {
     }
 
     public void start(EventObserver eventObserver){
-        long time = getTimer();
         eventObserver.onEvent( this );
-
     }
 
 }

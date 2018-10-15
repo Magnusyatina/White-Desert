@@ -1,5 +1,6 @@
 package com.example.serge.test1.CustomEvents;
 
+import com.example.serge.test1.EventObserver;
 import com.example.serge.test1.MainActivity;
 
 /**
@@ -21,8 +22,9 @@ public class Messages extends Event {
         return text;
     }
 
-    public void start(MainActivity activity){}
 
-    
+    @Override
+    public void start(EventObserver eventObserver) {
 
+    }
 }

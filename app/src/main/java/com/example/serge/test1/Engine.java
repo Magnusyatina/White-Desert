@@ -1,5 +1,6 @@
 package com.example.serge.test1;
 
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -252,7 +253,7 @@ public class Engine extends EventObserverAdapter {
 
     //Вывод вопросов на экран
     public void onEvent(final Questions questions){
-        final LinearLayout subLayout = (LinearLayout) LayoutInflater.from(Shared.context).inflate( R.layout.question_layout, mainFrame, false );
+        final FrameLayout subLayout = (FrameLayout) LayoutInflater.from(Shared.context).inflate( R.layout.question_layout, mainFrame, false );
         questionView = (LinearLayout) subLayout.findViewById( R.id.questionsLayout );
 
         ArrayList<Question> questionArray = questions.getList();
@@ -268,16 +269,15 @@ public class Engine extends EventObserverAdapter {
         } );
         subLayout.startAnimation( anim );
 
+
         //
         for(Question q : questionArray){
             int itemId = q.getNeedItem();
             if(itemId == -1 || WWProgress.checkItem( itemId )){
                 LayoutInflater layoutInflater = Shared.activity.getLayoutInflater();
-                final CustomButton customButton = (CustomButton) layoutInflater.inflate( R.layout.custombutton, questionView, false );
+                final CustomButton customButton = (CustomButton) layoutInflater.inflate( R.layout.button_view, questionView, false );
                 customButton.setGoTo( q.getTarget() );
-                customButton.setLayoutParams( Settings.questionViewParams );
                 customButton.setText( q.getText() );
-                customButton.setBackgroundResource( R.drawable.custombutton );
                 customButton.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -286,19 +286,22 @@ public class Engine extends EventObserverAdapter {
                         playerAnwser.setStage(questions.getStage());
                         playerAnwser.setText(  customButton.getText().toString() );
 
+                        ((LinearLayout)Shared.activity.findViewById(R.id.questionsLayout)).removeAllViews();
+
+
                         WWProgress.getProgressList().remove( questions );
                         WWProgress.getProgressList().add( playerAnwser );
                         Shared.eventPool.notify( playerAnwser );
-
                         //animation close
                         Animation anim = AnimationUtils.loadAnimation( Shared.context, R.anim.animscaleminimize );
                         anim.setFillAfter( false );
                         anim.setAnimationListener( new AnimationListenerAdapter(){
+
                             @Override
                             public void onAnimationEnd(Animation animation) {
                                 mainFrame.removeView( subLayout );
-
                             }
+
                         } );
                         subLayout.startAnimation( anim );
 
