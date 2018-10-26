@@ -1,6 +1,9 @@
 package com.example.serge.test1;
 
+import android.animation.StateListAnimator;
+import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -14,6 +17,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -21,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.serge.test1.CustomEvents.AddItem;
 import com.example.serge.test1.CustomEvents.CustomMusic;
+import com.example.serge.test1.CustomEvents.Messages;
 import com.example.serge.test1.CustomEvents.SetGameMode;
 import com.example.serge.test1.CustomEvents.SetMusic;
 import com.example.serge.test1.CustomEvents.StageJump;
@@ -49,6 +54,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.zip.Inflater;
 
 /**
  * Created by sergey37192 on 04.04.2018.
@@ -317,13 +323,25 @@ public class Engine extends EventObserverAdapter {
         }
     }
 
-    public void onEvent(Waiting waiting){
-        final Waiting wait = waiting;
-        LayoutInflater inflater = Shared.activity.getLayoutInflater();
-        CustomWaitingView waitView = (CustomWaitingView) inflater.inflate( R.layout.waiting_view, mainLayout, false );
-        waitView.setText(R.string.personIsWaiting);
-        mainLayout.addView( waitView );
-        wait.setAdded( true );
+    public void onEvent(final Waiting waiting){
+        ImageView view = (ImageView) LayoutInflater.from(Shared.context).inflate(R.layout.waiting_view, mainLayout, false);
+        mainLayout.addView( view );
+        final Drawable dr = view.getDrawable();
+
+        if(dr instanceof Animatable){
+            ((Animatable) dr).start();
+
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    ((Animatable) dr).stop();
+                    Triggers.removeAllTriggers(waiting);
+                }
+            };
+            Triggers.addTrigger(Messages.class.getName(), runnable);
+        }
+
+
         scrollDown();
 
     }

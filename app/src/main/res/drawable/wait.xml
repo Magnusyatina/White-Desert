@@ -6,7 +6,7 @@
     android:viewportHeight="14.5">
 
     <path
-        android:fillColor="#38c7e8"
+        android:fillColor="#ca2d4c61"
         android:pathData="M 7.25 0 L 27.5 0 Q 34.75 0 34.75 7.25 L 34.75 7.25 Q 34.75 14.5 27.5 14.5 L 7.25 14.5 Q 0 14.5 0 7.25 L 0 7.25 Q 0 0 7.25 0 Z" />
     <group android:name="blink_right_1">
         <path

@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.serge.test1.CustomView.CustomWaitingView
+<ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/wv"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/panel"
+    app:srcCompat="@drawable/wait_anim"
     android:layout_gravity="center_horizontal"
-    android:paddingTop="4dp"
-    android:paddingBottom="4dp"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
     android:layout_margin="5dp">
-
-</com.example.serge.test1.CustomView.CustomWaitingView>
+</ImageView>
