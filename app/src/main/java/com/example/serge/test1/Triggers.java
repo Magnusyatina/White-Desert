@@ -89,13 +89,15 @@ public class Triggers {
         count = 0;
     }
 
-    public ArrayList<Runnable> getTriggers(IEvent event){
+    public static ArrayList<Runnable> getTriggers(IEvent event){
         if(count == 0)
             return null;
 
         String eventName = event.getClass().getName();
-        ArrayList<Runnable> list = map.get(eventName);
+        return getTriggers(eventName);
+    }
 
-        return list;
+    public static ArrayList<Runnable> getTriggers(String eventName){
+        return  map.get(eventName);
     }
 }

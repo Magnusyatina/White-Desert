@@ -42,6 +42,10 @@ public class EventPool {
             }, delay );
     }
 
+    public void notify(Runnable runnable){
+        mHandler.post(runnable);
+    }
+
     public void stopAll(){
         mHandler.removeCallbacksAndMessages( null );
     }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/wait_anim_pressed"
+        android:state_pressed="true"
+        android:drawable="@drawable/wait"/>
+    <item
+        android:id="@+id/wait_anim"
+        android:drawable="@drawable/wait"/>
+
+    <transition android:fromId="@id/wait_anim_pressed"
+        android:toId="@id/wait_anim"
+        android:drawable="@drawable/avd_wait_anim"
+        />
+    <transition
+        android:fromId="@id/wait_anim"
+        android:toId="@id/wait_anim_pressed"
+        android:drawable="@drawable/avd_wait_anim"
+        />
+
+</animated-selector>

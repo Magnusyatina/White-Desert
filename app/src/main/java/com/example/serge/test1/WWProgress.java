@@ -27,7 +27,7 @@ public class WWProgress {
 
     private static Progress progress = null;
 
-    public static void loadProgress(Context context) throws IOException {
+    public static void loadProgress(Context context) {
         File file = new File(context.getFilesDir(), "save.dat");
         ObjectInputStream obj = null;
         if(file.exists())
@@ -39,11 +39,13 @@ public class WWProgress {
 
         } catch (ClassNotFoundException ignored) {
 
-        }finally {
-            obj.close();
+        } catch (IOException ingored) {
+
         }
         if(progress == null)
             progress = new Progress();
+
+
     }
     public static void saveProgress(Context context){
 

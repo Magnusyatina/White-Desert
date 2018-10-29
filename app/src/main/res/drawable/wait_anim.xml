@@ -12,5 +12,8 @@
     <target
         android:animation="@animator/blink_up_down_3"
         android:name="blink_right_1"/>
+    <target
+        android:animation="@animator/scale_x"
+        android:name="scale_x"/>
 
 </animated-vector>

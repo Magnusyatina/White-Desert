@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:drawable="@drawable/wait">
+    <target android:name="balls" android:animation="@animator/blink_up_down_1">
+
+    </target>
+
+</animated-vector>

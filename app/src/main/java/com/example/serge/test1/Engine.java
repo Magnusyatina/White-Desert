@@ -177,8 +177,28 @@ public class Engine extends EventObserverAdapter {
         }
     }
 
+    public void runTrigger(Runnable runnable){
+        Shared.eventPool.notify(runnable);
+    }
+
+
+    public void runTriggers(ArrayList<Runnable> list){
+
+        for(Runnable runnable : list){
+            runTrigger(runnable);
+        }
+    }
+
     //Вывод сообщения от персонажа на экран
     public void onEvent(TextMessage textMessage){
+        if(!Triggers.isEmpty()){
+            ArrayList<Runnable> runnables = Triggers.getTriggers(textMessage);
+            if(runnables != null){
+                runTriggers(runnables);
+                Triggers.removeAllTriggers(textMessage);
+            }
+        }
+
         LayoutInflater layoutInflater = Shared.activity.getLayoutInflater();
         final CustomPersonAnswer customPersonAnswer = (CustomPersonAnswer) layoutInflater.inflate( R.layout.custompersonanswer, mainLayout, false );
         customPersonAnswer.setText( textMessage.getText() );
@@ -328,6 +348,7 @@ public class Engine extends EventObserverAdapter {
         mainLayout.addView( view );
         final Drawable dr = view.getDrawable();
 
+
         if(dr instanceof Animatable){
             ((Animatable) dr).start();
 
@@ -338,7 +359,7 @@ public class Engine extends EventObserverAdapter {
                     Triggers.removeAllTriggers(waiting);
                 }
             };
-            Triggers.addTrigger(Messages.class.getName(), runnable);
+            Triggers.addTrigger(TextMessage.class.getName(), runnable);
         }
 
 
