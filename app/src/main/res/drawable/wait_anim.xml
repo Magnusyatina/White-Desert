@@ -3,6 +3,8 @@
                  xmlns:tools="http://schemas.android.com/tools"
                  android:drawable="@drawable/wait"
                  tools:ignore="NewApi">
+
+
     <target
         android:animation="@animator/blink_up_down_1"
         android:name="blink_right_3"/>
@@ -12,8 +14,6 @@
     <target
         android:animation="@animator/blink_up_down_3"
         android:name="blink_right_1"/>
-    <target
-        android:animation="@animator/scale_x"
-        android:name="scale_x"/>
+
 
 </animated-vector>

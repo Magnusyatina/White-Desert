@@ -344,7 +344,7 @@ public class Engine extends EventObserverAdapter {
     }
 
     public void onEvent(final Waiting waiting){
-        ImageView view = (ImageView) LayoutInflater.from(Shared.context).inflate(R.layout.waiting_view, mainLayout, false);
+        final ImageView view = (ImageView) LayoutInflater.from(Shared.context).inflate(R.layout.waiting_view, mainLayout, false);
         mainLayout.addView( view );
         final Drawable dr = view.getDrawable();
 

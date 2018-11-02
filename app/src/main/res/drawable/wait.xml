@@ -4,7 +4,6 @@ android:viewportWidth="34.75"
 android:viewportHeight="14.5"
 android:width="40.75dp"
 android:height="19.5dp">
-    <group android:name="scale_x">
         <path
             android:pathData="M7.25 0L27.5 0c4.0165 0 7.25 3.2335 7.25 7.25 0 4.0165 -3.2335 7.25 -7.25 7.25l-20.25 0C3.2335 14.5 0 11.2665 0 7.25 0 3.2335 3.2335 0 7.25 0Z"
             android:fillColor="#38c7e8" />
@@ -29,5 +28,5 @@ android:height="19.5dp">
 
             </group>
         </group>
-    </group>
+
 </vector>
