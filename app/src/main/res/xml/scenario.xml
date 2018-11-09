@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <scenario>
+    <!-- Тестовый вариант тактического события
+    <tactics link="start_tactics">
+        <tactical_stage id="start_tactics"  text="Я не знаю, что мне делать, что же мне делать, уаааа" >
+            <tchoice text="Попробуй не привлекать к себе внимание" target_id="next_stage"/>
+            <tchoice text="Воспользуйся факелом" target_id="next_stage"/>
+            <tchoice text="Отпугни их палкой!" target_id="next_stage"/>
+        </tactical_stage>
+        <tactical_stage  id="next_stage" text="Да, я выжил, слава богу" >
+            <tchoice text="Воспользуйся факелом" target_id=""/>
+        </tactical_stage>>
+        <tactical_stage text="" />
+    </tactics>-->
     <stage id="start">
         <message text="Алл.. меня кто..удь слы..т"/>
         <message text="К..будь, отве..е"/>
         <message text="Мн... нуж..а помощ.."/>
         <message text="Да что ж... с этим устро... не так!"/>
         <message text="Рабо...й!"/>
-        <tactics link="start_tactics">
-            <tactical_stage id="start_tactics"  text="Я не знаю, что мне делать, что же мне делать, уаааа" >
-                <tchoice text="Попробуй не привлекать к себе внимание" target_id="next_stage"/>
-                <tchoice text="Воспользуйся факелом" target_id="next_stage"/>
-                <tchoice text="Отпугни их палкой!" target_id="next_stage"/>
-            </tactical_stage>
-            <tactical_stage  id="next_stage" text="Да, я выжил, слава богу" >
-                <tchoice text="Воспользуйся факелом" target_id=""/>
-            </tactical_stage>>
-            <tactical_stage text="" />
-        </tactics>
+        <message text="Видимо и н... ...той ча..тоте пус..о..."/>
+
         <questions>
             <case text="Слишком плохая связь, вы обрываетесь!" target="repair_communication1"/>
             <case text="Вас очень плохо слышно!" target="repair_communication1"/>
@@ -30,13 +33,14 @@
     </stage>>
 
     <stage id="repair_communication1">
-        <message text="Се...унду"/>
-        <message text="Кажется исправил..."/>
-        <message text="Лучше же?"/>
+        <message text="Наконе...то, хо..ь кто-то мне отв..тил!"/>
+        <message text="Подожди се...унду"/>
+        <message text="Сей..ас исправ..."/>
+        <message text="Лучше?"/>
         <music title="main_theme_2"/>
         <questions>
             <case text="Да, лучше, что у вас случилось?" target="djozef_info1"/>
-            <case text="Намного. Но кто вы?" target="djozef_info2"/>
+            <case text="Намного. Вы кто?" target="djozef_info1"/>
         </questions>
     </stage>
     <stage id="die">
@@ -54,19 +58,40 @@
         <message text="В итоге самолет потерпел крушение!"/>
         <message text="Я даже не знаю, где нахожусь..."/>
         <questions>
-            <case text="Что ты видишь вокруг себя?" target="description_of_the_place"/>
+            <case text="Но чем я могу тебе помочь? Не лучше связаться со спасателями?" target="djozef_info1_1"/>
             <case text="Успокойся, я постараюсь тебе помочь. Хорошо? " target="helpyou"/>
         </questions>
     </stage>
+    <stage id="djozef_info1_1">
+        <message text="Если бы я только мог"/>
+        <message text="На всех частотах одна тишина"/>
+        <message text="Я уже отчаялся с кем-либо связаться..."/>
+        <message text="Но тут ты!"/>
+        <message text="Не знаю, почему я смог связаться лишь с тобой."/>
+        <message text="Буду надеяться на твою помощь."/>
+        <message text="А если я обречен, то хоть умру не в безмолвной тишине..."/>
+        <questions>
+            <case text="Не падай духом, я постараюсь тебе помочь!" target="helpyou"/>
+            <case text="В опасной же ситуации ты оказался..." target="djozef_info1_1_1"/>
+        </questions>
+    </stage>
+    <stage id="djozef_info1_1_1">
+        <message text="Вот именно"/>
+        <message text="Я бы никогда не подумал, что со мной может произойти нечто подобное..."/>
+        <questions>
+            <case text="Ты можешь описать место, где ты находишься?" target="description_of_the_place"/>
+            <case text="Как ты себя чувствуешь?" target="condition"/>
+        </questions>>
+    </stage>
     <stage id="djozef_info2">
         <message text="Меня зовут Джозеф."/>
-        <message text="Я пилот на станции Мильскор."/>
+        <message text="Я был пилотом на станции Мильскор."/>
         <message text="Совершал плановый полет"/>
         <message text="В итоге самолет потерпел крушение!"/>
         <message text="Я даже не знаю, где я нахожусь..."/>
         <questions>
             <case text="Что ты видишь вокруг себя?" target="description_of_the_place"/>
-            <case text="Как твое самочувствие? С тобой все в порядке?" target="condition"/>
+            <case text="Ты не ранен, ничего не повредил при крушении?" target="condition"/>
         </questions>
     </stage>
     <stage id="helpyou">
@@ -76,7 +101,7 @@
         <message text="Будто камень с плечь"/>
         <questions>
             <case text="Ты можешь описать место, где ты находишься?" target="description_of_the_place"/>
-            <case text="Как ты себя чувствуешь?" target="condition"/>
+            <case text="Ты не ранен, ничего не повредил при крушении?" target="condition"/>
         </questions>
     </stage>
     <stage id="description_of_the_place">
@@ -91,10 +116,9 @@
         </questions>>
     </stage>>
     <stage id="condition">
-        <message text="Если не считать моего подавленного состояния"/>
+        <message text="Ну, вроде как все конечности целы"/>
+        <message text="И если не считать моего подавленного состояния"/>
         <message text="То мне очень холодно"/>
-        <message text="Хорошо еще то, что после крушения я остался целым и невредимым"/>
-        <message text="Иначе так бы и помер..."/>
         <questions>
             <case text="Попробуй разжечь костер!" need_item="1" target="kindling_a_fire_next_to_the_plane"/>
             <case text="Найди укрытие!" target="shelter_search"/>

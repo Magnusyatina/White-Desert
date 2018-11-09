@@ -416,12 +416,12 @@ public class Engine extends EventObserverAdapter {
 
     public void scrollDown(){
 
-        Shared.eventPool.getHandler().post(new Runnable() {
+        mainLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mainScrollView.fullScroll( ScrollView.FOCUS_DOWN );
             }
-        }  );
+        }, 250 );
     }
 
 }

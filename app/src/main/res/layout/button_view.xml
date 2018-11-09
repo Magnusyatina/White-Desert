@@ -5,6 +5,11 @@
     android:layout_height="43dp"
     android:layout_margin="10dp"
     android:background="@drawable/buttonselector"
+    android:shadowColor="#f089d0"
+    android:shadowRadius="50"
+    android:shadowDx="0"
+    android:shadowDy="0"
+    android:elevation="5dp"
 
     >
 
