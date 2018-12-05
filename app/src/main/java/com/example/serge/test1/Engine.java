@@ -80,6 +80,7 @@ public class Engine extends EventObserverAdapter {
             mainFrame = (LinearLayout) Shared.activity.findViewById( R.id.MainLayout);
             mainLayout = (LinearLayout) Shared.activity.findViewById( R.id.textArea );
             mainScrollView = (ScrollView) Shared.activity.findViewById( R.id.mainScrollView );
+            onResume();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {
@@ -343,11 +344,15 @@ public class Engine extends EventObserverAdapter {
         }
     }
 
+
+    private static final int[] STATE_SET_WAITING = {R.attr.state_waiting, -R.attr.state_non_waiting};
+    private static final int[] STATE_SET_NON_WAITING = {-R.attr.state_waiting, R.attr.state_non_waiting};
     public void onEvent(final Waiting waiting){
         final ImageView view = (ImageView) LayoutInflater.from(Shared.context).inflate(R.layout.waiting_view, mainLayout, false);
         mainLayout.addView( view );
         final Drawable dr = view.getDrawable();
 
+        view.setImageState(STATE_SET_NON_WAITING, true);
 
         if(dr instanceof Animatable){
             ((Animatable) dr).start();

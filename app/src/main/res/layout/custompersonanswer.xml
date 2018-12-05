@@ -8,6 +8,10 @@
     android:textSize="12sp"
     android:layout_gravity="left"
     android:layout_margin="10dp" android:elevation="6dp"
+    android:shadowColor="#b6dcff"
+    android:shadowRadius="10"
+    android:shadowDx="0"
+    android:shadowDy="0"
                   >
 
 </com.example.serge.test1.CustomView.CustomPersonAnswer>

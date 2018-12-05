@@ -20,7 +20,7 @@ public class Credits extends AppCompatActivity {
     private static final boolean AUTO_HIDE = true;
 
     /**
-     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
+     * If {@link #AUTO_HIDE} is set, the number of milliseconds to vd_wait after
      * user interaction before hiding the system UI.
      */
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;

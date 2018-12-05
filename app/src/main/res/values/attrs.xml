@@ -9,4 +9,9 @@
         <attr name="metaButtonBarButtonStyle" format="reference"/>
     </declare-styleable>
 
+    <declare-styleable name="WaitNonWaitState">
+        <attr name="state_waiting" format="boolean"/>
+        <attr name="state_non_waiting" format="boolean"/>
+    </declare-styleable>>
+
 </resources>

@@ -7,6 +7,8 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -21,36 +23,44 @@ public class MyServiceForGameProcess extends Service {
     private static long schedule_Time = 0;
     private static Handler cHandler = new Handler(Looper.getMainLooper());
 
-
+    //Сервис отвечает за оповещения о том, когда персонаж будет свободен
 
     @Override
     public int onStartCommand(Intent intent, int flags, int stardId){
-        if(intent!=null){
-            schedule_Time = intent.getLongExtra( "SCHEDULE_TIME", 0 );
-            long timer = schedule_Time - System.currentTimeMillis();
-            if(timer>0){
-                Toast.makeText(this, "Служба запущена", Toast.LENGTH_SHORT).show();
-                Intent notisfactionIntent = new Intent(MyServiceForGameProcess.this, MainActivity.class);
-                PendingIntent contentIntent = PendingIntent.getActivity(MyServiceForGameProcess.this, 0, notisfactionIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-                final NotificationCompat.Builder builder = new NotificationCompat.Builder(MyServiceForGameProcess.this);
-                builder.setSmallIcon( R.mipmap.ic_launcher ).
-                        setAutoCancel( true)
-                        .setTicker( "Оповещение" )
-                        .setContentText( "Джозеф ожидает" )
-                        .setContentIntent( contentIntent )
-                        .setWhen( schedule_Time )
-                        .setContentTitle( "White Desert" )
-                        .setDefaults( Notification.DEFAULT_ALL );
-                final NotificationManager notificationManager = (NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
-                cHandler.postDelayed( new Runnable() {
-                    @Override
-                    public void run() {
-                        notificationManager.notify( NOTIFY_ID, builder.build() );
-                        stopSelf();
-                    }
-                },timer );
-            }else stopSelf();
-        }else stopSelf();
+        if(intent==null)
+            stopSelf();
+
+        schedule_Time = intent.getLongExtra( "SCHEDULE_TIME", 0 );
+        long timer = schedule_Time - System.currentTimeMillis();
+
+        if(timer<=0)
+            stopSelf();
+
+        Toast.makeText(this, "Служба запущена", Toast.LENGTH_SHORT).show();
+        Intent notisfactionIntent = new Intent(MyServiceForGameProcess.this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(MyServiceForGameProcess.this, 0, notisfactionIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(MyServiceForGameProcess.this);
+        builder.setSmallIcon( R.mipmap.ic_launcher ).
+                setAutoCancel( true)
+                .setTicker( "Оповещение" )
+                .setContentText( "Джозеф ожидает" )
+                .setContentIntent( contentIntent )
+                .setWhen( schedule_Time )
+                .setContentTitle( "White Desert" )
+                .setDefaults( Notification.DEFAULT_ALL )
+                .setSmallIcon(R.drawable.bonfire_icon);
+
+        final NotificationManager notificationManager = (NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
+        cHandler.postDelayed( new Runnable() {
+            @Override
+            public void run() {
+                notificationManager.notify( NOTIFY_ID, builder.build() );
+                stopSelf();
+            }
+
+        }, timer );
+
+
       return Service.START_REDELIVER_INTENT;
     }
 

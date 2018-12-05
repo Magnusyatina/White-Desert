@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
                  xmlns:tools="http://schemas.android.com/tools"
-                 android:drawable="@drawable/wait"
+                 android:drawable="@drawable/vd_wait"
                  tools:ignore="NewApi">
 
 
