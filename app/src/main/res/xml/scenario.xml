@@ -19,6 +19,7 @@
         <message text="Да что ж... с этим устро... не так!"/>
         <message text="Рабо...й!"/>
         <message text="Видимо и н... ...той ча..тоте пус..о..."/>
+        <hint text="Ваши ответы могут повлиять на развитие истории!"/>
 
         <questions>
             <case text="Слишком плохая связь, вы обрываетесь!" target="repair_communication1"/>
@@ -43,12 +44,14 @@
             <case text="Намного. Вы кто?" target="djozef_info1"/>
         </questions>
     </stage>
+
     <stage id="die">
         <important_message text="Связь с Джозефом потеряна"/>
         <questions>
              <case text="Начать заново" target="start"/>
         </questions>
     </stage>
+
     <stage id="djozef_info1">
         <message text="Меня зовут Джозеф."/>
         <message text="Я совершал плановый полет на своем самолете..."/>
@@ -62,6 +65,7 @@
             <case text="Успокойся, я постараюсь тебе помочь. Хорошо? " target="helpyou"/>
         </questions>
     </stage>
+
     <stage id="djozef_info1_1">
         <message text="Если бы я только мог"/>
         <message text="На всех частотах одна тишина"/>
@@ -75,6 +79,7 @@
             <case text="В опасной же ситуации ты оказался..." target="djozef_info1_1_1"/>
         </questions>
     </stage>
+
     <stage id="djozef_info1_1_1">
         <message text="Вот именно"/>
         <message text="Я бы никогда не подумал, что со мной может произойти нечто подобное..."/>
@@ -83,6 +88,7 @@
             <case text="Как ты себя чувствуешь?" target="condition"/>
         </questions>>
     </stage>
+
     <stage id="djozef_info2">
         <message text="Меня зовут Джозеф."/>
         <message text="Я был пилотом на станции Мильскор."/>
@@ -94,6 +100,7 @@
             <case text="Ты не ранен, ничего не повредил при крушении?" target="condition"/>
         </questions>
     </stage>
+
     <stage id="helpyou">
         <message text="Я уже успокоился, пока пытался связаться хоть с кем-нибудь"/>
         <message text="Хорошо что хоть кто-то уловил мой сигнал..."/>
@@ -104,38 +111,41 @@
             <case text="Ты не ранен, ничего не повредил при крушении?" target="condition"/>
         </questions>
     </stage>
+
     <stage id="description_of_the_place">
         <message text="Я не знаю, что это за место"/>
         <message text="Вогруг один снег"/>
         <message text="Погоди, мне нужно осмотреться..."/>
+        <hint text="Джозеф немного занят, вы можете закрыть или свернуть приложение, как только он вернется, система оповестит вас!"/>
         <waiting value="15000"/>
         <message text="Нет, абсолютно ничего, кроме моего разбитого самолета"/>
         <questions>
             <case text="Попробуй найти что-нибудь полезное!" target="find_item1"/>
             <case text="Тебе не холодно?" target="condition_about_cold"/>
         </questions>>
-    </stage>>
+    </stage>
+
     <stage id="condition">
         <message text="Ну, вроде как все конечности целы"/>
         <message text="И если не считать моего подавленного состояния"/>
         <message text="То мне очень холодно"/>
         <questions>
-            <case text="Попробуй разжечь костер!" need_item="1" target="kindling_a_fire_next_to_the_plane"/>
-            <case text="Найди укрытие!" target="shelter_search"/>
+            <case text="Тебе бы найти укрытие!" target="shelter_search"/>
             <case text="Обыщи округу, может сможешь найти полезные предметы" target="find_item1"/>
         </questions>
-    </stage>>
+    </stage>
+
     <stage id="condition_about_cold">
         <message text="Очень"/>
         <message text="Я точно не уверен, но по ощущения около -30"/>
         <message text="Надо поскорее согреться"/>
         <message text="Иначе превращусь в ледышку!"/>
         <questions>
-            <case text="Попробуй разжечь костер!" need_item="1" target="kindling_a_fire_next_to_the_plane"/>
-            <case text="Попробуй найти укрытие и отдохнуть" target="shelter_search"/>
+            <case text="Тебе бы найти укрытие!" target="shelter_search"/>
             <case text="Обыщи округу" target="find_item1"/>
         </questions>
-    </stage>>
+    </stage>
+
     <stage id="find_item1">
         <message text="Да, так и поступлю"/>
         <message text="Надеюсь мне повезет и я смогу найти что-нибудь полезное"/>
@@ -156,7 +166,7 @@
     <stage id="kindling_a_fire_net_to_the_plane">
         <message text="Да, для начала нужно разжечь костер"/>
         <message text="Вроде как место для укрытия я нашел"/>
-        <message text="Возле него и разожгу костер"/>
+        <message text="Возле него и расположусь"/>
         <message text="Только надо поторопиться, а то я почти превратился в ходячую сосульку"/>
         <message text="Еще чуть-чуть и все"/>
         <questions>
@@ -182,7 +192,8 @@
     <stage id="wonderful_jokes_02_01">
         <message text="Нет"/>
         <stage_jump target="fall_asleep_and_wake_up" />
-    </stage>>
+    </stage>
+
     <stage id="wonderful_jokes_02_02">
         <message text="Главное не терять самообладание."/>
         <message text="А оптимизм еще никому не навредил"/>
@@ -455,6 +466,7 @@
             <case text="Тебе нужно срочно развести огонь. Костер, факел, хоть что-нибудь." target=""/>
         </questions>>
     </stage>>
+
     <stage id="north_choice_bad_choice">
         <message text="Я не уверен, что это хороший выбор."/>
         <message text="Но, думаю, тебе виднее."/>
@@ -468,15 +480,24 @@
         <important_message text="Связь потеряна"/>
         <die/>
     </stage>
+
     <stage id="shelter_search">
-        <message text="Да, хорошая идея!"/>
-        <message text="Но для начала, нужно развести костер."/>
-        <message text="Иначе замерзну."/>
+        <message text="Да, я уже приглядел хорошее место!"/>
+        <message text="Которое способно уберечь меня от ледяного ветра."/>
+        <message text="Осталось лишь развести костер и все будет в порядке."/>
+        <message text="Надеюсь..."/>
+        <message text="Но нужно найти еще чем разжигать и что."/>
+        <message text="Думаю, это не будет проблемой."/>
+        <message text="Сейчас же этим займусь, скоро выйду на связь!"/>
+        <waiting value="120000"/>
+        <message text="Одни обломки, все разбросано в разные стороны..."/>
+        <message text="Успел рассмотреть двигатель."/>
+        <message text="Его очень сильно разворотило, восстановить уже не получится."/>
+        <message text="В кабине были спички и трут, теперь смогу согреться..."/>
         <questions>
-            <case text="А у тебя есть, чем развести костер?" target="shelter_search_01"/>
-            <case text=""/>
-        </questions>>
-        <die/>
+            <case text="Сейчас самое главное не замерзнуть!" target="kindling_a_fire_net_to_the_plane"/>
+            <case text="Есть идеи, что ты будешь делать дальше?" target="kindling_a_fire_net_to_the_plane"/>
+        </questions>
     </stage>>
 
 

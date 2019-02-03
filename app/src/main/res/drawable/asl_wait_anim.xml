@@ -13,13 +13,13 @@
     <transition
         android:fromId="@id/wait_anim_pressed"
         android:toId="@id/wait_anim"
-        android:drawable="@drawable/wait_anim"
+        android:drawable="@drawable/avd_wait_anim"
 
         />
     <transition
         android:fromId="@id/wait_anim"
         android:toId="@id/wait_anim_pressed"
-        android:drawable="@drawable/wait_anim"
+        android:drawable="@drawable/avd_wait_anim"
         />
 
 </animated-selector>

@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.serge.test1.CustomEvents.AddItem;
 import com.example.serge.test1.CustomEvents.CustomMusic;
+import com.example.serge.test1.CustomEvents.Hint;
 import com.example.serge.test1.CustomEvents.Messages;
 import com.example.serge.test1.CustomEvents.SetGameMode;
 import com.example.serge.test1.CustomEvents.SetMusic;
@@ -45,6 +47,7 @@ import com.example.serge.test1.CustomEvents.StartNewGame;
 import com.example.serge.test1.CustomEvents.TextMessage;
 import com.example.serge.test1.CustomEvents.Waiting;
 import com.example.serge.test1.CustomView.CustomButtonPlayerAnswer;
+import com.example.serge.test1.CustomView.CustomHintDiaolog;
 import com.example.serge.test1.CustomView.CustomPersonAnswer;
 import com.example.serge.test1.CustomView.CustomWaitingView;
 import com.example.serge.test1.CustomView.TacticalFragment;
@@ -110,6 +113,18 @@ public class Engine extends EventObserverAdapter {
         }
     }
 
+
+    @Override
+    public void onEvent(Hint hint) {
+
+        CustomHintDiaolog dialog = new CustomHintDiaolog();
+        dialog.setText(hint.getText());
+        dialog.show(((AppCompatActivity) Shared.activity).getSupportFragmentManager(), "HintDialog");
+        WWProgress.getProgressList().remove(hint);
+
+
+
+    }
 
     @Override
     public void onEvent(TacticalEvent tacticalEvent) {

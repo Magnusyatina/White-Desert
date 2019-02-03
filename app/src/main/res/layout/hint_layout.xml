@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+   >
+    <ImageView
+        android:layout_width="285dp"
+        android:layout_height="90dp"
+        app:srcCompat="@drawable/vd_hint"
+        >
+    </ImageView>
+    <TextView
+        android:id="@+id/hint_text"
+        android:layout_height="wrap_content" android:layout_width="wrap_content"
+        android:maxHeight="70dp"
+        android:maxWidth="225dp"
+        android:layout_gravity="center"
+        android:textColor="#71d4ff"
+        />
+</FrameLayout>

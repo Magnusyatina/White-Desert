@@ -5,7 +5,7 @@
     android:id="@+id/wv"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:srcCompat="@drawable/asl_wait_anim"
+    app:srcCompat="@drawable/avd_wait_anim"
     android:layout_gravity="center_horizontal"
     android:layout_margin="5dp"
     >

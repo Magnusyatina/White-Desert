@@ -4,6 +4,7 @@ import com.example.serge.test1.CustomEvents.AddItem;
 import com.example.serge.test1.CustomEvents.Event;
 import com.example.serge.test1.CustomEvents.CustomMusic;
 import com.example.serge.test1.CustomEvents.Die;
+import com.example.serge.test1.CustomEvents.Hint;
 import com.example.serge.test1.CustomEvents.ImportantMessage;
 import com.example.serge.test1.CustomEvents.PlayerAnwser;
 import com.example.serge.test1.CustomEvents.Questions;
@@ -56,6 +57,8 @@ public interface EventObserver {
     public void onEvent(StageJump stageJump);
 
     public void onEvent(TacticalEvent tacticalEvent);
+
+    public void onEvent(Hint hint);
 
     public void onCreate();
 

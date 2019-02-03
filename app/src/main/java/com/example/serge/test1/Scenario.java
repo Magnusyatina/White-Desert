@@ -9,6 +9,7 @@ import com.example.serge.test1.CustomEvents.AddItem;
 import com.example.serge.test1.CustomEvents.Event;
 import com.example.serge.test1.CustomEvents.CustomMusic;
 import com.example.serge.test1.CustomEvents.Die;
+import com.example.serge.test1.CustomEvents.Hint;
 import com.example.serge.test1.CustomEvents.IEvent;
 import com.example.serge.test1.CustomEvents.ImportantMessage;
 import com.example.serge.test1.CustomEvents.Question;
@@ -119,6 +120,10 @@ public class Scenario {
 
                     }else if(tagName.equals( "tchoice" ) && tchildNode != null){
                         tchildNode.addChoice( parser.getAttributeValue( null, "text" ), parser.getAttributeValue( null, "target_id" ) );
+                    } else if(tagName.equals( "hint" ) ){
+                        Hint hint = new Hint();
+                        hint.setText(parser.getAttributeValue(null, "text"));
+                        stage.addToArray(hint);
                     }
 
                 }

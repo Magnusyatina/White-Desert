@@ -16,7 +16,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView(R.layout.splash_activity);
         ((Animatable)((ImageView)findViewById(R.id.splash_image)).getDrawable()).start();
-
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();

@@ -37,7 +37,7 @@ import com.example.serge.test1.CustomEvents.StartNewGame;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CompoundButton.OnCheckedChangeListener{
 
 
-    private LinearLayout inventory;
+
     private NavigationView navView;
     private SwitchCompat switchMusicCompat;
     private SwitchCompat switchModeCompat;
