@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <objectAnimator
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:interpolator="@android:anim/accelerate_interpolator"
+        android:duration="1500"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:valueFrom="#10243b"
+        android:valueTo="#ff9e0d"
+        android:valueType="colorType"
+        android:propertyName="fillColor"/>
+

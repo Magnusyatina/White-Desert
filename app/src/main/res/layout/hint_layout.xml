@@ -4,6 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:elevation="8dp"
+    android:shadowColor="#263543"
+    android:shadowRadius="10"
+    android:shadowDx="0"
+    android:shadowDy="0"
    >
     <ImageView
         android:layout_width="285dp"

@@ -1,20 +1,17 @@
 package com.example.serge.test1;
 
-import android.animation.StateListAnimator;
+import android.animation.ObjectAnimator;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
@@ -27,7 +24,6 @@ import android.widget.Toast;
 import com.example.serge.test1.CustomEvents.AddItem;
 import com.example.serge.test1.CustomEvents.CustomMusic;
 import com.example.serge.test1.CustomEvents.Hint;
-import com.example.serge.test1.CustomEvents.Messages;
 import com.example.serge.test1.CustomEvents.SetGameMode;
 import com.example.serge.test1.CustomEvents.SetMusic;
 import com.example.serge.test1.CustomEvents.StageJump;
@@ -49,15 +45,12 @@ import com.example.serge.test1.CustomEvents.Waiting;
 import com.example.serge.test1.CustomView.CustomButtonPlayerAnswer;
 import com.example.serge.test1.CustomView.CustomHintDiaolog;
 import com.example.serge.test1.CustomView.CustomPersonAnswer;
-import com.example.serge.test1.CustomView.CustomWaitingView;
-import com.example.serge.test1.CustomView.TacticalFragment;
 
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
-import java.util.zip.Inflater;
 
 /**
  * Created by sergey37192 on 04.04.2018.
@@ -66,7 +59,8 @@ import java.util.zip.Inflater;
 public class Engine extends EventObserverAdapter {
 
     private long scheduletime = 0;
-    LinearLayout mainFrame;
+    FrameLayout mainFrame;
+    LinearLayout mainLayoutFrame;
 
     LinearLayout mainLayout;
     LinearLayout questionView;
@@ -80,7 +74,8 @@ public class Engine extends EventObserverAdapter {
             WWProgress.loadProgress( Shared.context );
             Music.createMediaPlayer(Shared.properties.getProperty( "music_title" ));
             Music.play();
-            mainFrame = (LinearLayout) Shared.activity.findViewById( R.id.MainLayout);
+            mainFrame = (FrameLayout) Shared.activity.findViewById(R.id.MainFrame);
+            mainLayoutFrame = (LinearLayout) Shared.activity.findViewById( R.id.MainLayout);
             mainLayout = (LinearLayout) Shared.activity.findViewById( R.id.textArea );
             mainScrollView = (ScrollView) Shared.activity.findViewById( R.id.mainScrollView );
             onResume();
@@ -115,12 +110,27 @@ public class Engine extends EventObserverAdapter {
 
 
     @Override
-    public void onEvent(Hint hint) {
+    public void onEvent(final Hint hint) {
 
-        CustomHintDiaolog dialog = new CustomHintDiaolog();
-        dialog.setText(hint.getText());
-        dialog.show(((AppCompatActivity) Shared.activity).getSupportFragmentManager(), "HintDialog");
-        WWProgress.getProgressList().remove(hint);
+        final ImageView hint_icon = (ImageView) Shared.activity.getLayoutInflater().inflate(R.layout.hint_icon, mainFrame, false);
+        mainFrame.addView(hint_icon);
+        Drawable dr = hint_icon.getDrawable();
+
+
+        if(dr instanceof Animatable){
+            ((Animatable) dr).start();
+        }
+
+        hint_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomHintDiaolog dialog = new CustomHintDiaolog();
+                dialog.setText(hint.getText());
+                dialog.show(((AppCompatActivity) Shared.activity).getSupportFragmentManager(), "HintDialog");
+                WWProgress.getProgressList().remove(hint);
+                mainFrame.removeView(hint_icon);
+            }
+        });
 
 
 
@@ -170,9 +180,9 @@ public class Engine extends EventObserverAdapter {
     public void clearSubElements(){
         ((FrameLayout)Shared.activity.findViewById(R.id.FragmentContainer)).removeAllViews();
 
-        View v = mainFrame.findViewById( R.id.SubLayout );
+        View v = mainLayoutFrame.findViewById( R.id.SubLayout );
         if(v != null)
-            mainFrame.removeView( v );
+            mainLayoutFrame.removeView( v );
     }
 
     //Добавление предмета в инвентарь
@@ -295,12 +305,12 @@ public class Engine extends EventObserverAdapter {
 
     //Вывод вопросов на экран
     public void onEvent(final Questions questions){
-        final FrameLayout subLayout = (FrameLayout) LayoutInflater.from(Shared.context).inflate( R.layout.question_layout, mainFrame, false );
+        final FrameLayout subLayout = (FrameLayout) LayoutInflater.from(Shared.context).inflate( R.layout.question_layout, mainLayoutFrame, false );
         questionView = (LinearLayout) subLayout.findViewById( R.id.questionsLayout );
 
         ArrayList<Question> questionArray = questions.getList();
         //animation open
-        mainFrame.addView( subLayout );
+        mainLayoutFrame.addView( subLayout );
         Animation anim = AnimationUtils.loadAnimation( Shared.context, R.anim.animscalemaximize );
         anim.setAnimationListener( new AnimationListenerAdapter(){
             @Override
@@ -341,7 +351,7 @@ public class Engine extends EventObserverAdapter {
 
                             @Override
                             public void onAnimationEnd(Animation animation) {
-                                mainFrame.removeView( subLayout );
+                                mainLayoutFrame.removeView( subLayout );
                             }
 
                         } );
