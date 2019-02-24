@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void onResume(){
         super.onResume();
+        Music.play();
         Shared.eventObserver.onResume();
 
     }

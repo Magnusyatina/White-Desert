@@ -13,6 +13,7 @@
         <tactical_stage text="" />
     </tactics>-->
     <stage id="start">
+        <music title="main_theme_1"/>
         <message text="Алл.. меня кто..удь слы..т"/>
         <message text="К..будь, отве..е"/>
         <message text="Мн... нуж..а помощ.."/>
@@ -38,7 +39,6 @@
         <message text="Подожди се...унду"/>
         <message text="Сей..ас исправ..."/>
         <message text="Лучше?"/>
-        <music title="main_theme_2"/>
         <questions>
             <case text="Да, лучше, что у вас случилось?" target="djozef_info1"/>
             <case text="Намного. Вы кто?" target="djozef_info1"/>
@@ -257,7 +257,7 @@
         <message text="Сейчас бы еще проблем с едой мне не хватало..."/>
         <questions>
             <case text="Ты в этом уверен? Осматривал округу?" target="good_news_bad_news_01"/>
-            <case text="Может какой-то зверь забрел? Следы?" target="good_news_bad_news_02"/>
+            <case text="Может твои припасы просто снегом засыпало, пока ты спал?" target="good_news_bad_news_02"/>
         </questions>
     </stage>
 
@@ -271,11 +271,12 @@
     </stage>
 
     <stage id="good_news_bad_news_02">
-        <message text="Да, я осмотрелся."/>
-        <message text="Ни следов, ни других признаков пребывания кого-либо я не обнаружил."/>
-        <message text="Но даже так, это очень настораживает."/>
-        <message text="Если это голодный зверь забрел ко мне..."/>
-        <message text="То дела мои могут быть хуже некуда..."/>
+        <message text="Может быть."/>
+        <message text="Надеюсь, погода не встанет на пути к моему спасению!"/>
+        <message text="Но у меня еще осталось достаточно запасов, чтобы прожить несколько дней."/>
+        <message text="Если экономить, то смогу продержаться."/>
+        <message text="Пока я не найду спасение."/>
+        <message text="Или спасение не найдет меня..."/>
         <stage_jump target="good_news_bad_news_01_01"/>
     </stage>
 
@@ -284,10 +285,10 @@
         <message text="Думаю, пора уходить отсюда."/>
         <message text="Возможно, оставаться здесь более рисковано..."/>
         <message text="Нежели идти куда-то."/>
-        <message text="Может кого-нибудь да смогу найти."/>
+        <message text="Может кого-нибудь да смогу встретить на своем пути."/>
         <questions>
             <case text="Может лучше еще подождать, вдруг за тобой уже выслали помощь?" target="stay_in_place"/>
-            <case text="Я думаю, пора уходить с этого места" target="preparation_for_care_01"/>
+            <case text="Я думаю, пора уходить с этого места. Рассчитывать на помощь, которая может и не прийти, будто играть в лотерею..." target="preparation_for_care_01"/>
         </questions>>
     </stage>
 
@@ -300,7 +301,7 @@
         <message text="Сейчас бы еще проблем с едой мне не хватало..."/>
         <questions>
             <case text="Ты в этом уверен? Осматривал округу?" target="bad_news_01_01"/>
-            <case text="Может какой-то зверь забрел? Следы?" target="bad_news_01_02"/>
+            <case text="Может просто снегом занесло?" target="bad_news_01_02"/>
         </questions>
     </stage>
 
@@ -314,20 +315,11 @@
     </stage>
 
     <stage id="bad_news_01_02">
-        <message text="Если это так, то я должен быть настороже."/>
-        <message text="Следов, к сожалению или к счастью, я не смог обнаружить."/>
-        <message text="Возможно их замело снегом."/>
-        <message text="Но... если это голодный зверь, решил полакомиться моей едой..."/>
-        <message text="В дальнейшем он может захотеть попробовать и меня на вкус."/>
-        <questions>
-            <case text="Медведь?" target="you_are_crazy"/>
-            <case text="Волк?" target="you_are_crazy"/>
-        </questions>>
-    </stage>
-
-    <stage id="you_are_crazy">
-        <message text="Как же я надеюсь, что это не кто-то из них."/>
-        <message text="Иначе, шансы выжить, уже и не без того не высокие, сводятся к нулю..."/>
+        <message text="Да, вполне вероятно."/>
+        <message text="В такую то погоду..."/>
+        <message text="Хотя, когда даже погода начинает вставлять палки в колеса..."/>
+        <message text="Ну, припасов хватит еще на пару дней."/>
+        <message text="Если буду экономить..."/>
         <stage_jump target="bad_news_good_news"/>
     </stage>
 
@@ -338,7 +330,7 @@
         <message text="Я нашел компас."/>
         <message text="Хорошо что он не затерялся в снегах."/>
         <questions>
-            <case text="Разве ты не можешь ориентироваться по положению солнца?" target="info_about_compas"/>
+            <case text="Ты же всегда можешь сориентироваться по положению солнца." target="info_about_compas"/>
             <case text="Может лучше еще подождать, вдруг за тобой уже выслали помощь?" target="stay_in_place"/>
             <case text="Я думаю, пора уходить с этого места" target="preparation_for_care_01"/>
         </questions>>
@@ -352,7 +344,7 @@
         <questions>
             <case text="Может лучше еще подождать, вдруг за тобой уже выслали помощь?" target="stay_in_place"/>
             <case text="Да, решил уже в какую сторону тебе стоит идти?" target="preparation_for_care_01"/>
-        </questions>>
+        </questions>
     </stage>>
     <stage id="stay_in_place">
         <message text="Думаешь?"/>
@@ -368,6 +360,7 @@
         <message text="Кажется, это была плохая идея..."/>
         <die/>
     </stage>
+
     <stage id="stay_in_place_still_alive">
         <message text="Нет."/>
         <message text="Больше ждать нельзя."/>
@@ -391,15 +384,15 @@
         <questions>
             <case text="Север."  target="preparation_for_care_north"/>
             <case text="На юг." target="south choice"/>
-            <case text="А сам что думаешь по этому поводу?" target="info_about_the_choice"/>
+            <case text="А что бы ты сам выбрал?" target="info_about_the_choice"/>
         </questions>
     </stage>>
     <stage id="info_about_the_choice">
         <message text="Моя чуйка подсказывает идти мне в сторону моей базы."/>
-        <message text="Но мне не нравятся сгущающиеся тучи в небе на той стороне."/>
-        <message text="Может я попаду под сильный буран."/>
+        <message text="Но мне не нравятся тучи в небе на той стороне."/>
+        <message text="Не хотелось бы попасть под сильный буран..."/>
         <message text="И, тогда, мои шансы выжить сведутся к нулю!"/>
-        <message text="Но до городского поселения достаточно далеко."/>
+        <message text="Но до городского поселения должно быть достаточно далеко."/>
         <message text="И я могу просто слечь из-за усталости, обезвоживания или голода."/>
         <message text="Что думаешь?"/>
         <questions>
@@ -407,6 +400,7 @@
             <case text="На юг!" target="south_choice"/>
         </questions>>
     </stage>>
+
     <stage id="preparation_for_care_north">
         <message text="Хорошо."/>
         <message text="Все припасы собрал."/>
@@ -420,10 +414,11 @@
         <message text="Может все-таки стоит пойти в сторону поселения?"/>
         <message text="Возможно я нахожусь к нему гораздо ближе чем к своей базе."/>
         <questions>
-            <case text="Вполне вероятно, что ты прав, давай на юг." target="north_south_choice"/>
-            <case text="Думаю, что уже поздно возвращаться обратно" target="north_north_choice"/>
+            <case text="Но ты же уже прошел такое расстояние, а теперь еще и обратно идти?." target="north_south_choice"/>
+            <case text="Думаю, что уже поздно возвращаться обратно!" target="north_north_choice"/>
         </questions>>
-    </stage>>
+    </stage>
+
     <stage id="north_north_choice">
         <message text="Тогда продолжу идти."/>
         <waiting value="900000"/>
@@ -433,7 +428,7 @@
         <message text="А так же у меня дурное предчуствие."/>
         <message text="Будто меня кто-то преследует."/>
         <message text="Хоть я никого и не вижу."/>
-        <message text="Пройду еще немного и отпишусь."/>
+        <message text="Пройду еще немного. Будь на связи..."/>
         <waiting value="720000"/>
         <message text="Уже не уверен, что иду в правильном направлении."/>
         <message text="И уже очень сильно стемнело"/>
@@ -445,7 +440,8 @@
             <case text="Отдохни" target="north_choice_01"/>
             <case text="Продолжай идти" target="north_choice_bad_choice"/>
         </questions>>
-    </stage>>
+    </stage>
+
     <stage id="north_choice_01">
         <message text="Ты прав."/>
         <message text="Дальше своего носа я уже не вижу."/>
@@ -457,13 +453,14 @@
         <waiting value="900000"/>
         <message text="У меня серьезные проблемы."/>
         <message text="Говорю сразу."/>
-        <message text="За мной по пятам идет волчья стая."/>
+        <message text="За мной по пятам шла волчья стая."/>
         <message text="Спросишь, как же я это понял?"/>
-        <message text="Да вот же, их злобные глаза так и смотрят на меня."/>
-        <message text="Наверное представляют с каким наслаждением они будут меня есть"/>
+        <message text="Да вот же, их горящие глаза так и смотрят на меня из темноты."/>
+        <message text="К сожалению, накормить их я смогу только лишь собой..."/>
+        <message text="Что же делать..."/>
         <questions>
             <case text="У тебя есть чем отбиваться?" target=""/>
-            <case text="Тебе нужно срочно развести огонь. Костер, факел, хоть что-нибудь." target=""/>
+            <case text="Тебе нужно срочно развести огонь. Костер, факел, волки боятся огня!" target=""/>
         </questions>>
     </stage>>
 
@@ -471,7 +468,7 @@
         <message text="Я не уверен, что это хороший выбор."/>
         <message text="Но, думаю, тебе виднее."/>
         <message text="Еще немного я смогу пройти."/>
-        <message text="Через время я свяжусь с тобой."/>
+        <message text="Скоро я свяжусь с тобой."/>
         <waiting value="900000"/>
         <message text="Нет, нет, нет."/>
         <message text="Это была дряная идея."/>
