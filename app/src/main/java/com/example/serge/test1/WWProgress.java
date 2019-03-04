@@ -116,7 +116,7 @@ public class WWProgress {
 
     public static void planningScheduleTime(Event item){
         item.setScheduledtime( CustomTimer.getValue() );
-        if(item.getClass() == Waiting.class){
+        if(item instanceof Waiting){
             Waiting waiting = (Waiting) item;
             CustomTimer.addTestTime( waiting.getValue() );
         }

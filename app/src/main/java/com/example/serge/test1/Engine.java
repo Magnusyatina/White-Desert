@@ -91,8 +91,9 @@ public class Engine extends EventObserverAdapter {
         if(stageId == null)
             stageId = "start";
         try{
-        ArrayList<Event> arrayList = WWProgress.addToProgress( stageId );
-        gameContinue( arrayList );}
+            ArrayList<Event> arrayList = WWProgress.addToProgress( stageId );
+            gameContinue( arrayList );
+        }
         catch (NoSuchElementException ex){
             Shared.activity.finish();
         }
@@ -398,12 +399,9 @@ public class Engine extends EventObserverAdapter {
     }
 
     public void onEvent(Die die){
-        final TextView textView = new TextView(Shared.context);
-        textView.setLayoutParams( Settings.WaitingViewParams );
-        textView.setPadding( 30,10,20,17 );
-        textView.setText(R.string.die);
-        textView.setGravity(Gravity.CENTER_HORIZONTAL);
-        mainLayout.addView( textView );
+        LayoutInflater layoutInflater = Shared.activity.getLayoutInflater();
+        ImageView imageView = (ImageView) layoutInflater.inflate(R.layout.die_icon, mainLayout, false);
+        mainLayout.addView( imageView );
         die.setAdded( true );
         scrollDown();
     }

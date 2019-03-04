@@ -19,11 +19,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="75" />
-                            <entry key="outputName" value="ic_hint_icon" />
+                            <entry key="height" value="38" />
+                            <entry key="outputName" value="vd_skull" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="G:\Creative Cloud Files\SVG\hint_icon.svg" />
-                            <entry key="width" value="75" />
+                            <entry key="sourceFile" value="G:\Creative Cloud Files\SVG\skull.svg" />
+                            <entry key="width" value="74" />
                           </map>
                         </option>
                       </PersistentState>
