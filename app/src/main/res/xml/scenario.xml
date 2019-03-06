@@ -408,23 +408,19 @@
         <message text="Тогда в путь!"/>
         <waiting value="1200000"/>
         <stage_jump target="north_choice"/>
-    </stage>>
+    </stage>
+
     <stage id="north_choice">
         <message text="Пока на горизонте ничего не вижу."/>
-        <message text="Может все-таки стоит пойти в сторону поселения?"/>
-        <message text="Возможно я нахожусь к нему гораздо ближе чем к своей базе."/>
-        <questions>
-            <case text="Но ты же уже прошел такое расстояние, а теперь еще и обратно идти?." target="north_south_choice"/>
-            <case text="Думаю, что уже поздно возвращаться обратно!" target="north_north_choice"/>
-        </questions>>
+        <message text="Одна лишь заледеневшая пустыня..."/>
+        <message text="Надеюсь, я двигаюсь в правильном направлении."/>
+        <stage_jump target="north_north_choice"/>
+
     </stage>
 
     <stage id="north_north_choice">
-        <message text="Тогда продолжу идти."/>
-        <waiting value="900000"/>
         <message text="Становится все холоднее и темнее."/>
-        <message text="Тучи сгущаются."/>
-        <message text="И на горизонте ничего не видно."/>
+        <message text="И тучи сгущаются."/>
         <message text="А так же у меня дурное предчуствие."/>
         <message text="Будто меня кто-то преследует."/>
         <message text="Хоть я никого и не вижу."/>
@@ -437,17 +433,16 @@
         <message text="Или отдохнуть здесь какое-то время."/>
         <message text="Что думаешь?"/>
         <questions>
-            <case text="Отдохни" target="north_choice_01"/>
-            <case text="Продолжай идти" target="north_choice_bad_choice"/>
-        </questions>>
+            <case text="Сделай привал!" target="north_choice_01"/>
+            <case text="Попробуй пройти еще немного!" target="north_choice_bad_choice"/>
+        </questions>
     </stage>
 
     <stage id="north_choice_01">
         <message text="Ты прав."/>
-        <message text="Дальше своего носа я уже не вижу."/>
+        <message text="В скором времени станет так темно, что дальше своего носа и видеть не смогу."/>
         <message text="Да и сил почти не осталось."/>
         <message text="Нужно отдохнуть."/>
-        <message text="К тому же будет шанс проверить, следит ли за мной кто."/>
         <message text="Как расположусь, отвечу."/>
         <message text="А пока за работу."/>
         <waiting value="900000"/>
@@ -461,22 +456,352 @@
         <questions>
             <case text="У тебя есть чем отбиваться?" target=""/>
             <case text="Тебе нужно срочно развести огонь. Костер, факел, волки боятся огня!" target=""/>
-        </questions>>
-    </stage>>
+        </questions>
+    </stage>
 
     <stage id="north_choice_bad_choice">
-        <message text="Я не уверен, что это хороший выбор."/>
-        <message text="Но, думаю, тебе виднее."/>
+        <message text="Я не уверен, что от этого будет толк."/>
+        <message text="Но, тебе виднее."/>
         <message text="Еще немного я смогу пройти."/>
         <message text="Скоро я свяжусь с тобой."/>
         <waiting value="900000"/>
-        <message text="Нет, нет, нет."/>
-        <message text="Это была дряная идея."/>
-        <message text="Зачем я тебя вообще послушал."/>
-        <message text="Аааргхх... ррр"/>
-        <important_message text="Связь потеряна"/>
+        <message text="У меня проблемы..."/>
+        <message text="За мной следует волчья стая!"/>
+        <message text="И они меня уже почти окружили."/>
+        <message text="Что мне делать?!"/>
+        <questions>
+            <case text="Попробуй убежать!" target="the_wolfs_attack_01_01"/>
+            <case text="У тебя есть чем отбиваться?" target="the_wolfs_attack_01_02"/>
+        </questions>
+    </stage>
+
+    <stage id="the_wolfs_attack_01_01">
+        <message text="Хорошо."/>
+        <message text="Возможно смогу оторваться..."/>\
+        <message text="Но это будет сложно."/>
+        <message text="Если со мной что случится..."/>
+        <message text="Знай, это твоя вина!"/>
+        <stage_jump target=""/>
+    </stage>
+
+    <stage id="the_wolfs_attack_01_02">
+        <message text="Так, времени мало..."/>
+        <message text="Нужно быстро соображать."/>
+        <message text="У меня есть нож."/>
+        <message text="Не думаю, что у меня получится им отбиться..."/>
+        <message text="Но это единственный предмет, который я смогу использовать в качестве оружия."/>
+        <message text="Правда, из того, что у меня есть..."/>
+        <message text="Я могу сделать факел."/>
+        <message text="Но нужно время!"/>
+        <questions>
+            <case text="Бери нож!" target="the_wolfs_attack_01_02_01"/>
+            <case text="Попробуй сделать факел!" target="the_wolfs_attack_01_02_02"/>
+        </questions>
+    </stage>
+
+    <stage id="the_wolfs_attack_01_02_02">
+        <message text="Хорошо!"/>
+        <message text="Я постараюсь сделать его как можно скорее!"/>
+        <message text="Любое промедление будет стоить мне жизни."/>
+        <waiting value="30000"/>
+        <message text="Так, осталось поджечь."/>
+        <message text="Где же спички."/>
+        <message text="Куда я мог их засунуть?"/>
+        <message text="Ну же... давай..."/>
+        <message text="Да! Нашел!"/>
+        <message text="Сейчас, еще немного..."/>
+        <message text="Готово!"/>
+        <message text="Кажется, они не хотят подходить ближе..."/>
+        <message text="И теперь внимательно следят за факелом."/>
+        <message text="Что же мне делать..."/>
+        <message text="Он долго не прогорит."/>
+        <message text="Будто спусковой механизм..."/>
+        <message text="Как только факел погаснет, они тут же накинутся на меня."/>
+        <questions>
+            <case text="Возможно их получится отпугнуть!" target=""/>
+            <case text="Попробуй развести костер!" target=""/>
+        </questions>
+    </stage>
+
+    <stage id="the_wolfs_attack_01_02_01">
+        <message text="Да, медлить нельзя!"/>
+        <message text="Ай..."/>
+        <message text="Я порезался... Да что же это такое..."/>
+        <message text="Чертовы псины!"/>
+        <message text="Они все ближе и ближе."/>
+        <message text="Сейчас нападут!"/>
+        <message text="Ну, идите сюда, только по одному!!!"/>
+        <waiting value="10000"/>
+        <message text="МОЕ ПЛЕЧО"/>
+        <message text="Как же это все-таки больно."/>
+        <message text="Мне удалось пронзить одного... он лежит, не дышит..."/>
+        <message text="Кажется, я их не на шутку разозлил..."/>
+        <message text="Еще один рванул на меня!"/>
+        <message text="ААА... Я просто так вам не дамся!"/>
+        <message text="Вы еще пожалеете, что решили напасть на меня!"/>
+        <message text="Ну, получи... и еще..."/>
+        <message text="Кто еще?"/>
+        <message text="Я так долго не продержусь..."/>
+        <message text="Но... и они тоже..."/>
+        <message text="Их пристальный взгляд..."/>
+        <message text="Кажется, они больше не хотят лезть на меня."/>
+        <message text="Либо чего-то ждут..."/>
+        <questions>
+            <case text="Без паники, выжидай." target="twa_01_02_01_01"/>
+            <case text="Попробуй их отпугнуть." target="twa_01_02_01_02"/>
+        </questions>
+    </stage>
+
+    <stage id="twa_01_02_01_01">
+        <message text="Главное не паниковать и не провоцировать их..."/>
+        <message text="Да, ты прав."/>
+        <message text="Возможно, они сами отстанут."/>
+        <waiting value="6000"/>
+        <message text="Их все меньше и меньше..."/>
+        <message text="Кажется, они отходят..."/>
+        <message text="Видимо, не хотят, чтобы кто-то из них еще пострадал..."/>
+        <message text="Я почти выбился из сил..."/>
+        <message text="Еще бы чуть-чуть и я не смог бы продолжать..."/>
+        <message text="Еще и холодает, кажется, начинается буран, видимость все хуже и хуже!"/>
+        <message text="Возможно, из-за этого они не стали дальше нападать..."/>
+        <questions>
+            <case text="Тебе нужно отдохнуть, и, что там с плечом?" target="a_f_w_wolf"/>
+            <case text="Что с теми волками, которые напали на тебя?" target="st_of_wolf"/>
+        </questions>
+    </stage>
+
+    <stage id="st_of_wolf">
+        <message text="Стая..."/>
+        <message text="Я больше не ощущаю их присутствия."/>
+        <message text="Возможно, сейчас я в относительной безопасности."/>
+        <message text="А те два счастливчика."/>
+        <message text="Сейчас, они где-то здесь..."/>
+        <waiting value="4000"/>
+        <message text="Ох, что же вы такое..."/>
+        <message text="Да они размером с..."/>
+        <questions>
+            <case text="Размером с...?" target="st_of_wolf_01"/>
+            <case text="Ты раньше не встречал таких?" target="st_of_wolf_02"/>
+        </questions>
+    </stage>
+
+    <stage id="st_of_wolf_01">
+        <message text="Думаю, проще будет сказать..."/>
+        <message text="Что они в полтора раза больше здорового человека..."/>
+        <message text="Я думал, что мне сначала показалось, но нет."/>
+        <message text="Их сородичи и рядом не стоят!"/>
+        <stage_jump target="st_of_wolf_03"/>
+    </stage>
+
+    <stage id="st_of_wolf_02">
+        <message text="Не, не, не."/>
+        <message text="О таких созданиях любой бы знал."/>
+        <message text="Это что-то из ряда вон..."/>
+        <message text="Как я еще жив остался?!"/>
+        <message text="И почему они ушли?"/>
+        <stage_jump target="st_of_wolf_03"/>
+    </stage>
+
+    <stage id="st_of_wolf_03">
+        <message text="Так, погоди, я осмотрю их внимательнее."/>
+        <message text="Одному я попал в шею."/>
+        <message text="Кажется он умер сразу."/>
+        <message text="А второму..."/>
+        <waiting value="7000"/>
+        <message text="Он еще дышит!"/>
+        <message text="Я ему воткнул нож в область спины."/>
+        <message text="Возможно, удар пришелся не в жизненно важные органы."/>
+        <message text="И лишь обездвижил его."/>
+        <message text="Он меня и укусил за плечо."/>
+        <message text="Что же с ним делать..."/>
+        <questions>
+            <case text="Убей его..." target="st_of_wolf_03_01"/>
+            <case text="Оставь его в покое." target="st_of_wolf_03_02"/>
+        </questions>
+    </stage>
+
+    <stage id="st_of_wolf_03_01">
+        <message text="Прекратить его страдания, да?"/>
+        <message text="Сейчас, я постараюсь собраться с духом..."/>
+        <waiting value="4500"/>
+        <message text="Сложно, руки дрожат..."/>
+        <message text="Не думал, что буду колебаться..."/>
+        <message text="Когда, буквально несколько мгновений назад, я отчаянно боролся за свою жизнь..."/>
+        <message text="Прости..."/>
+        <message text="Надеюсь, ты не будешь долго мучиться..."/>
+        <message text="Ну же... давай..."/>
+        <message text="АААААА..."/>
+        <waiting value="10000"/>
+        <message text="Кажется... дело сделано... он не дышит..."/>
+        <message text="Я слышу вой стаи в далеке."/>
+        <message text="Надеюсь, они не придут за мной после всего этого..."/>
+        <message text="Прости, мне надо немного успокоиться..."/>
+        <message text="Как раз разведу костер и продизинфицирую плечо."/>
+        <stage_jump target="st_of_wolf_04"/>
+    </stage>
+
+    <stage id="st_of_wolf_03_02">
+        <message text="Оставлю его в покое..."/>
+        <message text="В такой мороз, думаю, он быстро умрет..."/>
+        <message text="Сейчас нужно самому согреться."/>
+        <message text="И перебинтовать рану."/>
+        <message text="Скоро выйду на связь."/>
+        <stage_jump target="st_of_wolf_04"/>
+    </stage>
+
+    <stage id="st_of_wolf_04">
+        <waiting value="600000"/>
+        <message text="Вроде как все улеглось."/>
+        <message text="Треск костра, вой ветра."/>
+        <message text="Все так спокойно..."/>
+        <message text="Будто ничего и не произошло."/>
+        <message text="Время быстро уничтожит все следы случившегося."/>
+        <message text="Но, я знаю, что сделал."/>
+        <message text="Ведь на их месте мог быть я..."/>
+        <questions>
+            <case text="Постарайся не думать об этом." target="st_of_wolf_04_01"/>
+            <case text="Смерть всегда ужасна..." target="st_of_wolf_04_02"/>
+        </questions>
+    </stage>
+
+    <stage id="st_of_wolf_04_01">
+        <message text="Да, чем больше об этом думаю."/>
+        <message text="Тем хуже себя ощущаю."/>
+        <message text="Надеюсь, что ночь и дальше будет такой же спокойной"/>
+        <message text="Спасибо тебе, что помог мне."/>
+        <message text="Я, пожалуй, вздремну немного..."/>
+        <stage_jump target="a_r"/>
+    </stage>
+
+    <stage id="st_of_wolf_04_02">
+        <message text="Смерть всегда ужасна... да"/>
+        <message text="Молодой, старый..."/>
+        <message text="Хищник или жертва..."/>
+        <message text="Добрый или злой."/>
+        <message text="Перед смертью все равны."/>
+        <message text="Но... я не буду себя винить."/>
+        <message text="Ведь, как и они, я лишь пытался выжить в этих пустошах."/>
+        <message text="У меня есть жизнь, которую я не хочу терять..."/>
+        <message text="Спасибо тебе, что помог мне."/>
+        <message text="Я, пожалуй, вздремну немного..."/>
+        <stage_jump target="a_r"/>
+    </stage>
+
+    <stage id="a_f_w_wolf">
+        <message text="Ох, да..."/>
+        <message text="Я сильно вымотался..."/>
+        <message text="Нужно развести костер и продизинфицировать рану."/>
+        <message text="Сейчас этим и займусь."/>
+        <message text="Скоро выйду на связь!"/>
+        <waitng value="300000" />
+        <message text="Костер я разжег, рану обработал."/>
+        <message text="К сожалению, дров больше нет, не уверен, что получится найти их в здесь."/>
+        <message text="Да и антисептиков не осталось."/>
+        <message text="Возможно это мой последний привал, еще одну такую ночь я не переживу..."/>
+        <message text="Мне нужно немного поспать."/>
+        <questions>
+            <case text="На тебя же могут напасть, пока ты спишь." target="a_f_w_wolf_01"/>
+            <case text="Что с теми волками, которые на тебя напали?" target="a_f_w_wolf_02"/>
+        </questions>
+    </stage>
+
+    <stage id="a_f_w_wolf_01">
+        <message text="Пока горит костер."/>
+        <message text="Они не сунутся ко мне."/>
+        <message text="Звери же боятся огня."/>
+        <message text="Путники, обычно, так и выживали раньше..."/>
+        <message text="Конечно, я не знаю, как это все на практике."/>
+        <message text="Читал об этом только в книгах."/>
+        <questions>
+            <case text="Книги?" target="a_f_w_wolf_01_01"/>
+            <case text="Ладно, отдыхай, буду надеяться на то, что ты выйдешь на связь" target="a_r"/>
+        </questions>
+    </stage>
+
+    <stage id="a_f_w_wolf_01_01">
+        <message text="Да, разные."/>
+        <message text="От художественных до научных."/>
+        <message text="Много где такое пишут."/>
+        <message text="Хотя, помню одну."/>
+        <message text="Давненько я её читал."/>
+        <message text="Первые главы."/>
+        <message text="Я попал в такую же ситуацию, как и те путники."/>
+        <message text="Называется... кажется... клык..."/>
+        <message text="Белый клык!"/>
+        <message text="Да, она самая."/>
+        <message text="Действительно, хорошая книга..."/>
+        <message text="Я бы, может, поболтал бы с тобой о ней."/>
+        <message text="Но сил уже нет разговаривать."/>
+        <message text="Отдохну пожалуй..."/>
+        <message text="И спасибо тебе!"/>
+        <stage_jump target="a_r"/>
+    </stage>
+
+    <stage id="a_f_w_wolf_02">
+        <message text="Те два должны быть уже мертвы."/>
+        <message text="Но, мне показалось, что они были слишком большими."/>
+        <message text="К сожалению, в той суматохе время разглядывать их не было."/>
+        <message text="А сейчас их уже не найти."/>
+        <message text="Даже не знаю, где именно их тела лежат."/>
+        <message text="Кромешный мрак и снег делают свое дело..."/>
+        <message text="А что со стаей..."/>
+        <message text="Больше не чувствую их присутствия."/>
+        <message text="Может выжидают где-то..."/>
+        <message text="Или ушли восвояси."/>
+        <message text="Буду надеятся, что я с ними больше не столкнусь."/>
+        <message text="Не хочу умереть, будучи загнанным зверем..."/>
+        <message text="Спасибо тебе!"/>
+        <message text="Отдохну пожалуй..."/>
+        <stage_jump target="a_r"/>
+    </stage>
+
+    <stage id="twa_01_02_01_02">
+        <message text="Да, попробую."/>
+        <message text="А ну пошли прочь!"/>
+        <message text="Я вам не просто добыча!"/>
+        <message text="Хотите еще?"/>
+        <message text="Черт..."/>
+        <message text="Кажется это их только раззадорило!"/>
+        <message text="Они решили напасть все вместе"/>
+        <message text="Пошли прочь, кому сказал!!!"/>
+        <message text="ПЛЕЧО"/>
+        <message text="Отцепись, шав..."/>
+        <message text="кхрр...рр..."/>
+        <important_message text="Связь с Джозефом потеряна"/>
         <die/>
     </stage>
+
+    <stage id="a_r">
+        <waitnig value="10800000"/>
+        <message text="Прием, прием"/>
+        <message text="Кажется я все еще жив!"/>
+        <message text="Прошло только 3 часа, а я уже полон сил!"/>
+        <message text="Только вот буря все усиливается."/>
+        <message text="Нужно идти, пока не стало поздно."/>
+        <message text="И еще..."/>
+        <message text="Я видел огни на востоке!"/>
+        <message text="Я не знаю, что это было."/>
+        <message text="Может это спасатели?"/>
+        <message text="Стоит ли мне сходить и разведать?"/>
+        <message text="В моем случае, время является очень ценным ресурсом."/>
+        <message text="Если пойду, то возможности вернуться у меня уже не будет..."/>
+        <message text="Если буря будет все усиливаться, то так недолго и в ледяную статую превратиться..."/>
+        <message text="А до базы осталось всего ничего."/>
+        <message text="Большую часть пути я уже должен был пройти."/>
+        <message text="Наверное..."/>
+        <message text="Что скажешь?"/>
+        <questions>
+            <case text="Иди к базе. Будешь опрометчивым, не выживешь!" target=""/>
+            <case text="Тебе стоит проверить!" target=""/>
+        </questions>
+
+    </stage>
+
+    <stage id="the_wolfs_attack_01_02_02">
+
+    </stage>
+
+
 
     <stage id="shelter_search">
         <message text="Да, я уже приглядел хорошее место!"/>
