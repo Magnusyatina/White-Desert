@@ -92,10 +92,12 @@ public class Engine extends EventObserverAdapter {
             stageId = "start";
         try{
             ArrayList<Event> arrayList = WWProgress.addToProgress( stageId );
+            if(arrayList == null)
+                return;
             gameContinue( arrayList );
         }
         catch (NoSuchElementException ex){
-            Shared.activity.finish();
+           // Shared.activity.finish();
         }
     }
 

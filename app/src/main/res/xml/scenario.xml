@@ -350,14 +350,13 @@
         <message text="Думаешь?"/>
         <message text="Если так подумать."/>
         <message text="То в твоих словах есть смысл."/>
-        <message text="Все таки рядом со мной куча обломков самолета."/>
+        <message text="Все-таки рядом со мной куча обломков самолета."/>
         <message text="И такое сложно не заметить."/>
         <message text="Думаю, стоит немного подождать."/>
         <waiting value="3600000"/>
         <random_event target="stay_in_place_still_alive" chance="85"/>
         <message text="Как же..."/>
-        <message text="Холодно..."/>
-        <message text="Кажется, это была плохая идея..."/>
+        <message text="Хол..л..одно..."/>
         <die/>
     </stage>
 
@@ -366,14 +365,9 @@
         <message text="Больше ждать нельзя."/>
         <message text="Может меня и не ищут вовсе."/>
         <message text="Или ищут, но в другом месте."/>
-        <questions>
-            <case text="Ну, так что ты решил?" target="preparation_for_care_01"/>
-            <case text="В какую сторону пойдешь?" target="preparation_for_care_01"/>
-        </questions>>
+        <stage_jump target="preparation_for_care_01"/>
     </stage>
     <stage id="preparation_for_care_01">
-        <message text="Да, пора собираться."/>
-        <message text="Долго здесь засиживаться нельзя."/>
         <message text="Вряд ли я дождусь помощи."/>
         <message text="Если буду сидеть и ждать"/>
         <message text="И так, у меня есть два варианта."/>
@@ -388,10 +382,12 @@
         </questions>
     </stage>>
     <stage id="info_about_the_choice">
+        <message text="Знаешь, палка о двух концах."/>
+        <message text="Достаточно сложный выбор..."/>
         <message text="Моя чуйка подсказывает идти мне в сторону моей базы."/>
         <message text="Но мне не нравятся тучи в небе на той стороне."/>
         <message text="Не хотелось бы попасть под сильный буран..."/>
-        <message text="И, тогда, мои шансы выжить сведутся к нулю!"/>
+        <message text="И тогда мои шансы выжить сведутся к нулю!"/>
         <message text="Но до городского поселения должно быть достаточно далеко."/>
         <message text="И я могу просто слечь из-за усталости, обезвоживания или голода."/>
         <message text="Что думаешь?"/>
@@ -476,11 +472,11 @@
     </stage>
 
     <stage id="the_wolfs_attack_01_01">
-        <message text="Хорошо."/>
-        <message text="Возможно смогу оторваться..."/>\
-        <message text="Но это будет сложно."/>
-        <message text="Если со мной что случится..."/>
-        <message text="Знай, это твоя вина!"/>
+        <message text="Ты сошел с ума?"/>
+        <message text="Ладно... Времени мало..."/>\
+        <message text="Я попробую оторваться."/>
+        <message text="Но, боюсь, у меня ничего не выйдет!"/>
+        <message text="До связи, надеюсь..."/>
         <stage_jump target=""/>
     </stage>
 
@@ -565,7 +561,7 @@
         <message text="Еще и холодает, кажется, начинается буран, видимость все хуже и хуже!"/>
         <message text="Возможно, из-за этого они не стали дальше нападать..."/>
         <questions>
-            <case text="Тебе нужно отдохнуть, и, что там с плечом?" target="a_f_w_wolf"/>
+            <case text="Тебе нужно отдохнуть, и, что там с твоими ранами?" target="a_f_w_wolf"/>
             <case text="Что с теми волками, которые напали на тебя?" target="st_of_wolf"/>
         </questions>
     </stage>
@@ -764,7 +760,7 @@
         <message text="Кажется это их только раззадорило!"/>
         <message text="Они решили напасть все вместе"/>
         <message text="Пошли прочь, кому сказал!!!"/>
-        <message text="ПЛЕЧО"/>
+        <message text="ПЛЕЧО!!!"/>
         <message text="Отцепись, шав..."/>
         <message text="кхрр...рр..."/>
         <important_message text="Связь с Джозефом потеряна"/>
