@@ -793,6 +793,50 @@
     </stage>
 
     <stage id="the_wolfs_attack_01_02_02">
+        <message text="Да, сейчас..."/>
+        <message text="Все будет."/>
+        <message text="Ткань, палка..."/>
+        <message text="Зажигательная смесь... где..."/>
+        <message text="Да где же..."/>
+        <message text="Да! Нашел."/>
+        <message text="Теперь спички..."/>
+        <message text="Давай..."/>
+        <message text="Зажгись..."/>
+        <message text="Нуууу же!!!"/>
+        <message text="Да, наконец-то, я смог его разжечь!"/>
+        <message text="А они уже близко."/>
+        <message text="Но, кажется, они не торопятся нападать!"/>
+        <message text="Видимо, заметили факел в моей руке."/>
+        <message text="Ну конечно, мало кто хочет связываться с огнем!"/>
+        <questions>
+            <case text="Сможешь их отпугнуть?" target="the_wolfs_attack_03_01"/>
+            <case text="Попробуй развести костер." target="the_wolfs_attack_03_02"/>
+        </questions>
+    </stage>
+
+    <stage id="the_wolfs_attack_03_01">
+        <message text="Я попробую."/>
+        <message text="Только вот, на месте стоять они точно не будут."/>
+        <message text="Где мой нож..."/>
+        <message text="Нужно ведь чем-то отбиваться!"/>
+        <message text="Пошли прочь!!!"/>
+        <message text="Убирайтесь!"/>
+        <message text="Хах, они разозлились."/>
+        <message text="Сейчас рванут..."/>
+        <message text="Ну ничего, я им сейчас задам."/>
+        <message text="Ну! Нападай!"/>
+        <message text="Хотел цапнуть? А как тебе это?!"/>
+        <message text="Факелом по морде ты явно не ожидал получить!"/>
+        <message text="Еще один..."/>
+        <message text="Нет, ты меня не загрызешь!"/>
+        <message text="Получай!"/>
+        <message text="Дайте отдышаться то хоть!"/>
+        <message text="Фьюх..."/>
+        <message text="Если все так и продолжится..."/>
+        <message text="То у меня попросту не останется сил..."/>
+        <message text="Но..."/>
+        <message text="Кажется..."/>
+        <message text="Они... тоже не хотят рисковать еще больше..."/>
 
     </stage>
 
