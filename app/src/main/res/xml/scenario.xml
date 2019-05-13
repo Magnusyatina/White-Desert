@@ -288,7 +288,7 @@
         <message text="Может кого-нибудь да смогу встретить на своем пути."/>
         <questions>
             <case text="Может лучше еще подождать, вдруг за тобой уже выслали помощь?" target="stay_in_place"/>
-            <case text="Я думаю, пора уходить с этого места. Рассчитывать на помощь, которая может и не прийти, будто играть в лотерею..." target="preparation_for_care_01"/>
+            <case text="Пора уходить с этого места!" target="preparation_for_care_01"/>
         </questions>>
     </stage>
 
@@ -368,8 +368,10 @@
         <stage_jump target="preparation_for_care_01"/>
     </stage>
     <stage id="preparation_for_care_01">
-        <message text="Вряд ли я дождусь помощи."/>
-        <message text="Если буду сидеть и ждать"/>
+        <message text="Рассчитывать на помощь..."/>
+        <message text="Которая может и не прийти!"/>
+        <message text="Будто играть в лотерею, где проигрышем будет смерть!"/>
+        <message text="Нужно планировать дальнейшие действия."/>
         <message text="И так, у меня есть два варианта."/>
         <message text="Либо идти на север."/>
         <message text="Где находится моя станция."/>
@@ -378,16 +380,17 @@
         <questions>
             <case text="Север."  target="preparation_for_care_north"/>
             <case text="На юг." target="south choice"/>
-            <case text="А что бы ты сам выбрал?" target="info_about_the_choice"/>
+            <case text="А сам куда думаешь пойти?" target="info_about_the_choice"/>
         </questions>
     </stage>>
     <stage id="info_about_the_choice">
         <message text="Знаешь, палка о двух концах."/>
         <message text="Достаточно сложный выбор..."/>
-        <message text="Моя чуйка подсказывает идти мне в сторону моей базы."/>
-        <message text="Но мне не нравятся тучи в небе на той стороне."/>
-        <message text="Не хотелось бы попасть под сильный буран..."/>
-        <message text="И тогда мои шансы выжить сведутся к нулю!"/>
+        <message text="Я думаю пойти в сторону своей базы."/>
+        <message text="Но на той стороне назревает сильный буран."/>
+        <message text="Тучи уже сгущаются."/>
+        <message text="Не хотелось бы попасть под него!"/>
+        <message text="Тогда мои шансы выжить... ну, их нет."/>
         <message text="Но до городского поселения должно быть достаточно далеко."/>
         <message text="И я могу просто слечь из-за усталости, обезвоживания или голода."/>
         <message text="Что думаешь?"/>
@@ -477,7 +480,26 @@
         <message text="Я попробую оторваться."/>
         <message text="Но, боюсь, у меня ничего не выйдет!"/>
         <message text="До связи, надеюсь..."/>
-        <stage_jump target=""/>
+        <waiting value="180000"/>
+        <message text="Буран сильно усилился..."/>
+        <message text="И они... они бросились в погоню..."/>
+        <message text="Возможно, будут пытаться..."/>
+        <message text="Пытаться наброситься!"/>
+        <message text="Я стараюсь оторваться..."/>
+        <message text="Но, кажется... у меня ничего не получится..."/>
+        <message text="Я уже почти ничего не вижу перед своим носом..."/>
+        <message text="Но... впереди... какие-то огни..."/>
+        <message text="Они то появляются, то исчезают."/>
+        <message text="Ааай! Да черт тебя дери..."/>
+        <message text="Псина... дряная."/>
+        <message text="Отцепись!"/>
+        <message text="Прочь!"/>
+        <message text="Аааааа..."/>
+        <message text="Кажется... отц...пилась..."/>
+        <message text="Невижу... ничего..."/>
+        <message text="И... огни..."/>
+        <message text="...повсюду..."/>
+        <waiting value="600000"/>
     </stage>
 
     <stage id="the_wolfs_attack_01_02">
@@ -695,7 +717,7 @@
         <message text="Возможно это мой последний привал, еще одну такую ночь я не переживу..."/>
         <message text="Мне нужно немного поспать."/>
         <questions>
-            <case text="На тебя же могут напасть, пока ты спишь." target="a_f_w_wolf_01"/>
+            <case text="Ты не боишься, что они вернутся?." target="a_f_w_wolf_01"/>
             <case text="Что с теми волками, которые на тебя напали?" target="a_f_w_wolf_02"/>
         </questions>
     </stage>
