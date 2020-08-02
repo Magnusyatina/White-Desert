@@ -473,12 +473,46 @@
 
     <stage id="the_wolfs_attack_01_01">
         <message text="Ты сошел с ума?"/>
-        <message text="Ладно... Времени мало..."/>\
+        <message text="Да ты явно не в себе!"/>
+        <message text="Но и я не в состоянии придумать что-то дельное!"/>
+        <message text="Ай, да черт с тобой!"/>
         <message text="Я попробую оторваться."/>
         <message text="Но, боюсь, у меня ничего не выйдет!"/>
         <message text="До связи, надеюсь..."/>
-        <stage_jump target=""/>
+        <stage_jump target="escape_from_the_wolfs"/>
     </stage>
+
+    <stage id="escape_from_the_wolfs">
+        <waiting value="60000"/>
+        <message text="Они погнались за мной!"/>
+        <message text="Еще и метель начала усиливаться"/>
+        <message text="Ничерта не вижу!"/>
+        <message text="Кажется, теперь лишь чудо спасет меня."/>
+
+        <waiting value="360000"/>
+        <message text="Кажется на этом я все!"/>
+        <message text="Больше не могу"/>
+        <message text="И не хочу"/>
+        <message text="Зря вообще надеялся на то, что у меня хоть какие-то шансы есть!"/>
+        <questions>
+            <case text="Не сдавайся, дурак!" target="escape_from_the_wolfs_01"/>
+            <case text="..." target="escape_from_the_wolfs_02"/>
+        </questions>
+    </stage>
+
+    <stage id="escape_from_the_wolfs_02">
+        <message text="Да чтоб тебя!"/>
+        <message text="Да чтоб вас всех!"/>
+        <message text="Ааааа! Идите сюда!"/>
+        <message text="Я вам просто так не дамся!"/>
+        <message text="АААА... Отцепись псина тупая!"/>
+        <message text="Получи, получи, получи!!!"/>
+        <message text="Без глаз то явн... ААААА... Рука!"/>
+        <message text="Нет, только попро.... *АРГХРРХР*райся*ХРХХ* гор*ХРРХ*о"/>
+        <message text="*АРХХХРКХРКРХ*"/>
+        <die/>
+    </stage>
+
 
     <stage id="the_wolfs_attack_01_02">
         <message text="Так, времени мало..."/>
@@ -672,7 +706,7 @@
         <message text="Смерть всегда ужасна... да"/>
         <message text="Молодой, старый..."/>
         <message text="Хищник или жертва..."/>
-        <message text="Добрый или злой."/>
+        <message text="Добрый или злой..."/>
         <message text="Перед смертью все равны."/>
         <message text="Но... я не буду себя винить."/>
         <message text="Ведь, как и они, я лишь пытался выжить в этих пустошах."/>
@@ -772,7 +806,7 @@
         <message text="Только вот буря все усиливается."/>
         <message text="Нужно идти, пока не стало поздно."/>
         <message text="И еще..."/>
-        <message text="Я видел огни на востоке!"/>
+        <message text="Я видел огни неподалеку!"/>
         <message text="Я не знаю, что это было."/>
         <message text="Может это спасатели?"/>
         <message text="Стоит ли мне сходить и разведать?"/>
@@ -948,7 +982,7 @@
             <case text="Сейчас самое главное не замерзнуть!" target="kindling_a_fire_net_to_the_plane"/>
             <case text="Есть идеи, что ты будешь делать дальше?" target="kindling_a_fire_net_to_the_plane"/>
         </questions>
-    </stage>>
+    </stage>
 
 
 </scenario>

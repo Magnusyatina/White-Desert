@@ -38,7 +38,7 @@ import java.util.TreeMap;
 
 public class Scenario {
     //Коллекция сценария
-    public static TreeMap<String, ArrayList<Event>> scenario = new TreeMap<>();
+   // public static TreeMap<String, ArrayList<Event>> scenario = new TreeMap<>();
     public static TreeMap<String, Stage> scenarioList = new TreeMap<>();
     static String TAG = "MyLogScenario";
 
@@ -182,7 +182,6 @@ public class Scenario {
             if(eventType == XmlPullParser.END_TAG){
                 IEvent event = events.removeLast();
                 if(event instanceof Stage){}
-
             }
         }
 
