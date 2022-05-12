@@ -13,7 +13,7 @@ public class CustomTimer {
     private static int max = 2500;
     private static boolean fast_game = false;
 
-    public static long getValue() {
+    public static long nextTime() {
         if (testtime == 0)
             testtime = System.currentTimeMillis();
         else
@@ -31,7 +31,7 @@ public class CustomTimer {
     }
 
     //Добавление к текущему значению (время) определенное значение
-    public static void addTestTime(int t) {
+    public static void addTime(int t) {
         if (!fast_game)
             testtime += t;
         else testtime = testtime + getRand();

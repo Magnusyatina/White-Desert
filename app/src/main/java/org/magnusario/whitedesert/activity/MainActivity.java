@@ -17,16 +17,20 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import org.magnusario.whitedesert.Credits;
-import org.magnusario.whitedesert.Engine;
-import org.magnusario.whitedesert.EventPool;
 import org.magnusario.whitedesert.Music;
 import org.magnusario.whitedesert.PropertyReader;
 import org.magnusario.whitedesert.R;
 import org.magnusario.whitedesert.Shared;
-import org.magnusario.whitedesert.event.SetGameMode;
-import org.magnusario.whitedesert.event.SetMusic;
-import org.magnusario.whitedesert.event.StartGame;
-import org.magnusario.whitedesert.event.StartNewGame;
+import org.magnusario.whitedesert.configuration.ApplicationComponent;
+import org.magnusario.whitedesert.configuration.DaggerApplicationComponent;
+import org.magnusario.whitedesert.engine.Engine;
+import org.magnusario.whitedesert.engine.EventPool;
+import org.magnusario.whitedesert.engine.event.SetGameMode;
+import org.magnusario.whitedesert.engine.event.SetMusic;
+import org.magnusario.whitedesert.engine.event.StartGame;
+import org.magnusario.whitedesert.engine.event.StartNewGame;
+
+import javax.inject.Inject;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CompoundButton.OnCheckedChangeListener {
@@ -36,12 +40,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SwitchCompat switchMusicCompat;
     private SwitchCompat switchModeCompat;
 
+    @Inject
+    public EventPool eventPool;
+
+    @Inject
+    public Engine engine;
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        ApplicationComponent applicationComponent = DaggerApplicationComponent.builder()
+                .context(this)
+                .mainActivity(this)
+                .build();
+        applicationComponent.inject(this);
 
         //Установка полноэкранного режима
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -52,8 +68,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setContentView(R.layout.activity_main);
         Shared.properties = PropertyReader.load_properties(this, "config.properties");
-        Shared.eventPool = new EventPool();
-        Shared.eventObserver = new Engine();
+//        Shared.eventPool = new EventPoolImpl();
+//        Shared.eventObserver = new Engine();
         Shared.context = this;
         Shared.activity = this;
 
@@ -67,10 +83,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switchModeCompat = (SwitchCompat) navView.getMenu().getItem(2).getActionView();
         switchModeCompat.setOnCheckedChangeListener(this);
 
-        Shared.eventObserver.start();
-        Shared.eventPool.notify(new StartGame());
 
-
+        engine.start();
+        eventPool.notify(new StartGame());
     }
 
     public void start_new_game() {
@@ -81,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Shared.eventPool.stopAll();
-                        Shared.eventPool.notify(new StartNewGame());
+                        eventPool.stopAll();
+                        eventPool.notify(new StartNewGame());
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -98,14 +113,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onPause();
         Music.stop();
         PropertyReader.save_properties(this, "config.properties", Shared.properties);
-        Shared.eventObserver.onPause();
+        engine.onPause();
     }
 
 
     public void onResume() {
         super.onResume();
         Music.play();
-        Shared.eventObserver.onResume();
+        engine.onResume();
 
     }
 
@@ -150,12 +165,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void setMusic(boolean isChecked) {
         SetMusic setMusic = new SetMusic();
         setMusic.setEnable(isChecked);
-        Shared.eventPool.notify(setMusic);
+        eventPool.notify(setMusic);
     }
 
     protected void set_game_mode(boolean isChecked) {
         SetGameMode gameMode = new SetGameMode();
         gameMode.setFast_game(isChecked);
-        Shared.eventPool.notify(gameMode);
+        eventPool.notify(gameMode);
     }
 }

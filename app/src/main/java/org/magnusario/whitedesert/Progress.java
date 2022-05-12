@@ -1,6 +1,6 @@
 package org.magnusario.whitedesert;
 
-import org.magnusario.whitedesert.event.Event;
+import org.magnusario.whitedesert.engine.event.Event;
 
 import java.io.Serializable;
 import java.util.ArrayList;

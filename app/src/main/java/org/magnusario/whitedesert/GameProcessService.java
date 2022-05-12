@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import org.magnusario.whitedesert.activity.MainActivity;
 
+/**
+ * Сервис отвечает за оповещения о том, когда персонаж будет свободен
+ */
 public class GameProcessService extends Service {
     String gameStage;
 
@@ -24,9 +27,6 @@ public class GameProcessService extends Service {
     String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
     private static long schedule_Time = 0;
     private static Handler cHandler = new Handler(Looper.getMainLooper());
-
-
-    //Сервис отвечает за оповещения о том, когда персонаж будет свободен
 
     @Override
     public int onStartCommand(Intent intent, int flags, int stardId) {
@@ -91,7 +91,6 @@ public class GameProcessService extends Service {
                 Toast.LENGTH_SHORT).show();
         cHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
-
     }
 
 }

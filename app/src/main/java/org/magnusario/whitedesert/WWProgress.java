@@ -2,11 +2,11 @@ package org.magnusario.whitedesert;
 
 import android.content.Context;
 
-import org.magnusario.whitedesert.event.Event;
-import org.magnusario.whitedesert.event.RandomEvent;
-import org.magnusario.whitedesert.event.Stage;
-import org.magnusario.whitedesert.event.StageJump;
-import org.magnusario.whitedesert.event.Waiting;
+import org.magnusario.whitedesert.engine.event.Event;
+import org.magnusario.whitedesert.engine.event.RandomEvent;
+import org.magnusario.whitedesert.engine.event.Stage;
+import org.magnusario.whitedesert.engine.event.StageJump;
+import org.magnusario.whitedesert.engine.event.Waiting;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -113,10 +113,10 @@ public class WWProgress {
     }
 
     public static void planningScheduleTime(Event item) {
-        item.setScheduledtime(CustomTimer.getValue());
+        item.setScheduledtime(CustomTimer.nextTime());
         if (item instanceof Waiting) {
             Waiting waiting = (Waiting) item;
-            CustomTimer.addTestTime(waiting.getValue());
+            CustomTimer.addTime(waiting.getValue());
         }
     }
 
@@ -124,7 +124,7 @@ public class WWProgress {
         return progress.getProgressList();
     }
 
-    public static void dump_of_progress() {
+    public static void clearProgress() {
         progress = new Progress();
     }
 
@@ -175,6 +175,13 @@ public class WWProgress {
                 customEvents = customEvents1;
         }
         return customEvents;
+    }
+
+    public static Event getLastEvent() {
+        ArrayList<Event> progressList = getProgressList();
+        if (progressList == null || progressList.isEmpty())
+            return null;
+        return progressList.get(progressList.size() - 1);
     }
 
 

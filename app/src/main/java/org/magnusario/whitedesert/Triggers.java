@@ -1,6 +1,6 @@
 package org.magnusario.whitedesert;
 
-import org.magnusario.whitedesert.event.IEvent;
+import org.magnusario.whitedesert.engine.event.IEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;

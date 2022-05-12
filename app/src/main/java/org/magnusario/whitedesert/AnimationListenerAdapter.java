@@ -2,7 +2,7 @@ package org.magnusario.whitedesert;
 
 import android.view.animation.Animation;
 
-class AnimationListenerAdapter implements Animation.AnimationListener {
+public class AnimationListenerAdapter implements Animation.AnimationListener {
     @Override
     public void onAnimationStart(Animation animation) {
 
