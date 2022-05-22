@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+@Singleton
 public class StartNewGameListener extends AbstractEventListener<StartNewGame> {
 
     @Inject

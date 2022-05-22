@@ -1,5 +1,11 @@
 package org.magnusario.whitedesert.engine.listener;
 
+import android.support.v7.widget.SwitchCompat;
+import android.view.View;
+
+import org.magnusario.whitedesert.EventTimer;
+import org.magnusario.whitedesert.R;
+import org.magnusario.whitedesert.Shared;
 import org.magnusario.whitedesert.WWProgress;
 import org.magnusario.whitedesert.engine.EventPool;
 import org.magnusario.whitedesert.engine.event.Event;
@@ -25,10 +31,19 @@ public class StartGameListener extends AbstractEventListener<StartGame> {
 
     @Override
     public void handle(StartGame event) {
+        configureApplication();
         ArrayList<Event> arrayList;
         if ((arrayList = WWProgress.getProgressList()).size() > 0)
             gameContinue(arrayList);
         else moveStage(null);
+    }
+
+    private void configureApplication() {
+        String fastGameProperty = Shared.properties.getProperty("fast_game");
+        boolean isFastGameMode = "on".equals(fastGameProperty);
+        EventTimer.set_mode(isFastGameMode);
+        SwitchCompat switchCompat = (SwitchCompat) getViewManager().findViewById(R.id.game_condition_switch);
+        switchCompat.setChecked(isFastGameMode);
     }
 
     @Override

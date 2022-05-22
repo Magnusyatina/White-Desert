@@ -4,7 +4,15 @@ import org.magnusario.whitedesert.EventTimer;
 import org.magnusario.whitedesert.Shared;
 import org.magnusario.whitedesert.engine.event.SetGameMode;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class SetGameModeListener extends AbstractEventListener<SetGameMode> {
+
+    @Inject
+    public SetGameModeListener() {
+    }
 
     @Override
     public void handle(SetGameMode gameMode) {

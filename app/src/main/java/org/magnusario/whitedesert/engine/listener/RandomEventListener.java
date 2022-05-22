@@ -7,7 +7,15 @@ import org.magnusario.whitedesert.engine.event.RandomEvent;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class RandomEventListener extends AbstractEventListener<RandomEvent> {
+
+    @Inject
+    public RandomEventListener() {
+    }
 
     @Override
     public void handle(RandomEvent randomEvent) {

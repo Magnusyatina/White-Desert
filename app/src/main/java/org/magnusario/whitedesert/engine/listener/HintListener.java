@@ -14,7 +14,9 @@ import org.magnusario.whitedesert.view.CustomHintDiaolog;
 import org.magnusario.whitedesert.view.ViewManager;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+@Singleton
 public class HintListener extends AbstractEventListener<Hint> {
 
     public static final String DIALOG_TAG = "HintDialog";

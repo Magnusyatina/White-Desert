@@ -10,7 +10,15 @@ import org.magnusario.whitedesert.engine.ApplicationConstants;
 import org.magnusario.whitedesert.engine.event.Die;
 import org.magnusario.whitedesert.view.ViewManager;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class DieListener extends AbstractEventListener<Die> {
+
+    @Inject
+    public DieListener() {
+    }
 
     @Override
     public void handle(Die die) {

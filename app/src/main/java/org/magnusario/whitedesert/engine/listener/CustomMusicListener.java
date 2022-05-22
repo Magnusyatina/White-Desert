@@ -7,7 +7,15 @@ import org.magnusario.whitedesert.Shared;
 import org.magnusario.whitedesert.WWProgress;
 import org.magnusario.whitedesert.engine.event.CustomMusic;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class CustomMusicListener extends AbstractEventListener<CustomMusic> {
+
+    @Inject
+    public CustomMusicListener() {
+    }
 
     @Override
     public void handle(CustomMusic music) {

@@ -18,7 +18,9 @@ import org.magnusario.whitedesert.engine.event.Questions;
 import org.magnusario.whitedesert.view.CustomButtonPlayerAnswer;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+@Singleton
 public class PlayerAnswerListener extends AbstractEventListener<PlayerAnswer> {
 
     @Inject

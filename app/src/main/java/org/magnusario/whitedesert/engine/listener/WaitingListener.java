@@ -15,7 +15,9 @@ import org.magnusario.whitedesert.engine.event.Waiting;
 import org.magnusario.whitedesert.view.ViewManager;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+@Singleton
 public class WaitingListener extends AbstractEventListener<Waiting> {
 
     private static final int[] STATE_SET_NON_WAITING = {-R.attr.state_waiting, R.attr.state_non_waiting};
