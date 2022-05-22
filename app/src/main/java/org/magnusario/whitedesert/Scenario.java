@@ -29,10 +29,6 @@ import java.util.LinkedList;
 import java.util.Properties;
 import java.util.TreeMap;
 
-/**
- * Created by sergey37192 on 30.01.2018.
- */
-
 public class Scenario {
     //Коллекция сценария
     // public static TreeMap<String, ArrayList<Event>> scenario = new TreeMap<>();

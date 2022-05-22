@@ -3,10 +3,6 @@ package org.magnusario.whitedesert.engine.event;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- * Created by sergey37192 on 05.03.2018.
- */
-
 public class Stage implements Serializable, Cloneable {
     private static final long serialVersionUID = -1115959180441557083L;
     private ArrayList<Event> array = new ArrayList<>();

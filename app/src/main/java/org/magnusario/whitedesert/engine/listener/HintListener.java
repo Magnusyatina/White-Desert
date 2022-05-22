@@ -25,7 +25,7 @@ public class HintListener extends AbstractEventListener<Hint> {
 
     @Override
     public void handle(Hint hint) {
-        if (hint.isAdded())
+        if (hint.isHandled())
             return;
         Activity activity = getActivity();
         ViewManager viewManager = getViewManager();
@@ -38,7 +38,7 @@ public class HintListener extends AbstractEventListener<Hint> {
             ((Animatable) dr).start();
 
         hint_icon.setOnClickListener(v -> {
-            hint.setAdded(true);
+            hint.setHandled(true);
             CustomHintDiaolog dialog = new CustomHintDiaolog();
             dialog.setText(hint.getText());
             dialog.show(((AppCompatActivity) activity).getSupportFragmentManager(), DIALOG_TAG);

@@ -4,11 +4,11 @@ import org.magnusario.whitedesert.engine.event.IEvent;
 
 public interface EventPool {
 
-    void notify(IEvent event);
+    void submit(IEvent event);
 
-    void notify(IEvent event, long delay);
+    void submit(IEvent event, long delay);
 
-    void notify(Runnable runnable);
+    void submit(Runnable runnable);
 
     void stopAll();
 }

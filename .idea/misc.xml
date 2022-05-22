@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Others/White-Desert/app/src/main/res/drawable/buttonbg.xml" value="0.1" />
+        <entry key="..\:/Others/White-Desert/app/src/main/res/drawable/custombutton.xml" value="0.1145" />
+        <entry key="..\:/Others/White-Desert/app/src/main/res/drawable/player_answer_background.xml" value="0.1145" />
+        <entry key="..\:/Others/White-Desert/app/src/main/res/drawable/vd_wait.xml" value="0.1" />
+        <entry key="..\:/Others/White-Desert/app/src/main/res/layout/activity_main.xml" value="0.23731884057971014" />
+        <entry key="..\:/Others/White-Desert/app/src/main/res/layout/custombuttonanswer.xml" value="0.23731884057971014" />
+        <entry key="..\:/Others/White-Desert/app/src/main/res/layout/splash_activity.xml" value="0.23731884057971014" />
+      </map>
+    </option>
+  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />

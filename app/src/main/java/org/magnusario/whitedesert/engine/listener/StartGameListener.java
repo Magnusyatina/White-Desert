@@ -28,7 +28,7 @@ public class StartGameListener extends AbstractEventListener<StartGame> {
         ArrayList<Event> arrayList;
         if ((arrayList = WWProgress.getProgressList()).size() > 0)
             gameContinue(arrayList);
-        else selectStage(null);
+        else moveStage(null);
     }
 
     @Override
@@ -40,12 +40,12 @@ public class StartGameListener extends AbstractEventListener<StartGame> {
         for (Event e : events) {
             long time = e.getTimer();
             if (time > 0)
-                getEventPool().notify(e, time);
-            else getEventPool().notify(e);
+                getEventPool().submit(e, time);
+            else getEventPool().submit(e);
         }
     }
 
-    public void selectStage(String stageId) {
+    public void moveStage(String stageId) {
         if (stageId == null)
             stageId = "start";
         try {

@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         engine.start();
-        eventPool.notify(new StartGame());
+        eventPool.submit(new StartGame());
     }
 
     public void start_new_game() {
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         eventPool.stopAll();
-                        eventPool.notify(new StartNewGame());
+                        eventPool.submit(new StartNewGame());
                     }
                 })
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 setMusic(isChecked);
                 break;
             case R.id.game_condition_switch:
-                set_game_mode(isChecked);
+                setGameMode(isChecked);
                 break;
             default:
                 break;
@@ -165,12 +165,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void setMusic(boolean isChecked) {
         SetMusic setMusic = new SetMusic();
         setMusic.setEnable(isChecked);
-        eventPool.notify(setMusic);
+        eventPool.submit(setMusic);
     }
 
-    protected void set_game_mode(boolean isChecked) {
+    protected void setGameMode(boolean isChecked) {
         SetGameMode gameMode = new SetGameMode();
         gameMode.setFast_game(isChecked);
-        eventPool.notify(gameMode);
+        eventPool.submit(gameMode);
     }
 }

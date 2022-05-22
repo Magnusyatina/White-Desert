@@ -9,6 +9,7 @@ import android.widget.ScrollView;
 
 import org.magnusario.whitedesert.R;
 import org.magnusario.whitedesert.Triggers;
+import org.magnusario.whitedesert.engine.ApplicationConstants;
 import org.magnusario.whitedesert.engine.event.TextMessage;
 import org.magnusario.whitedesert.engine.event.Waiting;
 import org.magnusario.whitedesert.view.ViewManager;
@@ -19,15 +20,13 @@ public class WaitingListener extends AbstractEventListener<Waiting> {
 
     private static final int[] STATE_SET_NON_WAITING = {-R.attr.state_waiting, R.attr.state_non_waiting};
 
-    public static final int SCROLL_DELAY_MILLIS = 250;
-
     @Inject
     public WaitingListener() {
     }
 
     @Override
     public void handle(Waiting waiting) {
-        if (waiting.isAdded())
+        if (waiting.isHandled())
             return;
         ViewManager viewManager = getViewManager();
         ViewGroup mainLayout = (ViewGroup) viewManager.findViewById(R.id.MainLayout);
@@ -38,7 +37,7 @@ public class WaitingListener extends AbstractEventListener<Waiting> {
         if (dr instanceof Animatable) {
             ((Animatable) dr).start();
             Triggers.addTrigger(TextMessage.class.getName(), () -> {
-                waiting.setAdded(true);
+                waiting.setHandled(true);
                 mainLayout.removeView(imageView);
                 ((Animatable) dr).stop();
                 Triggers.removeAllTriggers(waiting);
@@ -54,7 +53,7 @@ public class WaitingListener extends AbstractEventListener<Waiting> {
             public void run() {
                 ((ScrollView) viewManager.findViewById(R.id.mainScrollView)).fullScroll(ScrollView.FOCUS_DOWN);
             }
-        }, SCROLL_DELAY_MILLIS);
+        }, ApplicationConstants.SCROLL_DELAY_MILLIS);
     }
 
     @Override

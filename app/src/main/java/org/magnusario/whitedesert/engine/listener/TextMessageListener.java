@@ -8,6 +8,7 @@ import android.widget.ScrollView;
 
 import org.magnusario.whitedesert.R;
 import org.magnusario.whitedesert.Triggers;
+import org.magnusario.whitedesert.engine.ApplicationConstants;
 import org.magnusario.whitedesert.engine.event.TextMessage;
 import org.magnusario.whitedesert.view.CustomPersonAnswer;
 import org.magnusario.whitedesert.view.ViewManager;
@@ -20,7 +21,6 @@ import javax.inject.Singleton;
 @Singleton
 public class TextMessageListener extends AbstractEventListener<TextMessage> {
 
-    public static final int SCROLL_DELAY_MILLIS = 250;
     @Inject
     public Activity activity;
 
@@ -44,14 +44,14 @@ public class TextMessageListener extends AbstractEventListener<TextMessage> {
         final CustomPersonAnswer customPersonAnswer = (CustomPersonAnswer) layoutInflater.inflate(R.layout.custompersonanswer, (ViewGroup) mainLayout, false);
         customPersonAnswer.setText(event.getText());
         ((ViewGroup) mainLayout).addView(customPersonAnswer);
-        event.setAdded(true);
+        event.setHandled(true);
         scrollDown();
     }
 
     public void runTriggers(ArrayList<Runnable> list) {
 
         for (Runnable runnable : list) {
-            eventPool.get().notify(runnable);
+            eventPool.get().submit(runnable);
         }
     }
 
@@ -67,6 +67,6 @@ public class TextMessageListener extends AbstractEventListener<TextMessage> {
             public void run() {
                 ((ScrollView) viewManager.findViewById(R.id.mainScrollView)).fullScroll(ScrollView.FOCUS_DOWN);
             }
-        }, SCROLL_DELAY_MILLIS);
+        }, ApplicationConstants.SCROLL_DELAY_MILLIS);
     }
 }

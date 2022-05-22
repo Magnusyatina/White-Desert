@@ -11,10 +11,6 @@ import android.widget.ImageView;
 import org.magnusario.whitedesert.R;
 import org.magnusario.whitedesert.activity.MainActivity;
 
-/**
- * Created by sergey37192 on 28.02.2018.
- */
-
 public class SplashActivity extends AppCompatActivity implements Runnable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

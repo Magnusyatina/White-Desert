@@ -18,10 +18,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-/**
- * Created by sergey37192 on 28.01.2018.
- */
-
 public class WWProgress {
 
     private static Progress progress = null;
@@ -102,7 +98,7 @@ public class WWProgress {
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-        CustomTimer.clearTimer();
+        EventTimer.clearTimer();
         return newEventList;
 
     }
@@ -113,10 +109,10 @@ public class WWProgress {
     }
 
     public static void planningScheduleTime(Event item) {
-        item.setScheduledtime(CustomTimer.nextTime());
+        item.setScheduledtime(EventTimer.nextTime());
         if (item instanceof Waiting) {
             Waiting waiting = (Waiting) item;
-            CustomTimer.addTime(waiting.getValue());
+            EventTimer.addTime(waiting.getValue());
         }
     }
 
@@ -165,16 +161,6 @@ public class WWProgress {
             //TODO
         }
         return null;
-    }
-
-    public static Event getLastEvent(Class<?> specialClass) {
-        ArrayList<Event> arrayList = getProgressList();
-        Event customEvents = null;
-        for (Event customEvents1 : arrayList) {
-            if (customEvents1.getClass() == specialClass)
-                customEvents = customEvents1;
-        }
-        return customEvents;
     }
 
     public static Event getLastEvent() {

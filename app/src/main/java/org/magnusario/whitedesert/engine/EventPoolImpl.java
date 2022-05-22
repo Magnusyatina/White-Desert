@@ -9,11 +9,6 @@ import org.magnusario.whitedesert.engine.publisher.EventPublisher;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-/**
- * Created by sergey37192 on 01.04.2018.
- */
-
-
 @Singleton
 public class EventPoolImpl implements EventPool {
 
@@ -27,23 +22,18 @@ public class EventPoolImpl implements EventPool {
     }
 
     @Override
-    public void notify(IEvent event) {
-        notify(event, 0);
+    public void submit(IEvent event) {
+        submit(event, 0);
     }
 
     @Override
-    public void notify(final IEvent event, long delay) {
+    public void submit(final IEvent event, long delay) {
         if (eventPublisher != null)
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    eventPublisher.publish(event);
-                }
-            }, delay);
+            mHandler.postDelayed(() -> eventPublisher.publish(event), delay);
     }
 
     @Override
-    public void notify(Runnable runnable) {
+    public void submit(Runnable runnable) {
         mHandler.post(runnable);
     }
 

@@ -2,10 +2,6 @@ package org.magnusario.whitedesert;
 
 import android.media.MediaPlayer;
 
-/**
- * Created by sergey37192 on 03.04.2018.
- */
-
 public class Music {
     private static MediaPlayer mediaPlayer;
 

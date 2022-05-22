@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.magnusario.whitedesert.R;
-import org.magnusario.whitedesert.Shared;
 import org.magnusario.whitedesert.WWProgress;
 import org.magnusario.whitedesert.engine.EventPool;
 import org.magnusario.whitedesert.engine.event.Event;
@@ -43,7 +42,7 @@ public class PlayerAnswerListener extends AbstractEventListener<PlayerAnswer> {
             return false;
         });
         mainLayout.addView(customButtonAnswer);
-        playerAnswer.setAdded(true);
+        playerAnswer.setHandled(true);
     }
 
     @NonNull
@@ -63,8 +62,8 @@ public class PlayerAnswerListener extends AbstractEventListener<PlayerAnswer> {
             clearSubElements();
             Event qe = WWProgress.getEventById(playerAnswer.getStage(), Questions.class);
             if (qe != null) {
-                qe.setAdded(false);
-                eventPool.notify(qe);
+                qe.setHandled(false);
+                eventPool.submit(qe);
             }
         };
     }

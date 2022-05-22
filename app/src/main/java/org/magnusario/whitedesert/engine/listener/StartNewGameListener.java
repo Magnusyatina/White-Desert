@@ -28,7 +28,7 @@ public class StartNewGameListener extends AbstractEventListener<StartNewGame> {
         WWProgress.clearProgress();
         mainLayout.removeAllViews();
         clearSubElements();
-        selectStage(null);
+        moveStage(null);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class StartNewGameListener extends AbstractEventListener<StartNewGame> {
             mainLayoutFrame.removeView(v);
     }
 
-    public void selectStage(String stageId) {
+    public void moveStage(String stageId) {
         if (stageId == null)
             stageId = "start";
         try {
@@ -62,8 +62,8 @@ public class StartNewGameListener extends AbstractEventListener<StartNewGame> {
         for (Event e : events) {
             long time = e.getTimer();
             if (time > 0)
-                getEventPool().notify(e, time);
-            else getEventPool().notify(e);
+                getEventPool().submit(e, time);
+            else getEventPool().submit(e);
         }
     }
 }

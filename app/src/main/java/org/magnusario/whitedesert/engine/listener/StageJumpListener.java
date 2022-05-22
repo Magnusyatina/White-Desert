@@ -20,7 +20,7 @@ public class StageJumpListener extends AbstractEventListener<StageJump> {
         String stageId = stageJump.getStage();
         if (stageId == null)
             return;
-        selectStage(stageId);
+        moveStage(stageId);
         WWProgress.getProgressList().remove(stageJump);
     }
 
@@ -28,12 +28,12 @@ public class StageJumpListener extends AbstractEventListener<StageJump> {
         for (Event e : events) {
             long time = e.getTimer();
             if (time > 0)
-                getEventPool().notify(e, time);
-            else getEventPool().notify(e);
+                getEventPool().submit(e, time);
+            else getEventPool().submit(e);
         }
     }
 
-    public void selectStage(String stageId) {
+    public void moveStage(String stageId) {
         if (stageId == null)
             stageId = "start";
         try {

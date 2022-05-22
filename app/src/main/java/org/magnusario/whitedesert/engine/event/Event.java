@@ -4,13 +4,9 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Properties;
 
-/**
- * Created by sergey37192 on 12.02.2018.
- */
-
 public abstract class Event implements Serializable, Cloneable, IEvent {
     protected long scheduledtime = 0;
-    protected boolean added = false;
+    protected boolean handled = false;
     private String stage;
     private LinkedList<IEvent> subEvents = null;
     //Testing field. The implementation is created
@@ -31,8 +27,8 @@ public abstract class Event implements Serializable, Cloneable, IEvent {
         this.scheduledtime = scheduledtime;
     }
 
-    public void setAdded(boolean added) {
-        this.added = added;
+    public void setHandled(boolean handled) {
+        this.handled = handled;
     }
 
 
@@ -58,7 +54,7 @@ public abstract class Event implements Serializable, Cloneable, IEvent {
         return scheduledtime;
     }
 
-    public boolean isAdded() {
-        return added;
+    public boolean isHandled() {
+        return handled;
     }
 }

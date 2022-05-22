@@ -14,6 +14,7 @@ import org.magnusario.whitedesert.R;
 import org.magnusario.whitedesert.Scenario;
 import org.magnusario.whitedesert.Shared;
 import org.magnusario.whitedesert.WWProgress;
+import org.magnusario.whitedesert.engine.ApplicationConstants;
 import org.magnusario.whitedesert.engine.event.Event;
 import org.magnusario.whitedesert.engine.event.PlayerAnswer;
 import org.magnusario.whitedesert.engine.event.Question;
@@ -30,7 +31,6 @@ import javax.inject.Singleton;
 @Singleton
 public class QuestionsListener extends AbstractEventListener<Questions> {
 
-    public static final int SCROLL_DELAY_MILLIS = 250;
     @Inject
     public ViewManager viewManager;
 
@@ -72,14 +72,14 @@ public class QuestionsListener extends AbstractEventListener<Questions> {
     }
 
     private void onAnswerChoose(Questions event, ViewGroup mainLayoutFrame, FrameLayout subLayout, CustomButton customButton) {
-        event.setAdded(true);
+        event.setHandled(true);
         PlayerAnswer playerAnswer = new PlayerAnswer();
         playerAnswer.setStage(event.getStage());
         playerAnswer.setText(customButton.getText().toString());
         ((LinearLayout) viewManager.findViewById(R.id.questionsLayout)).removeAllViews();
         WWProgress.getProgressList().remove(event);
         WWProgress.getProgressList().add(playerAnswer);
-        getEventPool().notify(playerAnswer);
+        getEventPool().submit(playerAnswer);
         Animation anim1 = AnimationUtils.loadAnimation(Shared.context, R.anim.animscaleminimize);
         anim1.setFillAfter(false);
         anim1.setAnimationListener(new AnimationListenerAdapter() {
@@ -90,7 +90,7 @@ public class QuestionsListener extends AbstractEventListener<Questions> {
         });
         subLayout.startAnimation(anim1);
         scrollDown();
-        selectStage(customButton.getGoTo());
+        moveStage(customButton.getGoTo());
     }
 
     @Override
@@ -105,19 +105,19 @@ public class QuestionsListener extends AbstractEventListener<Questions> {
             public void run() {
                 ((ScrollView) viewManager.findViewById(R.id.mainScrollView)).fullScroll(ScrollView.FOCUS_DOWN);
             }
-        }, SCROLL_DELAY_MILLIS);
+        }, ApplicationConstants.SCROLL_DELAY_MILLIS);
     }
 
     public void gameContinue(ArrayList<Event> events) {
         for (Event e : events) {
             long time = e.getTimer();
             if (time > 0)
-                getEventPool().notify(e, time);
-            else getEventPool().notify(e);
+                getEventPool().submit(e, time);
+            else getEventPool().submit(e);
         }
     }
 
-    public void selectStage(String stageId) {
+    public void moveStage(String stageId) {
         if (stageId == null)
             stageId = "start";
         try {

@@ -1,9 +1,5 @@
 package org.magnusario.whitedesert.engine.event;
 
-/**
- * Created by sergey37192 on 13.02.2018.
- */
-
 public class Waiting extends Event {
 
     private static final long serialVersionUID = -7545553894402138022L;

@@ -8,10 +8,6 @@ import org.magnusario.whitedesert.engine.EventPoolImpl;
 
 import java.util.Properties;
 
-/**
- * Created by sergey37192 on 01.04.2018.
- */
-
 public class Shared {
     public static EventPoolImpl eventPool;
     public static Engine engine;
