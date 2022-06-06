@@ -1,7 +1,6 @@
 package org.magnusario.whitedesert.engine.listener;
 
 import android.support.v7.widget.SwitchCompat;
-import android.view.View;
 
 import org.magnusario.whitedesert.EventTimer;
 import org.magnusario.whitedesert.R;
@@ -43,7 +42,8 @@ public class StartGameListener extends AbstractEventListener<StartGame> {
         boolean isFastGameMode = "on".equals(fastGameProperty);
         EventTimer.set_mode(isFastGameMode);
         SwitchCompat switchCompat = (SwitchCompat) getViewManager().findViewById(R.id.game_condition_switch);
-        switchCompat.setChecked(isFastGameMode);
+        if (switchCompat != null)
+            switchCompat.setChecked(isFastGameMode);
     }
 
     @Override

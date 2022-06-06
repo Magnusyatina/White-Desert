@@ -46,19 +46,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Inject
     public Engine engine;
 
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
-        ApplicationComponent applicationComponent = DaggerApplicationComponent.builder()
-                .context(this)
-                .mainActivity(this)
-                .build();
-        applicationComponent.inject(this);
-
+        initDI();
         //Установка полноэкранного режима
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -86,6 +78,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         engine.start();
         eventPool.submit(new StartGame());
+    }
+
+    private void initDI() {
+        ApplicationComponent applicationComponent = DaggerApplicationComponent.builder()
+                .context(this)
+                .mainActivity(this)
+                .build();
+        applicationComponent.inject(this);
     }
 
     public void start_new_game() {

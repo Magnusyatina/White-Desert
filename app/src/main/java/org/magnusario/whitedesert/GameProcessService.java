@@ -9,35 +9,44 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 import org.magnusario.whitedesert.activity.MainActivity;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Сервис отвечает за оповещения о том, когда персонаж будет свободен
  */
 public class GameProcessService extends Service {
-    String gameStage;
 
     private static final int NOTIFY_ID = 101;
-    String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
-    private static long schedule_Time = 0;
-    private static Handler cHandler = new Handler(Looper.getMainLooper());
+
+    private static final String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
+
+    private static long scheduleTime = 0;
+
+
+    private ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+
+    private boolean isHandled = false;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int stardId) {
         if (intent == null)
             stopSelf();
 
-        schedule_Time = intent.getLongExtra("SCHEDULE_TIME", 0);
-        long timer = schedule_Time - System.currentTimeMillis();
+        scheduleTime = intent.getLongExtra("SCHEDULE_TIME", 0);
+        long timer = scheduleTime - System.currentTimeMillis();
 
-        if (timer <= 0)
+        if (timer <= 0) {
             stopSelf();
+            return Service.START_NOT_STICKY;
+        }
 
         Toast.makeText(this, "Служба запущена", Toast.LENGTH_SHORT).show();
         Intent notisfactionIntent = new Intent(GameProcessService.this, MainActivity.class);
@@ -61,19 +70,15 @@ public class GameProcessService extends Service {
                 .setTicker("Оповещение")
                 .setContentText("Джозеф ожидает")
                 .setContentIntent(contentIntent)
-                .setWhen(schedule_Time)
+                .setWhen(scheduleTime)
                 .setContentTitle("White Desert")
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setSmallIcon(R.drawable.bonfire_icon);
 
-        cHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                notificationManager.notify(NOTIFY_ID, builder.build());
-                stopSelf();
-            }
-
-        }, timer);
+        executorService.schedule(() -> {
+            notificationManager.notify(NOTIFY_ID, builder.build());
+            stopSelf();
+        }, timer, TimeUnit.MILLISECONDS);
 
 
         return Service.START_REDELIVER_INTENT;
@@ -89,8 +94,13 @@ public class GameProcessService extends Service {
     public void onDestroy() {
         Toast.makeText(this, "Служба остановлена",
                 Toast.LENGTH_SHORT).show();
-        cHandler.removeCallbacksAndMessages(null);
-        super.onDestroy();
+        executorService.shutdownNow();
     }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        super.onTaskRemoved(rootIntent);
+    }
+
 
 }

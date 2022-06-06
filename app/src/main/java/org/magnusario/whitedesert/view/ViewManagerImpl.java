@@ -31,4 +31,9 @@ public class ViewManagerImpl implements ViewManager {
         }
         return view;
     }
+
+    @Override
+    public void clear() {
+        cachedView.clear();
+    }
 }

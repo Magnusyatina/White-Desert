@@ -2,8 +2,6 @@ package org.magnusario.whitedesert.engine;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import org.magnusario.whitedesert.GameProcessService;
@@ -13,6 +11,7 @@ import org.magnusario.whitedesert.Scenario;
 import org.magnusario.whitedesert.Shared;
 import org.magnusario.whitedesert.WWProgress;
 import org.magnusario.whitedesert.engine.event.Event;
+import org.magnusario.whitedesert.view.ViewManager;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
@@ -23,18 +22,14 @@ import javax.inject.Singleton;
 @Singleton
 public class EngineImpl extends EngineAdapter {
 
-    FrameLayout mainFrame;
-    LinearLayout mainLayoutFrame;
-
-    LinearLayout mainLayout;
-    LinearLayout questionView;
-    ScrollView mainScrollView;
-
     @Inject
     public EventPool eventPool;
 
     @Inject
     public Activity activity;
+
+    @Inject
+    public ViewManager viewManager;
 
     @Inject
     public EngineImpl() {
@@ -47,10 +42,6 @@ public class EngineImpl extends EngineAdapter {
             WWProgress.loadProgress(Shared.context);
             Music.createMediaPlayer(Shared.properties.getProperty("music_title"));
             Music.play();
-            mainFrame = (FrameLayout) activity.findViewById(R.id.MainFrame);
-            mainLayoutFrame = (LinearLayout) activity.findViewById(R.id.MainLayout);
-            mainLayout = (LinearLayout) activity.findViewById(R.id.textArea);
-            mainScrollView = (ScrollView) activity.findViewById(R.id.mainScrollView);
             onResume();
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,10 +52,12 @@ public class EngineImpl extends EngineAdapter {
 
     @Override
     public void onPause() {
+        viewManager.clear();
         WWProgress.saveProgress(Shared.context);
         Event lastEvent = WWProgress.getLastEvent();
-        if (lastEvent != null)
+        if (lastEvent != null) {
             Shared.context.startService(new Intent(Shared.context, GameProcessService.class).putExtra("SCHEDULE_TIME", lastEvent.getScheduledtime()));
+        }
     }
 
     @Override
@@ -74,13 +67,8 @@ public class EngineImpl extends EngineAdapter {
     }
 
     public void scrollDown() {
-
-        mainLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mainScrollView.fullScroll(ScrollView.FOCUS_DOWN);
-            }
-        }, 250);
+        ScrollView view = (ScrollView) viewManager.findViewById(R.id.mainScrollView);
+        view.postDelayed(() -> view.fullScroll(ScrollView.FOCUS_DOWN), 250);
     }
 
 }
