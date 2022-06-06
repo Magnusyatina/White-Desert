@@ -28,36 +28,54 @@ public class GameProcessService extends Service {
 
     private static final String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
 
-    private NotificationManager notificationManager;
-
     private static long scheduleTime = 0;
+
+    private boolean isNotified = false;
+
+    private boolean isInterrupted = false;
 
 
     private ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
-
-    private boolean isHandled = false;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int stardId) {
         if (intent == null)
             stopSelf();
 
-        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         scheduleTime = intent.getLongExtra("SCHEDULE_TIME", 0);
         long timer = scheduleTime - System.currentTimeMillis();
 
         if (timer <= 0) {
             Toast.makeText(this, "Сервис не будет запущен, таймер меньше нуля",
                     Toast.LENGTH_SHORT).show();
+            isInterrupted = true;
             stopSelf();
             return Service.START_NOT_STICKY;
         }
 
         Toast.makeText(this, "Служба запущена", Toast.LENGTH_SHORT).show();
+        PendingIntent contentIntent = getPendingIntent();
+
+        executorService.schedule(() -> {
+            if (!isNotified) {
+                notify(contentIntent);
+                isNotified = true;
+            }
+            stopSelfResult(stardId);
+        }, timer, TimeUnit.MILLISECONDS);
+
+
+        return Service.START_REDELIVER_INTENT;
+    }
+
+    private PendingIntent getPendingIntent() {
         Intent notisfactionIntent = new Intent(GameProcessService.this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(GameProcessService.this, 0, notisfactionIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        return contentIntent;
+    }
 
-
+    private void notify(PendingIntent contentIntent) {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_DEFAULT);
 
@@ -68,25 +86,17 @@ public class GameProcessService extends Service {
             notificationChannel.enableVibration(false);
             notificationManager.createNotificationChannel(notificationChannel);
         }
-
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(GameProcessService.this, NOTIFICATION_CHANNEL_ID);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(GameProcessService.this, NOTIFICATION_CHANNEL_ID);
         builder.setSmallIcon(R.mipmap.ic_launcher).
                 setAutoCancel(true)
                 .setTicker("Оповещение")
                 .setContentText("Джозеф ожидает")
                 .setContentIntent(contentIntent)
-                .setWhen(scheduleTime)
+                //.setWhen(scheduleTime)
                 .setContentTitle("White Desert")
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setSmallIcon(R.drawable.bonfire_icon);
-
-        executorService.schedule(() -> {
-            notificationManager.notify(NOTIFY_ID, builder.build());
-            stopSelf();
-        }, timer, TimeUnit.MILLISECONDS);
-
-
-        return Service.START_REDELIVER_INTENT;
+        notificationManager.notify(NOTIFY_ID, builder.build());
     }
 
     @Override
@@ -99,7 +109,11 @@ public class GameProcessService extends Service {
     public void onDestroy() {
         Toast.makeText(this, "Служба остановлена",
                 Toast.LENGTH_SHORT).show();
-        executorService.shutdownNow();
+        long timer = scheduleTime - System.currentTimeMillis();
+        if (!isNotified && !isInterrupted && timer <= 0) {
+            notify(getPendingIntent());
+            isNotified = true;
+        }
     }
 
     @Override
