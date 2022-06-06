@@ -28,6 +28,8 @@ public class GameProcessService extends Service {
 
     private static final String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
 
+    private NotificationManager notificationManager;
+
     private static long scheduleTime = 0;
 
 
@@ -40,10 +42,13 @@ public class GameProcessService extends Service {
         if (intent == null)
             stopSelf();
 
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         scheduleTime = intent.getLongExtra("SCHEDULE_TIME", 0);
         long timer = scheduleTime - System.currentTimeMillis();
 
         if (timer <= 0) {
+            Toast.makeText(this, "Сервис не будет запущен, таймер меньше нуля",
+                    Toast.LENGTH_SHORT).show();
             stopSelf();
             return Service.START_NOT_STICKY;
         }
@@ -51,7 +56,7 @@ public class GameProcessService extends Service {
         Toast.makeText(this, "Служба запущена", Toast.LENGTH_SHORT).show();
         Intent notisfactionIntent = new Intent(GameProcessService.this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(GameProcessService.this, 0, notisfactionIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        final NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_DEFAULT);
@@ -101,6 +106,5 @@ public class GameProcessService extends Service {
     public void onTaskRemoved(Intent rootIntent) {
         super.onTaskRemoved(rootIntent);
     }
-
 
 }
